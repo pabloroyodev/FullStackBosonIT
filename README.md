@@ -11,4 +11,4 @@ Things you need before starting to use this repo.
 Things you need before starting to use this repo.
 
 # Week 1 (09-02 to 11-02)
-- [Leer Fichero separado por ":"](https:)
+- [Leer Fichero separado por ":"](./Week-1/ex1)
