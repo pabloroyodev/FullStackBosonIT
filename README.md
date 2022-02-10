@@ -12,3 +12,4 @@ Things you need before starting to use this repo.
 
 # Week 1 (09-02 to 11-02)
 - [Leer Fichero separado por ":"](./Week-1/ex1)
+- [Maven y ejecucion por terminal ":"](./Week-1/ex2)
