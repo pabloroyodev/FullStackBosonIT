@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "2c9acd50-d3ae-4aca-ba88-1d9cb532fd8f",
+		"name": "ex8",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "valores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/valores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"valores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "var3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/var3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"var3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "yvalores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/yvalores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"yvalores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "yvar3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/yvar3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"yvar3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

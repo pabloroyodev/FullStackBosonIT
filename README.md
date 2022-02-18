@@ -6,8 +6,14 @@ Things you need before starting to use this repo.
 
 * JDK 17
 * IntellJ Community
+* Postman / Insomnia
 
-# TimeLine 🚩
+# Postman  ☝
+Some projects contains in the root folder a file called "EXERCISE_NUMBER.postman_collection" 
+this file contains all the http request accepted by the application. You can import this information 
+into your postman.
+
+# TimeLine 🚩️
 Timeline of the learning path divided in weeks.
 
 # Week 1 (09-02 to 11-02)
@@ -20,3 +26,5 @@ Timeline of the learning path divided in weeks.
 - [BS2 - Crea app con 2 controladores](./Week-2/ex5)
 - [RS1 - REST service sobre objetos persona](./Week-2/ex6)
 - [BS3 - Ciclo de vida beans (postconstruct)](./Week-2/ex7)
+- [BS4.1 - Acceder a Propiedades (application properties)](./Week-2/ex8)
+- [BS4.2 - Perfiles en Spring (application properties)](./Week-2/ex9)
