@@ -28,3 +28,4 @@ Timeline of the learning path divided in weeks.
 - [BS3 - Ciclo de vida beans (postconstruct)](./Week-2/ex7)
 - [BS4.1 - Acceder a Propiedades (application properties)](./Week-2/ex8)
 - [BS4.2 - Perfiles en Spring (application properties)](./Week-2/ex9)
+- [BS5 - Escribir logs tipo error + optativo (logs)](./Week-2/ex10)
