@@ -29,3 +29,6 @@ Timeline of the learning path divided in weeks.
 - [BS4.1 - Acceder a Propiedades (application properties)](./Week-2/ex8)
 - [BS4.2 - Perfiles en Spring (application properties)](./Week-2/ex9)
 - [BS5 - Escribir logs tipo error + optativo (logs)](./Week-2/ex10)
+
+# Week 3 (21-02 to 25-02)
+- [EJ2 - CRUD base de datos, CRUD JPA y Arq.Hexagonal](./Week-3/ex11)
