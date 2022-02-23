@@ -1,14 +1,14 @@
-package com.example.ex11.Application;
+package com.example.ex12.Application;
 
-import com.example.ex11.domain.Persona;
-import com.example.ex11.infrastructure.controller.dto.input.PersonaInputDto;
-import com.example.ex11.infrastructure.controller.dto.output.PersonaOutputDto;
-import com.example.ex11.infrastructure.repository.jpa.PersonaRepositorio;
-import com.example.ex11.utils.utils;
+import com.example.ex12.domain.Persona;
+import com.example.ex12.exceptions.NotFoundException;
+import com.example.ex12.exceptions.UnprocesableException;
+import com.example.ex12.infrastructure.controller.dto.input.PersonaInputDto;
+import com.example.ex12.infrastructure.controller.dto.output.PersonaOutputDto;
+import com.example.ex12.infrastructure.repository.jpa.PersonaRepositorio;
+import com.example.ex12.utils.utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +23,12 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public List<PersonaOutputDto> getAllPersonas() {
         List<Persona> personas = personaRepositorio.findAll();
-        /*List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
+        /* MODO ANTIGUO DE ITERAR EN TODA LA LISTA DE PERSONAS:
+        List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
         for (Persona persona : personas) {
             personasOutputDto.add(new PersonaOutputDto(persona));
-        }*/
+        }
+        NUEVO MODO DE ITERAR:*/
         List<PersonaOutputDto> personasOutputDto = personas.stream().map(p -> new PersonaOutputDto(p)).collect(Collectors.toList());
         return personasOutputDto;
     }
@@ -34,7 +36,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public PersonaOutputDto filterPersonaById(int id) throws Exception {
         Persona persona =
-                personaRepositorio.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that ID"));
+                personaRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + "not found."));
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
@@ -42,7 +44,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public List<PersonaOutputDto> filterPersonaByUser(String user) {
         List<Persona> personas = personaRepositorio.findByUser(user);
-        if (personas.size() == 0) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that user");
+        if (personas.size() == 0) throw new NotFoundException(user + "not found.");
         List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
         for (Persona persona : personas) {
             personasOutputDto.add(new PersonaOutputDto(persona));
@@ -59,7 +61,7 @@ public class PersonaServiceImpl implements PersonaService {
         if (personaInputDto.getPassword() == null || personaInputDto.getName() == null || personaInputDto.getCompanyEmail() == null
             || personaInputDto.getPersonalEmail() == null || personaInputDto.getCity() == null || personaInputDto.getActive() == null
             || personaInputDto.getCreatedDate() == null) {
-            throw new Exception("Todos los campos son necesarios");
+            throw new UnprocesableException("Faltan campos por introducir");
         }
 
         Persona persona = personaInputDtoToEntity(personaInputDto);
@@ -73,11 +75,11 @@ public class PersonaServiceImpl implements PersonaService {
         Persona persona =
                 personaRepositorio
                         .findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
+                        .orElseThrow(() -> new UnprocesableException(id + " not found"));
 
         if (personaInputDto.getUser() != null) {
             if (utils.checkLengthUsr(personaInputDto)) {
-                throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
+                throw new UnprocesableException("La longitud del usuario no está entre 6 y 10");
             }
 
             persona.setUser(personaInputDto.getUser());
@@ -103,11 +105,11 @@ public class PersonaServiceImpl implements PersonaService {
         Persona persona =
                 personaRepositorio
                         .findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
+                        .orElseThrow(() -> new UnprocesableException(id + " not found"));
 
         if (personaInputDto.getUser() != null) {
         if (utils.checkLengthUsr(personaInputDto)) {
-                throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
+                throw new UnprocesableException("La longitud del usuario no está entre 6 y 10");
             }
             persona.setUser(personaInputDto.getUser());
         }
@@ -162,7 +164,7 @@ public class PersonaServiceImpl implements PersonaService {
         personaRepositorio.delete(
                 personaRepositorio
                         .findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID")));
+                        .orElseThrow(() -> new UnprocesableException(id + " not found")));
     }
 
     private Persona personaOutputDtoToEntity(PersonaOutputDto personaOutputDto) {
