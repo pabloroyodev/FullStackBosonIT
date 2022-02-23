@@ -1,4 +1,4 @@
-package com.example.ex11.infrastructure.controller.dto.CRUD;
+package com.example.ex11.infrastructure.controller;
 
 import com.example.ex11.Application.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;

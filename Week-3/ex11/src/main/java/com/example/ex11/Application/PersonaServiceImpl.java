@@ -74,8 +74,7 @@ public class PersonaServiceImpl implements PersonaService {
                 personaRepositorio
                         .findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-
+        
         if (personaInputDto.getUser() != null) {
             if (utils.checkLengthUsr(personaInputDto)) {
                 throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
@@ -95,6 +94,7 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         personaRepositorio.saveAndFlush(persona);
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
 
@@ -104,7 +104,6 @@ public class PersonaServiceImpl implements PersonaService {
                 personaRepositorio
                         .findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
 
         if (personaInputDto.getUser() != null) {
         if (utils.checkLengthUsr(personaInputDto)) {
@@ -154,6 +153,7 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         personaRepositorio.saveAndFlush(persona);
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
 
