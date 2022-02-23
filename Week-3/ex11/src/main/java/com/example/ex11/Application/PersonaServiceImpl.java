@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonaServiceImpl implements PersonaService {
@@ -22,10 +23,11 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public List<PersonaOutputDto> getAllPersonas() {
         List<Persona> personas = personaRepositorio.findAll();
-        List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
+        /*List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
         for (Persona persona : personas) {
             personasOutputDto.add(new PersonaOutputDto(persona));
-        }
+        }*/
+        List<PersonaOutputDto> personasOutputDto = personas.stream().map(p -> new PersonaOutputDto(p)).collect(Collectors.toList());
         return personasOutputDto;
     }
 
@@ -78,21 +80,20 @@ public class PersonaServiceImpl implements PersonaService {
             if (utils.checkLengthUsr(personaInputDto)) {
                 throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
             }
-            
-            personaOutputDto.setUser(personaInputDto.getUser());
-            personaOutputDto.setPassword(personaInputDto.getPassword());
-            personaOutputDto.setName(personaInputDto.getName());
-            personaOutputDto.setSurname(personaInputDto.getSurname());
-            personaOutputDto.setCompanyEmail(personaInputDto.getCompanyEmail());
-            personaOutputDto.setPersonalEmail(personaInputDto.getPersonalEmail());
-            personaOutputDto.setCity(personaInputDto.getCity());
-            personaOutputDto.setActive(personaInputDto.getActive());
-            personaOutputDto.setCreatedDate(personaInputDto.getCreatedDate());
-            personaOutputDto.setImageUrl(personaInputDto.getImageUrl());
-            personaOutputDto.setTerminationDate(personaInputDto.getTerminationDate());
+
+            persona.setUser(personaInputDto.getUser());
+            persona.setPassword(personaInputDto.getPassword());
+            persona.setName(personaInputDto.getName());
+            persona.setSurname(personaInputDto.getSurname());
+            persona.setCompanyEmail(personaInputDto.getCompanyEmail());
+            persona.setPersonalEmail(personaInputDto.getPersonalEmail());
+            persona.setCity(personaInputDto.getCity());
+            persona.setActive(personaInputDto.getActive());
+            persona.setCreatedDate(personaInputDto.getCreatedDate());
+            persona.setImageUrl(personaInputDto.getImageUrl());
+            persona.setTerminationDate(personaInputDto.getTerminationDate());
         }
 
-        persona = personaOutputDtoToEntity(personaOutputDto);
         personaRepositorio.saveAndFlush(persona);
         return personaOutputDto;
     }
@@ -106,53 +107,52 @@ public class PersonaServiceImpl implements PersonaService {
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
 
         if (personaInputDto.getUser() != null) {
-        if (utils.checkLengthUsr(personaInputDto) == false) {
+        if (utils.checkLengthUsr(personaInputDto)) {
                 throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
             }
-            personaOutputDto.setUser(personaInputDto.getUser());
+            persona.setUser(personaInputDto.getUser());
         }
 
         if (personaInputDto.getPassword() != null) {
-            personaOutputDto.setPassword(personaInputDto.getPassword());
+            persona.setPassword(personaInputDto.getPassword());
         }
 
         if (personaInputDto.getName() != null) {
-            personaOutputDto.setName(personaInputDto.getName());
+            persona.setName(personaInputDto.getName());
         }
 
         if (personaInputDto.getSurname() != null) {
-            personaOutputDto.setSurname(personaInputDto.getSurname());
+            persona.setSurname(personaInputDto.getSurname());
         }
 
         if (personaInputDto.getCompanyEmail() != null) {
-            personaOutputDto.setCompanyEmail(personaInputDto.getCompanyEmail());
+            persona.setCompanyEmail(personaInputDto.getCompanyEmail());
         }
 
         if (personaInputDto.getPersonalEmail() != null) {
-            personaOutputDto.setPersonalEmail(personaInputDto.getPersonalEmail());
+            persona.setPersonalEmail(personaInputDto.getPersonalEmail());
         }
 
         if (personaInputDto.getCity() != null) {
-            personaOutputDto.setCity(personaInputDto.getCity());
+            persona.setCity(personaInputDto.getCity());
         }
 
         if (personaInputDto.getActive() != null) {
-            personaOutputDto.setActive(personaInputDto.getActive());
+            persona.setActive(personaInputDto.getActive());
         }
 
         if (personaInputDto.getCreatedDate() != null) {
-            personaOutputDto.setCreatedDate(personaInputDto.getCreatedDate());
+            persona.setCreatedDate(personaInputDto.getCreatedDate());
         }
 
         if (personaInputDto.getImageUrl() != null) {
-            personaOutputDto.setImageUrl(personaInputDto.getImageUrl());
+            persona.setImageUrl(personaInputDto.getImageUrl());
         }
 
         if (personaInputDto.getTerminationDate() != null) {
-            personaOutputDto.setTerminationDate(personaInputDto.getTerminationDate());
+            persona.setTerminationDate(personaInputDto.getTerminationDate());
         }
 
-        persona = personaOutputDtoToEntity(personaOutputDto);
         personaRepositorio.saveAndFlush(persona);
         return personaOutputDto;
     }
