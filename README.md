@@ -33,3 +33,4 @@ Timeline of the learning path divided in weeks.
 # Week 3 (21-02 to 25-02)
 - [EJ2 - CRUD base de datos, CRUD JPA y Arq.Hexagonal](./Week-3/ex11)
 - [BS8 - Personalizando las Respuestas del EJ2](./Week-3/ex12)
+- [EJ3 - CRUD base de datos con relaciones entre tablas](./Week-3/ex13)
