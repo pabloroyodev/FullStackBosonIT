@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService{
                         .findById(id)
                         .orElseThrow(() -> new NotFoundException("Student id: " + id + " not found"));
 
-        student.setPersona(studentInputDto.getPersona());
+        student.setPersona(personaRepositorio.findById(studentInputDto.getIdPersona()).orElseThrow(()->new NotFoundException("Persona not found")));
         student.setNumHoursWeek(studentInputDto.getNumHoursWeek());
         student.setComments(studentInputDto.getComments());
         student.setBranch(studentInputDto.getBranch());
@@ -83,7 +83,7 @@ public class StudentServiceImpl implements StudentService{
     private Student studentInputDtoToEntity(StudentInputDto studentInputDto){
         Student student = new Student();
 
-        student.setPersona(personaRepositorio.findById(studentInputDto.getPersona().getIdPersona()).orElseThrow(()->new NotFoundException("Persona not found")));
+        student.setPersona(personaRepositorio.findById(studentInputDto.getIdPersona()).orElseThrow(()->new NotFoundException("Persona not found")));
         student.setNumHoursWeek(studentInputDto.getNumHoursWeek());
         student.setComments(studentInputDto.getComments());
         student.setBranch(studentInputDto.getBranch());

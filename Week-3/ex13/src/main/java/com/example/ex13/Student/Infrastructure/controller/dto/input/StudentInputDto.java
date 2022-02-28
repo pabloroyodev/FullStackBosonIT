@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class StudentInputDto implements Serializable {
     @NotNull
-    private Persona persona;
+    private Integer idPersona;
 
     @NotNull
     private Integer numHoursWeek;

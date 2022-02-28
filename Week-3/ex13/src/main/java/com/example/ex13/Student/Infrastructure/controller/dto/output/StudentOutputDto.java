@@ -1,6 +1,7 @@
 package com.example.ex13.Student.Infrastructure.controller.dto.output;
 
 import com.example.ex13.Persona.Domain.Persona;
+import com.example.ex13.Persona.Infrastructure.controller.dto.output.PersonaOutputDto;
 import com.example.ex13.Student.Domain.Student;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class StudentOutputDto implements Serializable {
     private String idStudent;
 
     @NotNull
-    private Persona persona;
+    private PersonaOutputDto personaOutputDto;
 
     @NotNull
     private Integer numHoursWeek;
@@ -30,12 +31,12 @@ public class StudentOutputDto implements Serializable {
 
 
     public StudentOutputDto(Student student){
-        if (persona == null) {
+        if (student == null) {
             System.out.println("La clase student esta incompleta");
             return;
         }
         setIdStudent(student.getIdStudent());
-        setPersona(student.getPersona());
+        setPersonaOutputDto(new PersonaOutputDto(student.getPersona()));
         setNumHoursWeek(student.getNumHoursWeek());
         setComments(student.getComments());
         setBranch(student.getBranch());
