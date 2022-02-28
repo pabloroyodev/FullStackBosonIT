@@ -17,7 +17,7 @@ public class StudentAsignatura {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_asignatura")
-    private String idAsignatura;
+    private Integer idAsignatura;
 
     //Un Profesor puede impartir multiples asignaturas
     @ManyToOne(fetch = FetchType.LAZY)
