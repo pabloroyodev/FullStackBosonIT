@@ -83,7 +83,7 @@ public class StudentServiceImpl implements StudentService{
     private Student studentInputDtoToEntity(StudentInputDto studentInputDto){
         Student student = new Student();
 
-        student.setPersona(personaRepositorio.findById(studentInputDto.getIdPersona()).orElseThrow(()->new NotFoundException("Persona not found")));
+        student.setPersona(personaRepositorio.findById(Integer.valueOf(studentInputDto.getIdPersona())).orElseThrow(()->new NotFoundException("Persona not found")));
         student.setNumHoursWeek(studentInputDto.getNumHoursWeek());
         student.setComments(studentInputDto.getComments());
         student.setBranch(studentInputDto.getBranch());
