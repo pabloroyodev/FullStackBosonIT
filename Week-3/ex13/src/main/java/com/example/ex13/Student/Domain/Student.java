@@ -20,7 +20,7 @@ public class Student {
     private Integer idStudent;
 
     //El estudiante tiene los datos de su correspondiente persona
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_persona")
     private Persona persona;
 

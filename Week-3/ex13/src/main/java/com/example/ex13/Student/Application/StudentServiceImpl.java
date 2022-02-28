@@ -1,11 +1,10 @@
 package com.example.ex13.Student.Application;
 
 import com.example.ex13.Persona.Infrastructure.repository.jpa.PersonaRepositorio;
-import com.example.ex13.Profesor.Domain.Profesor;
 import com.example.ex13.Student.Domain.Student;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
-import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentFullOutputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
+import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentSimpleOutputDto;
 import com.example.ex13.Student.Infrastructure.repository.jpa.StudentRepositorio;
 import com.example.ex13.exceptions.NotFoundException;
 import com.example.ex13.exceptions.UnprocesableException;
@@ -39,14 +38,12 @@ public class StudentServiceImpl implements StudentService{
         Student student =
                 studentRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + " not found."));
 
-        if(outputType.equalsIgnoreCase("full")){
-            StudentFullOutputDto studentFullOutputDto  = new StudentFullOutputDto(student);
-            System.out.println("ACTIVADO FULL");
-            return studentFullOutputDto;
-        }else{
-            StudentOutputDto studentOutputDto = new StudentOutputDto(student);
-            System.out.println("ACTIVADO SIMPLE");
+        if (outputType.equalsIgnoreCase("full")) {
+            StudentOutputDto studentOutputDto  = new StudentOutputDto(student);
             return studentOutputDto;
+        } else {
+            StudentSimpleOutputDto studentSimpleOutputDto = new StudentSimpleOutputDto(student);
+            return studentSimpleOutputDto;
         }
     }
 

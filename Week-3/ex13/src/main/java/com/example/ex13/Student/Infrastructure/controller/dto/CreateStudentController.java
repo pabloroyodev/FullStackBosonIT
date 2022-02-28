@@ -1,6 +1,5 @@
-package com.example.ex13.Student.Infrastructure;
+package com.example.ex13.Student.Infrastructure.controller.dto;
 
-import com.example.ex13.Persona.Infrastructure.controller.dto.input.PersonaInputDto;
 import com.example.ex13.Student.Application.StudentService;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
 import org.springframework.beans.factory.annotation.Autowired;
