@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class StudentOutputDto implements Serializable {
     @NotNull
-    private String idStudent;
+    private Integer idStudent;
 
     @NotNull
     private PersonaOutputDto personaOutputDto;

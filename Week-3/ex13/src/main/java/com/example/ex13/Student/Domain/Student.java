@@ -2,11 +2,8 @@ package com.example.ex13.Student.Domain;
 
 import com.example.ex13.Persona.Domain.Persona;
 import com.example.ex13.StudentAsignatura.Domain.StudentAsignatura;
-import com.example.ex13.utils.PrefixSequenceGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,17 +16,8 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @GenericGenerator(
-            name = "idStudent",
-            strategy = "com.example.ex13.utils.PrefixSequenceGenerator",
-            parameters = {
-                    @Parameter(name = PrefixSequenceGenerator.INCREMENT_PARAM, value = "1"),
-                    @Parameter(name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "STUD"),
-                    @Parameter(name = PrefixSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%02d")
-            }
-    )
     @Column(name = "id_student")
-    private String idStudent;
+    private Integer idStudent;
 
     //El estudiante tiene los datos de su correspondiente persona
     @OneToOne(cascade = { CascadeType.ALL })
