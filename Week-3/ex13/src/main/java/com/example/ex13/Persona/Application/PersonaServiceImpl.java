@@ -36,7 +36,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public PersonaOutputDto filterPersonaById(int id) throws Exception {
         Persona persona =
-                personaRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + "not found."));
+                personaRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + " not found."));
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }

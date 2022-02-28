@@ -18,7 +18,7 @@ public class Student {
     @Column(name = "id_student")
     private String idStudent;
 
-    //✅ El estudiante tiene los datos de su correspondiente persona
+    //El estudiante tiene los datos de su correspondiente persona
     @OneToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "fk_persona")
     private Persona persona;
