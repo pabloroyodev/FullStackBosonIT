@@ -1,6 +1,5 @@
 package com.example.ex13.Student.Infrastructure.controller.dto.input;
 
-import com.example.ex13.Persona.Domain.Persona;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
