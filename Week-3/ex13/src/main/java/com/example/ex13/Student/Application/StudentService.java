@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface StudentService {
     List<StudentOutputDto> getAllStudents();
-    StudentOutputDto filterStudentById(String id, String outputType) throws Exception;
+    StudentOutputDto filterStudentById(Integer id, String outputType) throws Exception;
     StudentInputDto addStudent(StudentInputDto studentInputDto) throws Exception;
-    StudentOutputDto updateStudent(String id, StudentInputDto studentInputDto) throws Exception;
-    void deleteStudent(String id) throws Exception;
+    StudentOutputDto updateStudent(Integer id, StudentInputDto studentInputDto) throws Exception;
+    void deleteStudent(Integer id) throws Exception;
     //TODO: Anadir lista de asignaturas
 }

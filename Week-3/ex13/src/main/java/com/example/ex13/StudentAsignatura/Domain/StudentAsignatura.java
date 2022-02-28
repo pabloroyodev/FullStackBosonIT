@@ -15,7 +15,7 @@ import java.util.List;
 public class StudentAsignatura {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_asignatura")
     private Integer idAsignatura;
 

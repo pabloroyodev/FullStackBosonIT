@@ -1,6 +1,5 @@
 package com.example.ex13.Student.Infrastructure.controller.dto.output;
 
-import com.example.ex13.Persona.Domain.Persona;
 import com.example.ex13.Persona.Infrastructure.controller.dto.output.PersonaOutputDto;
 import com.example.ex13.Student.Domain.Student;
 import lombok.Data;

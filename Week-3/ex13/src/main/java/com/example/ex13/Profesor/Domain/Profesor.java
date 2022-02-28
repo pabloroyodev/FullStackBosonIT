@@ -14,7 +14,7 @@ import java.util.List;
 public class Profesor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_profesor")
     private Integer idProfesor;
 

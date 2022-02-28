@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_persona")
     private Integer idPersona;
 

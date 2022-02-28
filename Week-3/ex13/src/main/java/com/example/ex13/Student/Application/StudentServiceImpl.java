@@ -1,6 +1,7 @@
 package com.example.ex13.Student.Application;
 
 import com.example.ex13.Persona.Infrastructure.repository.jpa.PersonaRepositorio;
+import com.example.ex13.Profesor.Domain.Profesor;
 import com.example.ex13.Student.Domain.Student;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentFullOutputDto;
@@ -34,21 +35,24 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentOutputDto filterStudentById(String id, String outputType) throws Exception {
+    public StudentOutputDto filterStudentById(Integer id, String outputType) throws Exception {
         Student student =
                 studentRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + " not found."));
 
         if(outputType.equalsIgnoreCase("full")){
             StudentFullOutputDto studentFullOutputDto  = new StudentFullOutputDto(student);
+            System.out.println("ACTIVADO FULL");
             return studentFullOutputDto;
         }else{
             StudentOutputDto studentOutputDto = new StudentOutputDto(student);
+            System.out.println("ACTIVADO SIMPLE");
             return studentOutputDto;
         }
     }
 
     @Override
     public StudentInputDto addStudent(StudentInputDto studentInputDto) throws Exception {
+
         Student student = studentInputDtoToEntity(studentInputDto);
         studentRepositorio.saveAndFlush(student);
 
@@ -56,7 +60,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentOutputDto updateStudent(String id, StudentInputDto studentInputDto) throws Exception {
+    public StudentOutputDto updateStudent(Integer id, StudentInputDto studentInputDto) throws Exception {
         Student student =
                 studentRepositorio
                         .findById(id)
@@ -73,7 +77,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void deleteStudent(String id) throws Exception {
+    public void deleteStudent(Integer id) throws Exception {
         studentRepositorio.delete(
                 studentRepositorio
                         .findById(id)

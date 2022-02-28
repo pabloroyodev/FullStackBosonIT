@@ -15,12 +15,12 @@ import java.util.List;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_student")
     private Integer idStudent;
 
     //El estudiante tiene los datos de su correspondiente persona
-    @OneToOne(cascade = { CascadeType.ALL })
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "fk_persona")
     private Persona persona;
 
