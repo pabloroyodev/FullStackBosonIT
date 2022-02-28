@@ -27,9 +27,7 @@ public class Profesor {
     @NotNull
     private String branch;
 
-    @OneToMany(mappedBy = "profesor") //
-    private List<Student> students;
-
+    //Un profesor puede impartir multiples asignaturas (solo 1 profe por asignatura).
     @OneToMany(mappedBy = "profesor")
     private List<StudentAsignatura> asignaturas;
 }

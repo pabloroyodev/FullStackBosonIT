@@ -19,10 +19,12 @@ public class StudentAsignatura {
     @Column(name = "id_asignatura")
     private String idAsignatura;
 
+    //Un Profesor puede impartir multiples asignaturas
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_profesor")
     private Profesor profesor;
 
+    //Estudiante puede tener multiples asignaturas
     @ManyToMany(mappedBy = "asignaturas")
     private List<Student> students;
 

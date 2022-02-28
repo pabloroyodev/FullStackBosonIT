@@ -1,5 +1,7 @@
 package com.example.ex13.Persona.Domain;
 
+import com.example.ex13.Profesor.Domain.Profesor;
+import com.example.ex13.Student.Domain.Student;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,4 +43,12 @@ public class Persona {
 
     @Column(name = "termination_date")
     private LocalDate terminationDate;
+
+    //Una persona tiene asignado un estudiante (o profesor)
+    @OneToOne(mappedBy = "persona", fetch = FetchType.LAZY)
+    private Student student;
+
+    //Una persona tiene asignado un profesor (o estudiante)
+    @OneToOne(mappedBy = "persona", fetch = FetchType.LAZY)
+    private Profesor profesor;
 }

@@ -2,6 +2,7 @@ package com.example.ex13.Student.Domain;
 
 import com.example.ex13.Persona.Domain.Persona;
 import com.example.ex13.Profesor.Domain.Profesor;
+import com.example.ex13.StudentAsignatura.Domain.StudentAsignatura;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Student {
     @Column(name = "id_student")
     private String idStudent;
 
+    //✅ El estudiante tiene los datos de su correspondiente persona
     @OneToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "fk_persona")
     private Persona persona;
@@ -26,22 +28,16 @@ public class Student {
 
     private String comments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_profesor")
-    private Profesor profesor;
-
     @NotNull
     private String branch;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+    //Creamos la tabla para (N:M) llamada "student_asignatura" para
+    //relacionar los multiples estudiantes estudiando multiples asignaturas.
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "student_asignatura",
             joinColumns = {@JoinColumn(name = "student_id")},
             inverseJoinColumns = {@JoinColumn(name = "asignatura_id")}
     )
-    List<String> asignaturas;
-
+    List<StudentAsignatura> asignaturas;
 }
