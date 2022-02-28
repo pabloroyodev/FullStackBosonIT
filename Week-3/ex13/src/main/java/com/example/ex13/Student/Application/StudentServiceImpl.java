@@ -49,7 +49,6 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public StudentInputDto addStudent(StudentInputDto studentInputDto) throws Exception {
-
         Student student = studentInputDtoToEntity(studentInputDto);
         studentRepositorio.saveAndFlush(student);
 

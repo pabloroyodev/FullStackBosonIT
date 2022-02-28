@@ -2,7 +2,6 @@ package com.example.ex13.Profesor.Domain;
 
 import com.example.ex13.StudentAsignatura.Domain.StudentAsignatura;
 import com.example.ex13.Persona.Domain.Persona;
-import com.example.ex13.Student.Domain.Student;
 import lombok.Data;
 
 import javax.persistence.*;

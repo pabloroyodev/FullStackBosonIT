@@ -18,5 +18,4 @@ public class CreateStudentController {
     public StudentInputDto addStudent(@RequestBody StudentInputDto studentInputDto) throws Exception {
         return studentService.addStudent(studentInputDto);
     }
-
 }
