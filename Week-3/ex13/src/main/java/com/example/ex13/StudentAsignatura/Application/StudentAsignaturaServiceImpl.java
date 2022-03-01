@@ -90,7 +90,7 @@ public class StudentAsignaturaServiceImpl implements StudentAsignaturaService{
         studentAsignatura.setFinishDate(studentAsignaturaInputDto.getFinishDate());
 
         List<Student> students = new ArrayList<>();
-    for (int i = 0; i < studentAsignaturaInputDto.getStudents().size(); i++) {
+        for (int i = 0; i < studentAsignaturaInputDto.getStudents().size(); i++) {
             students.add(studentRepositorio.findById(studentAsignaturaInputDto.getStudents().get(i)).orElseThrow(()-> new NotFoundException("Estudiante not found")));
         }
         studentAsignatura.setStudents(students);

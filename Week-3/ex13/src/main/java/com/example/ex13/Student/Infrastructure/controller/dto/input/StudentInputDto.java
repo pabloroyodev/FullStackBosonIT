@@ -22,6 +22,6 @@ public class StudentInputDto implements Serializable {
     @NotNull
     private String branch;
 
-    @NonNull
+    @NotNull
     List<Integer> asignaturas;
 }

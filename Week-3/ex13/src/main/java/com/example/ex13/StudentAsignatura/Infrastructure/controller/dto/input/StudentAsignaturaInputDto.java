@@ -16,7 +16,7 @@ public class StudentAsignaturaInputDto implements Serializable {
     @NotNull
     private Integer idProfesor;
 
-    @NonNull
+    @NotNull
     private List<Integer> students;
 
     private String asignatura;

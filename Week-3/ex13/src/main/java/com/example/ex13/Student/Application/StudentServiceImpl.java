@@ -9,11 +9,14 @@ import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentFull
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentSimpleOutputDto;
 import com.example.ex13.Student.Infrastructure.repository.jpa.StudentRepositorio;
+import com.example.ex13.StudentAsignatura.Domain.StudentAsignatura;
+import com.example.ex13.StudentAsignatura.Infrastructure.repository.jpa.StudentAsignaturaRepositorio;
 import com.example.ex13.exceptions.NotFoundException;
 import com.example.ex13.exceptions.UnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +30,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Autowired
     StudentRepositorio studentRepositorio;
+
+    @Autowired
+    StudentAsignaturaRepositorio studentAsignaturaRepositorio;
 
     //TODO: Implementar en un futuro el repositorio de asignaturas
 
@@ -100,7 +106,17 @@ public class StudentServiceImpl implements StudentService{
         student.setComments(studentInputDto.getComments());
         student.setBranch(studentInputDto.getBranch());
 
-        //TODO: Anadir lista de asignaturas
+        if (studentInputDto.getAsignaturas()!=null)
+        {
+            List<StudentAsignatura> studentAsignaturas=new ArrayList<>();
+            for (int asignatura: studentInputDto.getAsignaturas())
+            {
+                StudentAsignatura studentAsignatura= studentAsignaturaRepositorio.findById(asignatura).orElseThrow(()-> new NotFoundException("Asignatura Not Fund"));
+                studentAsignaturas.add(studentAsignatura);
+            }
+            student.setAsignaturas(studentAsignaturas);
+        }
+
         return student;
     }
 

@@ -42,9 +42,11 @@ public class StudentOutputDto implements Serializable {
         setBranch(student.getBranch());
 
         List<Integer> asignaturas = new ArrayList<>();
-        if(student.getAsignaturas().size()!=0){
-            for(int i = 0; i < student.getAsignaturas().size(); i++){
-                asignaturas.add(student.getAsignaturas().get(i).getIdAsignatura());
+        if(student.getAsignaturas() != null) {
+            if(student.getAsignaturas().size()!=0){
+                for(int i = 0; i < student.getAsignaturas().size(); i++){
+                    asignaturas.add(student.getAsignaturas().get(i).getIdAsignatura());
+                }
             }
         }
         setAsignaturas(asignaturas);
