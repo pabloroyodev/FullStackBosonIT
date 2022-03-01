@@ -1,14 +1,14 @@
 package com.example.ex13.StudentAsignatura.Application;
 
-import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
-import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
+import com.example.ex13.StudentAsignatura.Infrastructure.controller.dto.input.StudentAsignaturaInputDto;
+import com.example.ex13.StudentAsignatura.Infrastructure.controller.dto.output.StudentAsignaturaOutputDto;
 
 import java.util.List;
 
 public interface StudentAsignaturaService {
-    List<StudentOutputDto> getAllAsignaturas();
-    StudentOutputDto filterAsignaturaById(Integer id) throws Exception;
-    StudentOutputDto addAsignatura(StudentInputDto studentInputDto) throws Exception;
-    StudentOutputDto updateAsignatura(Integer id, StudentInputDto studentInputDto) throws Exception;
+    List<StudentAsignaturaOutputDto> getAllAsignaturas();
+    StudentAsignaturaOutputDto filterAsignaturaById(Integer id) throws Exception;
+    StudentAsignaturaOutputDto addAsignatura(StudentAsignaturaInputDto studentAsignaturaInputDto) throws Exception;
+    StudentAsignaturaOutputDto updateAsignatura(Integer id, StudentAsignaturaInputDto studentAsignaturaInputDto) throws Exception;
     void deleteAsignatura(Integer id) throws Exception;
 }
