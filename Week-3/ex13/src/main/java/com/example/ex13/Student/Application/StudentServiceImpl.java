@@ -1,6 +1,8 @@
 package com.example.ex13.Student.Application;
 
 import com.example.ex13.Persona.Infrastructure.repository.jpa.PersonaRepositorio;
+import com.example.ex13.Profesor.Domain.Profesor;
+import com.example.ex13.Profesor.Infrastructure.repository.jpa.ProfesorRepositorio;
 import com.example.ex13.Student.Domain.Student;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentFullOutputDto;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService{
+    @Autowired
+    ProfesorRepositorio profesorRepositorio;
 
     @Autowired
     PersonaRepositorio personaRepositorio;
@@ -50,6 +54,13 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentInputDto) throws Exception {
+        List<Profesor> profesores = profesorRepositorio.findAll();
+        for (int i = 0; i < profesores.size(); i++){
+            if(studentInputDto.getIdPersona().equals(profesores.get(i).getPersona().getIdPersona())){
+                throw new UnprocesableException("La persona "+studentInputDto.getIdPersona()+ " es un profesor!");
+            }
+        }
+
         Student student = studentInputDtoToEntity(studentInputDto);
         studentRepositorio.save(student);
         StudentOutputDto studentOutputDto = new StudentOutputDto(student);

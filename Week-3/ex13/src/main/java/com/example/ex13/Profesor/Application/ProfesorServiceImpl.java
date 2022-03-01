@@ -8,6 +8,7 @@ import com.example.ex13.Profesor.Infrastructure.repository.jpa.ProfesorRepositor
 import com.example.ex13.Student.Domain.Student;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
+import com.example.ex13.Student.Infrastructure.repository.jpa.StudentRepositorio;
 import com.example.ex13.exceptions.NotFoundException;
 import com.example.ex13.exceptions.UnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProfesorServiceImpl implements ProfesorService{
+    @Autowired
+    StudentRepositorio studentRepositorio;
+
     @Autowired
     PersonaRepositorio personaRepositorio;
 
@@ -43,6 +47,12 @@ public class ProfesorServiceImpl implements ProfesorService{
 
     @Override
     public ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception {
+        List<Student> students = studentRepositorio.findAll();
+        for (int i = 0; i < students.size(); i++){
+            if(profesorInputDto.getIdPersona().equals(students.get(i).getPersona().getIdPersona())){
+                throw new UnprocesableException("La persona "+profesorInputDto.getIdPersona()+ " es un estudiante!");
+            }
+        }
         Profesor profesor = profesorInputDtoToEntity(profesorInputDto);
         profesorRepositorio.save(profesor);
         ProfesorOutputDto profesorOutputDto = new ProfesorOutputDto(profesor);
