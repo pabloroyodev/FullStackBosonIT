@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class StudentAsignaturaOutputDto implements Serializable {
     @NotNull
     private ProfesorOutputDto profesorOutputDto;
 
-    //TODO: Relacion de multiples estudiantes matriculados en asignaturas.
+    private List<Integer> students;
 
     private String asignatura;
 
@@ -38,7 +40,15 @@ public class StudentAsignaturaOutputDto implements Serializable {
         setIdAsignatura(studentAsignatura.getIdAsignatura());
         setProfesorOutputDto(new ProfesorOutputDto(studentAsignatura.getProfesor()));
         setAsignatura(studentAsignatura.getAsignatura());
-        //TODO: Aqui anadiremos la relacion de estudiantes matriculados
+
+        List<Integer> students = new ArrayList<>();
+        if(studentAsignatura.getStudents().size()!=0){
+            for(int i = 0; i < studentAsignatura.getStudents().size(); i++){
+                students.add(studentAsignatura.getStudents().get(i).getIdStudent());
+            }
+        }
+        setStudents(students);
+
         setComments(studentAsignatura.getComments());
         setInitialDate(studentAsignatura.getInitialDate());
         setFinishDate(studentAsignatura.getFinishDate());

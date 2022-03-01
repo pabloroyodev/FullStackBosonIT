@@ -2,6 +2,7 @@ package com.example.ex13.StudentAsignatura.Application;
 
 import com.example.ex13.Persona.Infrastructure.repository.jpa.PersonaRepositorio;
 import com.example.ex13.Profesor.Infrastructure.repository.jpa.ProfesorRepositorio;
+import com.example.ex13.Student.Domain.Student;
 import com.example.ex13.Student.Infrastructure.repository.jpa.StudentRepositorio;
 import com.example.ex13.StudentAsignatura.Domain.StudentAsignatura;
 import com.example.ex13.StudentAsignatura.Infrastructure.controller.dto.input.StudentAsignaturaInputDto;
@@ -12,6 +13,7 @@ import com.example.ex13.exceptions.UnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +21,6 @@ import java.util.stream.Collectors;
 public class StudentAsignaturaServiceImpl implements StudentAsignaturaService{
     @Autowired
     ProfesorRepositorio profesorRepositorio;
-
-    @Autowired
-    PersonaRepositorio personaRepositorio;
 
     @Autowired
     StudentRepositorio studentRepositorio;
@@ -85,11 +84,16 @@ public class StudentAsignaturaServiceImpl implements StudentAsignaturaService{
         StudentAsignatura studentAsignatura = new StudentAsignatura();
 
         studentAsignatura.setProfesor(profesorRepositorio.findById(studentAsignaturaInputDto.getIdProfesor()).orElseThrow(()->new NotFoundException("Profesor not found")));
-        //TODO: Anadir lista de estudiantes
         studentAsignatura.setAsignatura(studentAsignaturaInputDto.getAsignatura());
         studentAsignatura.setComments(studentAsignaturaInputDto.getComments());
         studentAsignatura.setInitialDate(studentAsignaturaInputDto.getInitialDate());
         studentAsignatura.setFinishDate(studentAsignaturaInputDto.getFinishDate());
+
+        List<Student> students = new ArrayList<>();
+    for (int i = 0; i < studentAsignaturaInputDto.getStudents().size(); i++) {
+            students.add(studentRepositorio.findById(studentAsignaturaInputDto.getStudents().get(i)).orElseThrow(()-> new NotFoundException("Estudiante not found")));
+        }
+        studentAsignatura.setStudents(students);
 
         return studentAsignatura;
     }

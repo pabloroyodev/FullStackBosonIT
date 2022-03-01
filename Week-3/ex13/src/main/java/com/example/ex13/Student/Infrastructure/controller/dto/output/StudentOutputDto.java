@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,8 +27,7 @@ public class StudentOutputDto implements Serializable {
     @NotNull
     private String branch;
 
-    //TODO: Aqui anadiremos la lista de asignaturas posteriormente
-
+    List<Integer> asignaturas;
 
 
     public StudentOutputDto(Student student){
@@ -40,6 +41,12 @@ public class StudentOutputDto implements Serializable {
         setComments(student.getComments());
         setBranch(student.getBranch());
 
-        //TODO: Aqui anadiremos la lista de asignaturas posteriormente
+        List<Integer> asignaturas = new ArrayList<>();
+        if(student.getAsignaturas().size()!=0){
+            for(int i = 0; i < student.getAsignaturas().size(); i++){
+                asignaturas.add(student.getAsignaturas().get(i).getIdAsignatura());
+            }
+        }
+        setAsignaturas(asignaturas);
     }
 }

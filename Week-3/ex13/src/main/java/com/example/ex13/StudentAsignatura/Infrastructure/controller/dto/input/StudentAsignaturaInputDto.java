@@ -2,10 +2,12 @@ package com.example.ex13.StudentAsignatura.Infrastructure.controller.dto.input;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +16,8 @@ public class StudentAsignaturaInputDto implements Serializable {
     @NotNull
     private Integer idProfesor;
 
-    //TODO: Relacion de multiples estudiantes matriculados en asignaturas.
+    @NonNull
+    private List<Integer> students;
 
     private String asignatura;
 
