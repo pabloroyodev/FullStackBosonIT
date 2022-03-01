@@ -50,7 +50,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public StudentInputDto addStudent(StudentInputDto studentInputDto) throws Exception {
         Student student = studentInputDtoToEntity(studentInputDto);
-        studentRepositorio.saveAndFlush(student);
+        studentRepositorio.save(student);
 
         return studentInputDto;
     }
@@ -67,7 +67,7 @@ public class StudentServiceImpl implements StudentService{
         student.setComments(studentInputDto.getComments());
         student.setBranch(studentInputDto.getBranch());
 
-        studentRepositorio.saveAndFlush(student);
+        studentRepositorio.save(student);
         StudentOutputDto studentOutputDto = new StudentOutputDto(student);
         return studentOutputDto;
     }

@@ -44,7 +44,7 @@ public class ProfesorServiceImpl implements ProfesorService{
     @Override
     public ProfesorInputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception {
         Profesor profesor = profesorInputDtoToEntity(profesorInputDto);
-        profesorRepositorio.saveAndFlush(profesor);
+        profesorRepositorio.save(profesor);
 
         return profesorInputDto;
     }
@@ -60,7 +60,7 @@ public class ProfesorServiceImpl implements ProfesorService{
         profesor.setComments(profesorInputDto.getComments());
         profesor.setBranch(profesorInputDto.getBranch());
 
-        profesorRepositorio.saveAndFlush(profesor);
+        profesorRepositorio.save(profesor);
         ProfesorOutputDto profesorOutputDto = new ProfesorOutputDto(profesor);
         return profesorOutputDto;
     }

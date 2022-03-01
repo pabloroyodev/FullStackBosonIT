@@ -1,4 +1,4 @@
-package com.example.ex13.Student.Infrastructure.controller.dto;
+package com.example.ex13.Student.Infrastructure.controller;
 
 import com.example.ex13.Student.Application.StudentService;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;

@@ -1,7 +1,14 @@
 package com.example.ex13.StudentAsignatura.Application;
 
-import com.example.ex13.StudentAsignatura.Domain.StudentAsignatura;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
+import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
 
-public interface StudentAsignaturaService extends JpaRepository<StudentAsignatura, String> {
+import java.util.List;
+
+public interface StudentAsignaturaService {
+    List<StudentOutputDto> getAllAsignaturas();
+    StudentOutputDto filterAsignaturaById(Integer id) throws Exception;
+    StudentInputDto addAsignatura(StudentInputDto studentInputDto) throws Exception;
+    StudentOutputDto updateAsignatura(Integer id, StudentInputDto studentInputDto) throws Exception;
+    void deleteAsignatura(Integer id) throws Exception;
 }

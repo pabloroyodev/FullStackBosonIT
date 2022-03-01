@@ -65,7 +65,7 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         Persona persona = personaInputDtoToEntity(personaInputDto);
-        personaRepositorio.saveAndFlush(persona);
+        personaRepositorio.save(persona);
 
         return personaInputDto;
     }
@@ -95,7 +95,7 @@ public class PersonaServiceImpl implements PersonaService {
             persona.setTerminationDate(personaInputDto.getTerminationDate());
         }
 
-        personaRepositorio.saveAndFlush(persona);
+        personaRepositorio.save(persona);
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
@@ -154,7 +154,7 @@ public class PersonaServiceImpl implements PersonaService {
             persona.setTerminationDate(personaInputDto.getTerminationDate());
         }
 
-        personaRepositorio.saveAndFlush(persona);
+        personaRepositorio.save(persona);
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
