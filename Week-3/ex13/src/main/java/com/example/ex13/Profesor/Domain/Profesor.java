@@ -18,7 +18,7 @@ public class Profesor {
     private Integer idProfesor;
 
     @OneToOne(cascade = { CascadeType.ALL })
-    @JoinColumn(name = "fk_persona")
+    @JoinColumn(name = "fk_persona", unique = true)
     private Persona persona;
 
     private String comments;

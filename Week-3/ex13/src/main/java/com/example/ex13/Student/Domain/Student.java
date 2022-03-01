@@ -21,7 +21,7 @@ public class Student {
 
     //El estudiante tiene los datos de su correspondiente persona
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_persona")
+    @JoinColumn(name = "fk_persona", unique = true)
     private Persona persona;
 
     @Column(name = "num_hours_week", nullable = false)
