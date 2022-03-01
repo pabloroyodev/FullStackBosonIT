@@ -2,6 +2,7 @@ package com.example.ex13.Profesor.Infrastructure.controller;
 
 import com.example.ex13.Profesor.Application.ProfesorService;
 import com.example.ex13.Profesor.Infrastructure.controller.dto.input.ProfesorInputDto;
+import com.example.ex13.Profesor.Infrastructure.controller.dto.output.ProfesorOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,7 @@ public class CreateProfesor {
     ProfesorService profesorService;
 
     @PostMapping
-    public ProfesorInputDto addProfesor(@RequestBody ProfesorInputDto profesorInputDto) throws Exception {
+    public ProfesorOutputDto addProfesor(@RequestBody ProfesorInputDto profesorInputDto) throws Exception {
         return profesorService.addProfesor(profesorInputDto);
     }
 }

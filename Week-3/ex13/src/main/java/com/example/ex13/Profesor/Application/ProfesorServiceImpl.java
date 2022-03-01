@@ -42,11 +42,11 @@ public class ProfesorServiceImpl implements ProfesorService{
     }
 
     @Override
-    public ProfesorInputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception {
+    public ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception {
         Profesor profesor = profesorInputDtoToEntity(profesorInputDto);
         profesorRepositorio.save(profesor);
-
-        return profesorInputDto;
+        ProfesorOutputDto profesorOutputDto = new ProfesorOutputDto(profesor);
+        return profesorOutputDto;
     }
 
     @Override

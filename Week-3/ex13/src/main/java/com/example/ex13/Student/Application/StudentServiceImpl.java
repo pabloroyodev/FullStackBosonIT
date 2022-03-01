@@ -48,11 +48,11 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentInputDto addStudent(StudentInputDto studentInputDto) throws Exception {
+    public StudentOutputDto addStudent(StudentInputDto studentInputDto) throws Exception {
         Student student = studentInputDtoToEntity(studentInputDto);
         studentRepositorio.save(student);
-
-        return studentInputDto;
+        StudentOutputDto studentOutputDto = new StudentOutputDto(student);
+        return studentOutputDto;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 public interface StudentAsignaturaService {
     List<StudentOutputDto> getAllAsignaturas();
     StudentOutputDto filterAsignaturaById(Integer id) throws Exception;
-    StudentInputDto addAsignatura(StudentInputDto studentInputDto) throws Exception;
+    StudentOutputDto addAsignatura(StudentInputDto studentInputDto) throws Exception;
     StudentOutputDto updateAsignatura(Integer id, StudentInputDto studentInputDto) throws Exception;
     void deleteAsignatura(Integer id) throws Exception;
 }

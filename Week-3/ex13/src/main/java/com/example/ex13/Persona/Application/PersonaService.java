@@ -9,7 +9,7 @@ public interface PersonaService {
     List<PersonaOutputDto> getAllPersonas();
     PersonaOutputDto filterPersonaById(int id) throws Exception;
     List<PersonaOutputDto> filterPersonaByUser(String user);
-    PersonaInputDto addPersona(PersonaInputDto personaInputDto) throws Exception;
+    PersonaOutputDto addPersona(PersonaInputDto personaInputDto) throws Exception;
     PersonaOutputDto updatePersona(Integer id, PersonaInputDto personaInputDto) throws Exception;
     PersonaOutputDto updatePatchPersona(Integer id, PersonaInputDto personaInputDto) throws Exception;
     void deletePersona(Integer id) throws Exception;
