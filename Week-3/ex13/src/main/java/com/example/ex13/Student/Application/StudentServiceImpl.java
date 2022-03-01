@@ -3,6 +3,7 @@ package com.example.ex13.Student.Application;
 import com.example.ex13.Persona.Infrastructure.repository.jpa.PersonaRepositorio;
 import com.example.ex13.Student.Domain.Student;
 import com.example.ex13.Student.Infrastructure.controller.dto.input.StudentInputDto;
+import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentFullOutputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentSimpleOutputDto;
 import com.example.ex13.Student.Infrastructure.repository.jpa.StudentRepositorio;
@@ -34,13 +35,13 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentOutputDto filterStudentById(Integer id, String outputType) throws Exception {
+    public StudentSimpleOutputDto filterStudentById(Integer id, String outputType) throws Exception {
         Student student =
                 studentRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + " not found."));
 
         if (outputType.equalsIgnoreCase("full")) {
-            StudentOutputDto studentOutputDto  = new StudentOutputDto(student);
-            return studentOutputDto;
+            StudentFullOutputDto studentFullOutputDto  = new StudentFullOutputDto(student);
+            return studentFullOutputDto;
         } else {
             StudentSimpleOutputDto studentSimpleOutputDto = new StudentSimpleOutputDto(student);
             return studentSimpleOutputDto;

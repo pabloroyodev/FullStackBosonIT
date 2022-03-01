@@ -2,6 +2,7 @@ package com.example.ex13.Student.Infrastructure.controller;
 
 import com.example.ex13.Student.Application.StudentService;
 import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentOutputDto;
+import com.example.ex13.Student.Infrastructure.controller.dto.output.StudentSimpleOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ReadStudentController {
     }
 
     @GetMapping("{id}")
-    public StudentOutputDto getStudentById(@PathVariable Integer id, @Value("simple") @RequestParam(name = "outputType", defaultValue = "simple", required = false)
+    public StudentSimpleOutputDto getStudentById(@PathVariable Integer id, @Value("simple") @RequestParam(name = "outputType", defaultValue = "simple", required = false)
             String outputType) throws Exception {
         return studentService.filterStudentById(id, outputType);
     }

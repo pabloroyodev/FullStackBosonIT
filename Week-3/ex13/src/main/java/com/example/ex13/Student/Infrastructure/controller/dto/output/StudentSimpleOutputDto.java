@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class StudentSimpleOutputDto extends StudentOutputDto{
+public class StudentSimpleOutputDto{
 
     private Integer idStudent;
     private Integer personaId;
