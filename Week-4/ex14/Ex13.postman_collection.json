@@ -198,7 +198,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idPersona\": 44,\r\n    \"numHoursWeek\": 12,\r\n    \"comments\": \"Este es ejemplo\",\r\n    \"branch\": \"BackFront\",\r\n    \"asignaturas\": []\r\n}",
+							"raw": "{\r\n    \"idPersona\": 27,\r\n    \"numHoursWeek\": 12,\r\n    \"comments\": \"Este es ejemplo\",\r\n    \"branch\": \"BackFront\",\r\n    \"asignaturas\": [4, 12]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -473,7 +473,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"idProfesor\": 2,\r\n        \"students\": [],\r\n        \"asignatura\": \"Practica Java con Spring Boot\",\r\n        \"comments\": \"Asignatura de java especializada en web\",\r\n        \"initialDate\": \"2012-09-16\",\r\n        \"finishDate\": \"\"\r\n}",
+							"raw": "{\r\n        \"idProfesor\": 2,\r\n        \"asignatura\": \"Practica Java con Spring Boot\",\r\n        \"comments\": \"Asignatura de java especializada en web\",\r\n        \"initialDate\": \"2012-09-16\",\r\n        \"finishDate\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -495,7 +495,7 @@
 					"response": []
 				},
 				{
-					"name": "GET asignaturas",
+					"name": "GET asignatura",
 					"request": {
 						"method": "GET",
 						"header": [],
