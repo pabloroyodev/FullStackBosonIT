@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "107d5658-3df2-4294-b5c2-dd16dcf70dfb",
-		"name": "Ex13",
+		"name": "Ex14",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -109,6 +109,48 @@
 					"response": []
 				},
 				{
+					"name": "GET profesor via RestTemplate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/persona/profesor/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona",
+								"profesor",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET profesor via Feing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/persona/feing/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona",
+								"feing",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "DELETE persona by ID",
 					"request": {
 						"method": "DELETE",
@@ -198,7 +240,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idPersona\": 27,\r\n    \"numHoursWeek\": 12,\r\n    \"comments\": \"Este es ejemplo\",\r\n    \"branch\": \"BackFront\",\r\n    \"asignaturas\": [4, 12]\r\n}",
+							"raw": "{\r\n    \"idPersona\": 44,\r\n    \"numHoursWeek\": 12,\r\n    \"comments\": \"Este es ejemplo\",\r\n    \"branch\": \"BackFront\",\r\n    \"asignaturas\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -473,7 +515,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"idProfesor\": 2,\r\n        \"asignatura\": \"Practica Java con Spring Boot\",\r\n        \"comments\": \"Asignatura de java especializada en web\",\r\n        \"initialDate\": \"2012-09-16\",\r\n        \"finishDate\": \"\"\r\n}",
+							"raw": "{\r\n        \"idProfesor\": 2,\r\n        \"students\": [],\r\n        \"asignatura\": \"Practica Java con Spring Boot\",\r\n        \"comments\": \"Asignatura de java especializada en web\",\r\n        \"initialDate\": \"2012-09-16\",\r\n        \"finishDate\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -495,7 +537,7 @@
 					"response": []
 				},
 				{
-					"name": "GET asignatura",
+					"name": "GET asignaturas",
 					"request": {
 						"method": "GET",
 						"header": [],
