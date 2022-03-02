@@ -43,8 +43,8 @@ public class ReadPersonaController {
     ResponseEntity<ProfesorOutputDto> getProfesorRestTemplate(@PathVariable Integer id){
         ResponseEntity<ProfesorOutputDto> rs = new RestTemplate().getForEntity("http://localhost:8081/profesor/"+id,ProfesorOutputDto.class);
         return ResponseEntity.ok(rs.getBody());
-
     }
+
     @GetMapping("/feing/{id}")
     ResponseEntity<ProfesorOutputDto> getProfesorFeign(@PathVariable Integer id){
         ResponseEntity<ProfesorOutputDto> rs = feign.callServer(id);
