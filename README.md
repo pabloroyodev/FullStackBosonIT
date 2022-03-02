@@ -39,3 +39,4 @@ Timeline of the learning path divided in weeks.
 - [BS9 - Clase RestTemplate. Usos con Feign](./Week-4/ex14)
 - [BS12 - CORS](./Week-4/ex15)
   - [Web para comprobar el CORS](./Others/WebCreatePersonasEx15)
+- [Dockerizacion del EJ3 con PostgreSQL](./Week-4/ex16)
