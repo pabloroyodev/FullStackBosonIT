@@ -84,6 +84,16 @@ public class StudentServiceImpl implements StudentService{
         student.setNumHoursWeek(studentInputDto.getNumHoursWeek());
         student.setComments(studentInputDto.getComments());
         student.setBranch(studentInputDto.getBranch());
+        if (studentInputDto.getAsignaturas()!=null)
+        {
+            List<StudentAsignatura> studentAsignaturas=new ArrayList<>();
+            for (int asignatura: studentInputDto.getAsignaturas())
+            {
+                StudentAsignatura studentAsignatura= studentAsignaturaRepositorio.findById(asignatura).orElseThrow(()-> new NotFoundException("Asignatura Not Fund"));
+                studentAsignaturas.add(studentAsignatura);
+            }
+            student.setAsignaturas(studentAsignaturas);
+        }
 
         studentRepositorio.save(student);
         StudentOutputDto studentOutputDto = new StudentOutputDto(student);
