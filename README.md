@@ -37,3 +37,4 @@ Timeline of the learning path divided in weeks.
 
 # Week 4 (28-02 to 04-03)
 - [BS9 - Clase RestTemplate. Usos con Feign](./Week-4/ex14)
+- [BS12 - CORS](./Week-4/ex15)
