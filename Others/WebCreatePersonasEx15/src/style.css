@@ -1,0 +1,38 @@
+body{
+    background-color: turquoise;
+    font-weight: bold;
+}
+
+#contenedor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formulario{
+    display: flex;
+    flex-direction: column;
+    
+    /*background: rgb(57, 197, 183);*/
+}
+
+label{
+    float: right;
+    vertical-align: middle;
+    line-height: 1.8;
+}
+
+input{
+
+    float: right;
+    width: 45%;
+    margin: 2px;
+    line-height: 1.2;
+}
+
+#botones{
+    display: flex;
+    padding: 5px;
+    flex-direction: row;
+    align-self: center;
+} 

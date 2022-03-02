@@ -6,6 +6,7 @@ import com.example.ex15.Persona.Infrastructure.controller.dto.output.PersonaOutp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins="*",methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 @RequestMapping("persona")
 @RestController
 public class UpdatePersonaController {

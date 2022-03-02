@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS TEST</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="contenedor">
+        <div><h1>Introducir los campos de la persona</h1></div>
+        <form id="formulario">    
+            <label>Usuario               <input type="text"      id="username" />    </label>
+            <label>Apellidos             <input type="text"      id="surname"/>      </label>
+            <label>Nombre                <input type="text"      id="name"/>         </label>
+            <label>Contraseña            <input type="password"  id="passwd" />      </label>
+            <label>Email de la compañía  <input type="email"     id="emailcomp"/>    </label>
+            <label>Email personal        <input type="email"     id="emailpers"/>    </label>
+            <label>Ciudad                <input type="text"      id="city"/>         </label>
+            <label>Url de la imagen      <input type="url"       id="imagen_url"/>   </label>
+            <label>Fecha de creación     <input type="date"      id="created_date"/> </label>
+            <label>Activado              <input type="checkbox"  id="active"/>       </label>
+            <label>Fecha de finalización <input type="date"      id="finish_date"/>  </label>
+            
+            <div id="botones">
+                <input type="submit" onclick="submitPersona(event)"/>
+                <input type="reset" onclick="resetForm()" value="Limpiar" />
+            </div>
+
+            <div id="botones">
+                <input type="button" value="Recargar" onclick="getPersons()"/>
+                <input type="button" value="<<<<" onclick="previousPerson()"/>
+                <input type="button" value=">>>>" onclick="nextPerson()"/>
+            </div>
+        </form> 
+    </div>
+</body>
+</html>
+    
