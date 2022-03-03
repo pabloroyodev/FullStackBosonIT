@@ -40,3 +40,4 @@ Timeline of the learning path divided in weeks.
 - [BS12 - CORS](./Week-4/ex15)
   - [Web para comprobar el CORS](./Others/WebCreatePersonasEx15)
 - [Dockerizacion del EJ3 con PostgreSQL](./Week-4/ex16)
+  - [Documento de implementacion Docker](./Week-4/ex16/Docker.pdf)

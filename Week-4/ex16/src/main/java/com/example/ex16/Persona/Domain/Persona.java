@@ -17,6 +17,8 @@ public class Persona {
     @Column(name = "id_persona")
     private Integer idPersona;
 
+    //user es una keyword en postgre!!
+    @Column(name = "usuario")
     private String user;
 
     private String password;
