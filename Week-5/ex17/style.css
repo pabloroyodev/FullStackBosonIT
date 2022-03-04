@@ -1,0 +1,51 @@
+.ex17 {
+  padding: 10px;
+}
+
+.ex17__center {
+  display: flex;
+  justify-content: center;
+}
+
+.ex17__left {
+  display: flex;
+  justify-content: left;
+}
+
+.ex17__right {
+  display: flex;
+  justify-content: right;
+}
+
+.box {
+  width: 150px;
+  height: 80px;
+  padding: 10px;
+  margin: 1px;
+  background-color: red;
+  border: 3px solid black;
+}
+
+.box__blue {
+  background-color: rgb(55, 84, 252);
+}
+
+.box__inline {
+  display: inline-block;
+  margin-left: -3px;
+  margin-top: 1px;
+}
+
+.box__with30 {
+  width: 30%;
+  text-align: center;
+}
+
+.box__with15 {
+  width: 15%;
+  text-align: right;
+}
+
+.box__with10 {
+    width: 10%;
+}
