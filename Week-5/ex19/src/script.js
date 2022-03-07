@@ -34,6 +34,7 @@ function submitPersona(evento) {
 }
 
 //Esta es la funcion que se llama al comienzo del JS para recuperar todas las personas de la BD.
+
 function getPersons() {
   fetch("http://localhost:8080/persona")
     .then(function (resp) {
