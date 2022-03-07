@@ -1,0 +1,11 @@
+Como todos sabemos, uno de los fallos comunes en aplicaciones web es el error
+CORS(el cual solo salta en buscadores (NO SALTA EN POSTMAN)), por ello debemos
+usar esta web de ejemplo y comprobar que no salta el error.
+
+WebCreatePersonasEx15 se abrira en vscode y con la extension live server
+lo ejecutaremos, ahi podremos crear personas del ejercicio BS-12
+y asi poder comprobar que no salta el error CORS policy.
+
+La app tambien debera poder mostar las personas creadas antes mediante las
+flechas inferiores (las cuales haran pointer a un array que almacena las 
+personas creadas en el pasado).
