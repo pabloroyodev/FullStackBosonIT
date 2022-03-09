@@ -54,5 +54,5 @@ Timeline of the learning path divided in weeks.
   - [URL de CodePen del EJ2](https://codepen.io/pabloroyodev/pen/YzEBgPM)
 - [EJ3 - Crea un formulario para conectar a backend](./Week-5/ex19)
   - [URL de CodePen del EJ3](https://codepen.io/pabloroyodev/pen/oNoOXKd)
-- [EJ3 - Calculadora programada en TypeScript](./Week-5/ex20)
-  - [URL de CodePen del EJ3](poner url!)
+- [EJ4 - Calculadora programada en TypeScript](./Week-5/ex20)
+  - [URL de CodePen del EJ3](https://codepen.io/pabloroyodev/pen/NWwZbpY)
