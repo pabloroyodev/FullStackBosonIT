@@ -57,3 +57,4 @@ Timeline of the learning path divided in weeks.
 - [EJ4 - Calculadora programada en TypeScript](./Week-5/ex20)
   - [URL de CodePen del EJ3](https://codepen.io/pabloroyodev/pen/NWwZbpY)
 - [EJ5 - Tour of Heroes Angular](./Week-5/angular-tour-of-heroes)
+- [EJ6 - Mantenimiento de personas en Angular](./Week-5/ex21)
