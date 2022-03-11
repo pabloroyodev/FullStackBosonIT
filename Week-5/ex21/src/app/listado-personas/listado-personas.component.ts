@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 export interface PeriodicElement {
   name: string;
@@ -25,7 +25,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './listado-personas.component.html',
   styleUrls: ['./listado-personas.component.css']
 })
-export class ListadoPersonasComponent {
+
+export class ListadoPersonasComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
