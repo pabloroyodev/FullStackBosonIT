@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { PersonasService } from '../personas.service'
 
 export interface PeriodicElement {
   name: string;
@@ -31,9 +32,13 @@ export class ListadoPersonasComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  constructor(private api:PersonasService) { }
 
   ngOnInit(): void {
+    this.api.getAllPersonas().subscribe(data =>{
+      console.log("Los datos de personas:")
+      console.log(data)
+    })
   }
 
 }

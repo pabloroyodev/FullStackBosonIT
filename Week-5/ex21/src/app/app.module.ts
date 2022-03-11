@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { HomeComponent } from './home/home.component';
 import { Error404Component } from './error404/error404.component';
 import { ListadoPersonasComponent } from './listado-personas/listado-personas.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ListadoPersonasComponent } from './listado-personas/listado-personas.co
     MatToolbarModule,
     MatIconModule,
     MatTableModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
   providers: [],
