@@ -2,7 +2,7 @@
 <mat-form-field class="example-form-field" appearance="fill" style="margin-left: 10%; margin-top: 2%;">
   <mat-label>Filtro</mat-label>
   <input matInput type="text" [(ngModel)]="value">
-  <button matSuffix mat-icon-button aria-label="Clear" (click)="filterByUser(value)">
+  <button matSuffix mat-icon-button aria-label="Clear" *ngIf="value.length > 0" (click)="filterByUser(value)">
     <mat-icon>check</mat-icon>
   </button>
   <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''; ngOnInit()">
