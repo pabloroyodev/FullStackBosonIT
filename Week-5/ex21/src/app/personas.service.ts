@@ -17,4 +17,9 @@ export class PersonasService {
     let direccion = this.url + "persona";
     return this.http.get<ListaPersonasI[]>(direccion);
   }
+
+  getPersonaById(username: string):Observable<ListaPersonasI[]> {
+    let direccion = this.url + "persona/" + username + "/usuario";
+    return this.http.get<ListaPersonasI[]>(direccion);
+  }
 }
