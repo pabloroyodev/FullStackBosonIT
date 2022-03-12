@@ -22,4 +22,10 @@ export class PersonasService {
     let direccion = this.url + "persona/" + username + "/usuario";
     return this.http.get<ListaPersonasI[]>(direccion);
   }
+
+  deleteById(id: number){
+    let direccion = this.url + "persona/" + id;
+    return this.http.delete<ListaPersonasI[]>(direccion);
+  }
+
 }
