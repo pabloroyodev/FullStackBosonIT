@@ -23,7 +23,7 @@ export class ListadoPersonasComponent implements OnInit {
   columnsToDisplay: string[] = ['idPersona', 'user', 'city', 'active'];
   personas: ListaPersonasI[] = [];
   expandedElement: ListaPersonasI[] | null | undefined;
-
+  
   constructor(private api:PersonasService, private router:Router) { }
 
   ngOnInit(): void {
