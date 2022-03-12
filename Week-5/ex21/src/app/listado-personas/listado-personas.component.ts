@@ -18,7 +18,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 
 export class ListadoPersonasComponent implements OnInit {
-
+  value = 'Nombre del Usuario';
   displayedColumns: string[] = ['idPersona', 'user', 'password', 'name', 'surname', 'companyEmail', 'personalEmail', 'city', 'active', 'createdDate', 'imageUrl', 'terminationDate'];
   columnsToDisplay: string[] = ['idPersona', 'user', 'city', 'active'];
   personas: ListaPersonasI[] = [];
@@ -28,6 +28,12 @@ export class ListadoPersonasComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getAllPersonas().subscribe(data =>{
+      this.personas = data;
+    })
+  }
+
+  filterByUser(user: string){
+    this.api.getPersonaByUser(user).subscribe(data =>{
       this.personas = data;
     })
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ListaPersonasI } from './domain/listaPersonas.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -18,7 +18,7 @@ export class PersonasService {
     return this.http.get<ListaPersonasI[]>(direccion);
   }
 
-  getPersonaById(username: string):Observable<ListaPersonasI[]> {
+  getPersonaByUser(username: string):Observable<ListaPersonasI[]> {
     let direccion = this.url + "persona/" + username + "/usuario";
     return this.http.get<ListaPersonasI[]>(direccion);
   }
