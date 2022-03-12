@@ -1,5 +1,5 @@
 export interface ListaPersonasI{
-    idPersona: string;
+    idPersona: number;
     user: string;
     password: string;
     name: string;
