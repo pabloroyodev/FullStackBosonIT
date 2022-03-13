@@ -15,13 +15,17 @@ import { ListadoPersonasComponent } from './listado-personas/listado-personas.co
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { EditarPersonasComponent } from './editar-personas/editar-personas.component';
+import { CrearPersonasComponent } from './crear-personas/crear-personas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     Error404Component,
-    ListadoPersonasComponent
+    ListadoPersonasComponent,
+    EditarPersonasComponent,
+    CrearPersonasComponent
   ],
   imports: [
     BrowserModule,
