@@ -46,10 +46,10 @@ export class ListadoPersonasComponent implements OnInit {
   }
 
   anadirPersona(){
-    console.log("se desea anadir persona")
+    this.router.navigate(['anadir'])
   }
 
   editarPersona(id: number){
-    console.log("se desea editar persona " + id)
+    this.router.navigate(['editar', id])
   }
 }

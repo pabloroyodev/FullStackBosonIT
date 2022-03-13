@@ -10,11 +10,13 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { HomeComponent } from './home/home.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
 import { Error404Component } from './error404/error404.component';
 import { ListadoPersonasComponent } from './listado-personas/listado-personas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarPersonasComponent } from './editar-personas/editar-personas.component';
 import { CrearPersonasComponent } from './crear-personas/crear-personas.component';
 
@@ -33,10 +35,13 @@ import { CrearPersonasComponent } from './crear-personas/crear-personas.componen
     MatFormFieldModule,
     MatToolbarModule,
     MatInputModule,
+    MatCardModule,
+    MatProgressBarModule,
     MatIconModule,
     MatTableModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     BrowserAnimationsModule
   ],

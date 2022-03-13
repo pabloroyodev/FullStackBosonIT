@@ -28,4 +28,10 @@ export class PersonasService {
     return this.http.delete<ListaPersonasI[]>(direccion);
   }
 
+  getPersonaById(id: string | null):Observable<ListaPersonasI>{
+    let direccion = this.url + "persona/" + id;
+    return this.http.get<ListaPersonasI>(direccion);
+  }
+
+
 }
