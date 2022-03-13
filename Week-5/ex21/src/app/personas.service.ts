@@ -33,5 +33,8 @@ export class PersonasService {
     return this.http.get<ListaPersonasI>(direccion);
   }
 
-
+  editarPersona(id: any, form:ListaPersonasI ):Observable<ListaPersonasI>{
+    let direccion = this.url + "persona/" + id;
+    return this.http.put<ListaPersonasI>(direccion, form);
+  }
 }

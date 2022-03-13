@@ -11,6 +11,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./editar-personas.component.css'],
 })
 export class EditarPersonasComponent implements OnInit {
+  
+  hide = true;
+
   constructor(
     private activerouter: ActivatedRoute,
     private router: Router,
@@ -32,8 +35,8 @@ export class EditarPersonasComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    let personaId: string | null =
-      this.activerouter.snapshot.paramMap.get('id');
+    let personaId: string | null = this.activerouter.snapshot.paramMap.get('id');
+
     this.api.getPersonaById(personaId).subscribe((data) => {
       this.editarForm.setValue({
         user: data.user,
@@ -48,8 +51,13 @@ export class EditarPersonasComponent implements OnInit {
         imageUrl: data.imageUrl,
         terminationDate: data.terminationDate,
       });
-
       console.log(this.editarForm.value)
     });
+  }
+
+  postForm(form: ListaPersonasI){
+    this.api.editarPersona(this.activerouter.snapshot.paramMap.get('id'), form).subscribe(data =>{
+      console.log(data)
+    })
   }
 }

@@ -1,80 +1,91 @@
-<form [formGroup]="editarForm">
-  <div class="form-group">
-    <input type="text" placeholder="name" formControlName="name" id="" />
-  </div>
+<form [formGroup]="editarForm" (ngSubmit)="postForm(editarForm.value)">
   <mat-card class="example-card">
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-title>Editar Persona</mat-card-title>
+    &nbsp;
     <mat-card-content>
-      <form class="example-form">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Company (disabled)</mat-label>
-          <input matInput disabled value="Google" />
-        </mat-form-field>
-  
-        <table class="example-full-width" cellspacing="0">
-          <tr>
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="user" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>First name</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Last name</mat-label>
+              <input matInput formControlName="surname" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
             <td>
               <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>First name</mat-label>
-                <input matInput formControlName="name" />
+                <mat-label>Personal Email</mat-label>
+                <input matInput formControlName="personalEmail" />
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Long Last Name That Will Be Truncated</mat-label>
-                <input matInput />
+                <mat-label>Company Email</mat-label>
+                <input matInput formControlName="companyEmail" />
               </mat-form-field>
             </td>
           </tr>
-        </table>
-  
-        <p>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Address</mat-label>
-            <textarea matInput placeholder="Ex. 100 Main St">
-  1600 Amphitheatre Pkwy</textarea
-            >
-          </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Address 2</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-        </p>
-  
-        <table class="example-full-width" cellspacing="0">
           <tr>
             <td>
               <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>City</mat-label>
-                <input matInput placeholder="Ex. San Francisco" />
+                <input matInput formControlName="city" />
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>State</mat-label>
-                <input matInput placeholder="Ex. California" />
+                <mat-label>Active</mat-label>
+                <input matInput formControlName="active" />
+              </mat-form-field>
+            </td>
+          </tr><tr>
+            <td>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Created Date</mat-label>
+                <input matInput formControlName="createdDate" />
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Postal Code</mat-label>
-                <input
-                  matInput
-                  #postalCode
-                  maxlength="5"
-                  placeholder="Ex. 94105"
-                  value="94043"
-                />
+                <mat-label>Termination Date</mat-label>
+                <input matInput formControlName="terminationDate" />
               </mat-form-field>
             </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Image Url</mat-label>
+                  <input matInput formControlName="imageUrl" />
+                </mat-form-field>
+              </td>
           </tr>
-        </table>
-      </form>
+    </table>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>GUARDAR</button>
-      <button mat-button color="warn">ELIMINAR</button>
+      <button mat-button type="submit">GUARDAR</button>
     </mat-card-actions>
     <mat-card-footer>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
