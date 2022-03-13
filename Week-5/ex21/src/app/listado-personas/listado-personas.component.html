@@ -9,6 +9,7 @@
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
+<button mat-raised-button color="primary" style="margin-left: 2%;" (click)="anadirPersona()">Añadir Persona</button>
 <table
   mat-table
   [dataSource]="personas"
@@ -74,6 +75,7 @@
             <button
               mat-mini-fab
               color="primary"
+              (click)="editarPersona(element.idPersona)"
             >
               <mat-icon>edit</mat-icon>
             </button>

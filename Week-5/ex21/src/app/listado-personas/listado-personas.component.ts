@@ -44,4 +44,12 @@ export class ListadoPersonasComponent implements OnInit {
       this.ngOnInit();
     })
   }
+
+  anadirPersona(){
+    console.log("se desea anadir persona")
+  }
+
+  editarPersona(id: number){
+    console.log("se desea editar persona " + id)
+  }
 }
