@@ -37,4 +37,9 @@ export class PersonasService {
     let direccion = this.url + "persona/" + id;
     return this.http.put<ListaPersonasI>(direccion, form);
   }
+
+  addPersona(form:ListaPersonasI ):Observable<ListaPersonasI>{
+    let direccion = this.url + "persona";
+    return this.http.post<ListaPersonasI>(direccion, form);
+  }
 }

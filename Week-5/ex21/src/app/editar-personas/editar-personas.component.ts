@@ -55,7 +55,7 @@ export class EditarPersonasComponent implements OnInit {
     });
   }
 
-  postForm(form: ListaPersonasI){
+putForm(form: ListaPersonasI){
     this.api.editarPersona(this.activerouter.snapshot.paramMap.get('id'), form).subscribe(data =>{
       console.log(data)
     })
