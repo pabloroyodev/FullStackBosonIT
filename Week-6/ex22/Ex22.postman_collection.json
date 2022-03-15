@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "913baf5f-ec89-4713-a04e-cbfd1d107784",
+		"name": "Ex22",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE persona",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"user\": \"usrPablo\",\r\n        \"password\": \"12345\",\r\n        \"name\": \"Pablo\",\r\n        \"surname\": \"Royo\",\r\n        \"companyEmail\": \"pabloEmpresa@sample.sample\",\r\n        \"personalEmail\": \"pabloPersonal@sample.sample\",\r\n        \"city\": \"Tudela\",\r\n        \"active\": true,\r\n        \"createdDate\": \"2012-09-16\",\r\n        \"imageUrl\": \"Not Found\",\r\n        \"terminationDate\": \"2012-09-16\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/persona",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET personas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pablo\",\r\n    \"ciudad\": \"Tudela\",\r\n    \"edad\": \"9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/persona",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET persona by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/persona/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET persona by USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/persona/usrPablo/usuario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona",
+						"usrPablo",
+						"usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE persona by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/persona/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDITAR persona",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"usrJose\",\r\n    \"password\": \"12345\",\r\n    \"name\": \"Jose\",\r\n    \"surname\": \"Royo\",\r\n    \"companyEmail\": \"joseEmpresa@sample.sample\",\r\n    \"personalEmail\": \"josePersonal@sample.sample\",\r\n    \"city\": \"Tudela\",\r\n    \"active\": true,\r\n    \"createdDate\": \"2012-09-16\",\r\n    \"imageUrl\": \"Not Found\",\r\n    \"terminationDate\": \"2012-09-16\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/persona/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH persona",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"usrJose\",\r\n    \"password\": \"12345\",\r\n    \"name\": \"Jose\",\r\n    \"active\": true,\r\n    \"createdDate\": \"2012-09-16\",\r\n    \"imageUrl\": \"Not Found\",\r\n    \"terminationDate\": \"2012-09-16\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/persona/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"persona",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
