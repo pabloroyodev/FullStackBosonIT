@@ -47,7 +47,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public PersonaInputDto addPersona(PersonaInputDto personaInputDto) throws Exception {
+    public PersonaOutputDto addPersona(PersonaInputDto personaInputDto) throws Exception {
 
         if (utils.checkLengthUsr(personaInputDto)) {
             throw new Exception("La longitud del usuario ha de estar entre 6 y 10");
@@ -60,8 +60,8 @@ public class PersonaServiceImpl implements PersonaService {
 
         Persona persona = personaInputDtoToEntity(personaInputDto);
         personaRepositorio.saveAndFlush(persona);
-
-        return personaInputDto;
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate());
+        return personaOutputDto;
     }
 
     @Override

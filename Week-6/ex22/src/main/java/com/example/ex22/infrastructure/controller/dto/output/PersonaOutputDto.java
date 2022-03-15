@@ -1,7 +1,5 @@
 package com.example.ex22.infrastructure.controller.dto.output;
 
-import com.example.ex22.domain.Persona;
-
 import java.time.LocalDate;
 
 public record PersonaOutputDto (
