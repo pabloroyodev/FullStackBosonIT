@@ -23,11 +23,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public List<PersonaOutputDto> getAllPersonas() {
         List<Persona> personas = personaRepositorio.findAll();
-        /*List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
-        for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
-        }*/
-        List<PersonaOutputDto> personasOutputDto = personas.stream().map(p -> new PersonaOutputDto(p)).collect(Collectors.toList());
+        List<PersonaOutputDto> personasOutputDto = personas.stream().map(persona -> new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate())).collect(Collectors.toList());
         return personasOutputDto;
     }
 
@@ -35,7 +31,7 @@ public class PersonaServiceImpl implements PersonaService {
     public PersonaOutputDto filterPersonaById(int id) throws Exception {
         Persona persona =
                 personaRepositorio.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that ID"));
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate());
         return personaOutputDto;
     }
 
@@ -45,7 +41,7 @@ public class PersonaServiceImpl implements PersonaService {
         if (personas.size() == 0) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that user");
         List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
         for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
+            personasOutputDto.add(new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate()));
         }
         return personasOutputDto;
     }
@@ -56,9 +52,9 @@ public class PersonaServiceImpl implements PersonaService {
         if (utils.checkLengthUsr(personaInputDto)) {
             throw new Exception("La longitud del usuario ha de estar entre 6 y 10");
         }
-        if (personaInputDto.getPassword() == null || personaInputDto.getName() == null || personaInputDto.getCompanyEmail() == null
-            || personaInputDto.getPersonalEmail() == null || personaInputDto.getCity() == null || personaInputDto.getActive() == null
-            || personaInputDto.getCreatedDate() == null) {
+        if (personaInputDto.password() == null || personaInputDto.name() == null || personaInputDto.companyEmail() == null
+            || personaInputDto.personalEmail() == null || personaInputDto.city() == null || personaInputDto.active() == null
+            || personaInputDto.createdDate() == null) {
             throw new Exception("Todos los campos son necesarios");
         }
 
@@ -75,26 +71,26 @@ public class PersonaServiceImpl implements PersonaService {
                         .findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
 
-        if (personaInputDto.getUser() != null) {
+        if (personaInputDto.user() != null) {
             if (utils.checkLengthUsr(personaInputDto)) {
                 throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
             }
 
-            persona.setUser(personaInputDto.getUser());
-            persona.setPassword(personaInputDto.getPassword());
-            persona.setName(personaInputDto.getName());
-            persona.setSurname(personaInputDto.getSurname());
-            persona.setCompanyEmail(personaInputDto.getCompanyEmail());
-            persona.setPersonalEmail(personaInputDto.getPersonalEmail());
-            persona.setCity(personaInputDto.getCity());
-            persona.setActive(personaInputDto.getActive());
-            persona.setCreatedDate(personaInputDto.getCreatedDate());
-            persona.setImageUrl(personaInputDto.getImageUrl());
-            persona.setTerminationDate(personaInputDto.getTerminationDate());
+            persona.setUser(personaInputDto.user());
+            persona.setPassword(personaInputDto.password());
+            persona.setName(personaInputDto.name());
+            persona.setSurname(personaInputDto.surname());
+            persona.setCompanyEmail(personaInputDto.companyEmail());
+            persona.setPersonalEmail(personaInputDto.personalEmail());
+            persona.setCity(personaInputDto.city());
+            persona.setActive(personaInputDto.active());
+            persona.setCreatedDate(personaInputDto.createdDate());
+            persona.setImageUrl(personaInputDto.imageUrl());
+            persona.setTerminationDate(personaInputDto.terminationDate());
         }
 
         personaRepositorio.saveAndFlush(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate());
         return personaOutputDto;
     }
 
@@ -105,55 +101,55 @@ public class PersonaServiceImpl implements PersonaService {
                         .findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
 
-        if (personaInputDto.getUser() != null) {
+        if (personaInputDto.user() != null) {
         if (utils.checkLengthUsr(personaInputDto)) {
                 throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
             }
-            persona.setUser(personaInputDto.getUser());
+            persona.setUser(personaInputDto.user());
         }
 
-        if (personaInputDto.getPassword() != null) {
-            persona.setPassword(personaInputDto.getPassword());
+        if (personaInputDto.password() != null) {
+            persona.setPassword(personaInputDto.password());
         }
 
-        if (personaInputDto.getName() != null) {
-            persona.setName(personaInputDto.getName());
+        if (personaInputDto.name() != null) {
+            persona.setName(personaInputDto.name());
         }
 
-        if (personaInputDto.getSurname() != null) {
-            persona.setSurname(personaInputDto.getSurname());
+        if (personaInputDto.surname() != null) {
+            persona.setSurname(personaInputDto.surname());
         }
 
-        if (personaInputDto.getCompanyEmail() != null) {
-            persona.setCompanyEmail(personaInputDto.getCompanyEmail());
+        if (personaInputDto.companyEmail() != null) {
+            persona.setCompanyEmail(personaInputDto.companyEmail());
         }
 
-        if (personaInputDto.getPersonalEmail() != null) {
-            persona.setPersonalEmail(personaInputDto.getPersonalEmail());
+        if (personaInputDto.personalEmail() != null) {
+            persona.setPersonalEmail(personaInputDto.personalEmail());
         }
 
-        if (personaInputDto.getCity() != null) {
-            persona.setCity(personaInputDto.getCity());
+        if (personaInputDto.city() != null) {
+            persona.setCity(personaInputDto.city());
         }
 
-        if (personaInputDto.getActive() != null) {
-            persona.setActive(personaInputDto.getActive());
+        if (personaInputDto.active() != null) {
+            persona.setActive(personaInputDto.active());
         }
 
-        if (personaInputDto.getCreatedDate() != null) {
-            persona.setCreatedDate(personaInputDto.getCreatedDate());
+        if (personaInputDto.createdDate() != null) {
+            persona.setCreatedDate(personaInputDto.createdDate());
         }
 
-        if (personaInputDto.getImageUrl() != null) {
-            persona.setImageUrl(personaInputDto.getImageUrl());
+        if (personaInputDto.imageUrl() != null) {
+            persona.setImageUrl(personaInputDto.imageUrl());
         }
 
-        if (personaInputDto.getTerminationDate() != null) {
-            persona.setTerminationDate(personaInputDto.getTerminationDate());
+        if (personaInputDto.terminationDate() != null) {
+            persona.setTerminationDate(personaInputDto.terminationDate());
         }
 
         personaRepositorio.saveAndFlush(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate());
         return personaOutputDto;
     }
 
@@ -167,35 +163,35 @@ public class PersonaServiceImpl implements PersonaService {
 
     private Persona personaOutputDtoToEntity(PersonaOutputDto personaOutputDto) {
         Persona persona = new Persona();
-        persona.setIdPersona(personaOutputDto.getIdPersona());
-        persona.setUser(personaOutputDto.getUser());
-        persona.setPassword(personaOutputDto.getPassword());
-        persona.setName(personaOutputDto.getName());
-        persona.setSurname(personaOutputDto.getSurname());
-        persona.setCompanyEmail(personaOutputDto.getCompanyEmail());
-        persona.setPersonalEmail(personaOutputDto.getPersonalEmail());
-        persona.setCity(personaOutputDto.getCity());
-        persona.setActive(personaOutputDto.getActive());
-        persona.setCreatedDate(personaOutputDto.getCreatedDate());
-        persona.setImageUrl(personaOutputDto.getImageUrl());
-        persona.setTerminationDate(personaOutputDto.getTerminationDate());
+        persona.setIdPersona(personaOutputDto.idPersona());
+        persona.setUser(personaOutputDto.user());
+        persona.setPassword(personaOutputDto.password());
+        persona.setName(personaOutputDto.name());
+        persona.setSurname(personaOutputDto.surname());
+        persona.setCompanyEmail(personaOutputDto.companyEmail());
+        persona.setPersonalEmail(personaOutputDto.personalEmail());
+        persona.setCity(personaOutputDto.city());
+        persona.setActive(personaOutputDto.active());
+        persona.setCreatedDate(personaOutputDto.createdDate());
+        persona.setImageUrl(personaOutputDto.imageUrl());
+        persona.setTerminationDate(personaOutputDto.terminationDate());
 
         return persona;
     }
 
     private Persona personaInputDtoToEntity(PersonaInputDto personaInputDto) {
         Persona persona = new Persona();
-        persona.setUser(personaInputDto.getUser());
-        persona.setPassword(personaInputDto.getPassword());
-        persona.setName(personaInputDto.getName());
-        persona.setSurname(personaInputDto.getSurname());
-        persona.setCompanyEmail(personaInputDto.getCompanyEmail());
-        persona.setPersonalEmail(personaInputDto.getPersonalEmail());
-        persona.setCity(personaInputDto.getCity());
-        persona.setActive(personaInputDto.getActive());
-        persona.setCreatedDate(personaInputDto.getCreatedDate());
-        persona.setImageUrl(personaInputDto.getImageUrl());
-        persona.setTerminationDate(personaInputDto.getTerminationDate());
+        persona.setUser(personaInputDto.user());
+        persona.setPassword(personaInputDto.password());
+        persona.setName(personaInputDto.name());
+        persona.setSurname(personaInputDto.surname());
+        persona.setCompanyEmail(personaInputDto.companyEmail());
+        persona.setPersonalEmail(personaInputDto.personalEmail());
+        persona.setCity(personaInputDto.city());
+        persona.setActive(personaInputDto.active());
+        persona.setCreatedDate(personaInputDto.createdDate());
+        persona.setImageUrl(personaInputDto.imageUrl());
+        persona.setTerminationDate(personaInputDto.terminationDate());
 
         return persona;
     }
