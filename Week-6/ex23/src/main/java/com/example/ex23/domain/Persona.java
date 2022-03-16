@@ -2,6 +2,7 @@ package com.example.ex23.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,12 +34,14 @@ public class Persona {
 
     private Boolean active;
 
-    @Column(name = "created_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Column(name = "createdDate")
     private LocalDate createdDate;
 
     @Column(name = "imagen_url")
     private String imageUrl;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "termination_date")
     private LocalDate terminationDate;
 }

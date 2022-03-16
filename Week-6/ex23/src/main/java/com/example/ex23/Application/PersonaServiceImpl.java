@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +45,41 @@ public class PersonaServiceImpl implements PersonaService {
         for (Persona persona : personas) {
             personasOutputDto.add(new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate()));
         }
+        return personasOutputDto;
+    }
+
+    @Override
+    public List<PersonaOutputDto> filterPersonaByCriteria(String user, String name, String surname, LocalDate createdDate, String dateCondition, String order, Integer page) {
+        HashMap<String, Object> data=new HashMap<>();
+
+        if (user!=null)
+            data.put("user",user);
+        if (name!=null)
+            data.put("name",name);
+        if (surname!=null)
+            data.put("surname",surname);
+        if (dateCondition==null)
+            dateCondition="greater";
+        if (!dateCondition.equals("greater") && !dateCondition.equals("less") && !dateCondition.equals("equal"))
+            dateCondition="greater";
+        if (createdDate!=null)
+        {
+            data.put("createdDate",createdDate);
+            data.put("dateCondition",dateCondition);
+        }
+        if (order!=null)
+            data.put("order",order);
+        if (page!=null)
+            data.put("page", page);
+
+
+        List <Persona> personas = personaRepositorio.filterPersonaByCriteria(data);
+        List <PersonaOutputDto> personasOutputDto = new ArrayList<>();
+
+        for(Persona persona : personas){
+            personasOutputDto.add(new PersonaOutputDto(persona.getIdPersona(), persona.getUser(),persona.getPassword(), persona.getName(), persona.getSurname(), persona.getCompanyEmail(), persona.getPersonalEmail(),persona.getCity(), persona.getActive(), persona.getCreatedDate(),persona.getImageUrl(), persona.getTerminationDate()));
+        }
+
         return personasOutputDto;
     }
 
