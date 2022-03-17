@@ -47,7 +47,7 @@ Timeline of the learning path divided in weeks.
 
 ### Week 6 (14-03 to 18-03) - [ NIVEL AVANZADO ]
 - [JVA2 - Uso de Records en Java 17](./Week-6/ex22)
-
+- [DBA1 - Criteria Builder](./Week-6/ex23)
 # FRONTEND SECTION
 
 ### Week 5 (07-03 to 11-03)
