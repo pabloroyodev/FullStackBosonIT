@@ -1,6 +1,7 @@
 package com.example.ex24.infrastructure.controller;
 
 import com.example.ex24.Application.PersonaService;
+import com.example.ex24.domain.Persona;
 import com.example.ex24.infrastructure.controller.dto.output.PersonaOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +24,12 @@ public class ReadPersonaController {
     }
 
     @GetMapping("{id}")
-    public PersonaOutputDto getPersonaById(@PathVariable Integer id) throws Exception {
+    public PersonaOutputDto getPersonaById(@PathVariable String id) throws Exception {
         return personaService.filterPersonaById(id);
     }
 
     @GetMapping("/{usuario}/usuario")
-    public List<PersonaOutputDto> getPersonaByUsuario(@PathVariable String usuario){
+    public List<Persona> getPersonaByUsuario(@PathVariable String usuario){
         return personaService.filterPersonaByUser(usuario);
     }
 }

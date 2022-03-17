@@ -5,12 +5,13 @@ import com.example.ex24.exceptions.NotFoundException;
 import com.example.ex24.exceptions.UnprocesableException;
 import com.example.ex24.infrastructure.controller.dto.input.PersonaInputDto;
 import com.example.ex24.infrastructure.controller.dto.output.PersonaOutputDto;
-import com.example.ex24.infrastructure.repository.jpa.PersonaRepositorio;
 import com.example.ex24.utils.utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,38 +19,28 @@ import java.util.stream.Collectors;
 public class PersonaServiceImpl implements PersonaService {
 
     @Autowired
-    PersonaRepositorio personaRepositorio;
+    MongoTemplate mongoTemplate;
 
     @Override
     public List<PersonaOutputDto> getAllPersonas() {
-        List<Persona> personas = personaRepositorio.findAll();
-        /* MODO ANTIGUO DE ITERAR EN TODA LA LISTA DE PERSONAS:
-        List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
-        for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
-        }
-        NUEVO MODO DE ITERAR:*/
+        List<Persona> personas = mongoTemplate.findAll(Persona.class);
         List<PersonaOutputDto> personasOutputDto = personas.stream().map(p -> new PersonaOutputDto(p)).collect(Collectors.toList());
         return personasOutputDto;
     }
 
     @Override
-    public PersonaOutputDto filterPersonaById(int id) throws Exception {
-        Persona persona =
-                personaRepositorio.findById(id).orElseThrow(() -> new NotFoundException(id + "not found."));
+    public PersonaOutputDto filterPersonaById(String id) throws NotFoundException {
+        Persona persona = mongoTemplate.findById(id,Persona.class);
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
 
     @Override
-    public List<PersonaOutputDto> filterPersonaByUser(String user) {
-        List<Persona> personas = personaRepositorio.findByUser(user);
-        if (personas.size() == 0) throw new NotFoundException(user + "not found.");
-        List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
-        for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
-        }
-        return personasOutputDto;
+    public List<Persona> filterPersonaByUser(String user) {
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user));
+        return mongoTemplate.find(query, Persona.class);
     }
 
     @Override
@@ -65,17 +56,13 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         Persona persona = personaInputDtoToEntity(personaInputDto);
-        personaRepositorio.saveAndFlush(persona);
-
+        mongoTemplate.save(persona);
         return personaInputDto;
     }
 
     @Override
-    public PersonaOutputDto updatePersona(Integer id, PersonaInputDto personaInputDto) throws Exception {
-        Persona persona =
-                personaRepositorio
-                        .findById(id)
-                        .orElseThrow(() -> new UnprocesableException(id + " not found"));
+    public PersonaOutputDto updatePersona(String id, PersonaInputDto personaInputDto) throws NotFoundException {
+        Persona persona = mongoTemplate.findById(id, Persona.class);
 
         if (personaInputDto.getUser() != null) {
             if (utils.checkLengthUsr(personaInputDto)) {
@@ -95,76 +82,15 @@ public class PersonaServiceImpl implements PersonaService {
             persona.setTerminationDate(personaInputDto.getTerminationDate());
         }
 
-        personaRepositorio.saveAndFlush(persona);
+        mongoTemplate.save(persona);
         PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
         return personaOutputDto;
     }
 
     @Override
-    public PersonaOutputDto updatePatchPersona(Integer id, PersonaInputDto personaInputDto) throws Exception {
-        Persona persona =
-                personaRepositorio
-                        .findById(id)
-                        .orElseThrow(() -> new UnprocesableException(id + " not found"));
-
-        if (personaInputDto.getUser() != null) {
-        if (utils.checkLengthUsr(personaInputDto)) {
-                throw new UnprocesableException("La longitud del usuario no está entre 6 y 10");
-            }
-            persona.setUser(personaInputDto.getUser());
-        }
-
-        if (personaInputDto.getPassword() != null) {
-            persona.setPassword(personaInputDto.getPassword());
-        }
-
-        if (personaInputDto.getName() != null) {
-            persona.setName(personaInputDto.getName());
-        }
-
-        if (personaInputDto.getSurname() != null) {
-            persona.setSurname(personaInputDto.getSurname());
-        }
-
-        if (personaInputDto.getCompanyEmail() != null) {
-            persona.setCompanyEmail(personaInputDto.getCompanyEmail());
-        }
-
-        if (personaInputDto.getPersonalEmail() != null) {
-            persona.setPersonalEmail(personaInputDto.getPersonalEmail());
-        }
-
-        if (personaInputDto.getCity() != null) {
-            persona.setCity(personaInputDto.getCity());
-        }
-
-        if (personaInputDto.getActive() != null) {
-            persona.setActive(personaInputDto.getActive());
-        }
-
-        if (personaInputDto.getCreatedDate() != null) {
-            persona.setCreatedDate(personaInputDto.getCreatedDate());
-        }
-
-        if (personaInputDto.getImageUrl() != null) {
-            persona.setImageUrl(personaInputDto.getImageUrl());
-        }
-
-        if (personaInputDto.getTerminationDate() != null) {
-            persona.setTerminationDate(personaInputDto.getTerminationDate());
-        }
-
-        personaRepositorio.saveAndFlush(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-        return personaOutputDto;
-    }
-
-    @Override
-    public void deletePersona(Integer id) throws Exception {
-        personaRepositorio.delete(
-                personaRepositorio
-                        .findById(id)
-                        .orElseThrow(() -> new UnprocesableException(id + " not found")));
+    public void deletePersona(String id) throws UnprocesableException {
+        Persona persona = mongoTemplate.findById(id, Persona.class);
+        mongoTemplate.remove(persona);
     }
 
     private Persona personaOutputDtoToEntity(PersonaOutputDto personaOutputDto) {

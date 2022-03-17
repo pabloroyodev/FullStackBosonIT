@@ -14,7 +14,7 @@ public class UpdatePersonaController {
     PersonaService personaService;
 
     @PutMapping("{id}")
-    public PersonaOutputDto updatePersona(@PathVariable Integer id, @RequestBody PersonaInputDto personaInputDto) throws Exception {
+    public PersonaOutputDto updatePersona(@PathVariable String id, @RequestBody PersonaInputDto personaInputDto) throws Exception {
 
         return personaService.updatePersona(id, personaInputDto);
 

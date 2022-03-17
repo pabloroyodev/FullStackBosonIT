@@ -1,6 +1,6 @@
 package com.example.ex24.infrastructure.controller;
 
-import com.example.ex24.Application.PersonaService;
+import com.example.ex24.Application.PersonaServiceImpl;
 import com.example.ex24.infrastructure.controller.dto.input.PersonaInputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreatePersonaController {
 
     @Autowired
-    PersonaService personaService;
+    PersonaServiceImpl personaServiceimpl;
 
     @PostMapping
     public PersonaInputDto addPersona(@RequestBody PersonaInputDto personaInputDto) throws Exception {
-        return personaService.addPersona(personaInputDto);
+        return personaServiceimpl.addPersona(personaInputDto);
     }
 }

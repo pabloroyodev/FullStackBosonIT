@@ -3,17 +3,16 @@ package com.example.ex24.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
-@Entity
+@Document(collection = "Persona")
 @Data
 @NoArgsConstructor
 public class Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_persona")
-    private Integer idPersona;
+    private String idPersona;
 
     private String user;
 
@@ -23,22 +22,17 @@ public class Persona {
 
     private String surname;
 
-    @Column(name = "company_email")
     private String companyEmail;
 
-    @Column(name = "personal_email")
     private String personalEmail;
 
     private String city;
 
     private Boolean active;
 
-    @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @Column(name = "imagen_url")
     private String imageUrl;
 
-    @Column(name = "termination_date")
     private LocalDate terminationDate;
 }

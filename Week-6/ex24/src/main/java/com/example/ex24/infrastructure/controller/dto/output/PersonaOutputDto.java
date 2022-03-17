@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class PersonaOutputDto implements Serializable {
-    private Integer idPersona;
+    private String idPersona;
     private String user;
     private String password;
     private String name;

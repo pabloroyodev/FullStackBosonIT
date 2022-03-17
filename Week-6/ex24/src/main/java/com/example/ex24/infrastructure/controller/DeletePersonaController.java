@@ -15,7 +15,7 @@ public class DeletePersonaController {
     PersonaService personaService;
 
     @DeleteMapping("{id}")
-    public void deletePersona(@PathVariable Integer id) throws Exception {
+    public void deletePersona(@PathVariable String id) throws Exception {
         personaService.deletePersona(id);
     }
 }
