@@ -48,7 +48,7 @@ Timeline of the learning path divided in weeks.
 ### Week 6 (14-03 to 18-03) - [ NIVEL AVANZADO ]
 - [JVA2 - Uso de Records en Java 17](./Week-6/ex22)
 - [DBA1 - Criteria Builder](./Week-6/ex23)
-- [DBA3 - Personas MongoDB](./Week-6/ex24)
+- [DBA2 - Personas MongoDB](./Week-6/ex24)
 - - [Documento de implementacion MongoDB](./Week-6/ex24/MongoDB.pdf)
 # FRONTEND SECTION
 
