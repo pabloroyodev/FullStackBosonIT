@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "0724d359-fe65-47ce-b1f3-7e7f374de1c5",
+		"name": "ex25",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get allFiles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080",
+					"host": [
+						"localhost"
+					],
+					"port": "8080"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/pablo.royo/Desktop/testSubida1.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/download/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"download",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/testSubida1.txt/download",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testSubida1.txt",
+						"download"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
