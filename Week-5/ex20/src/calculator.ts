@@ -59,41 +59,36 @@ let refrescarPantalla = () => {
 }
 
 //Listeners y definicion de los selectores del HTML
-const numero = document.querySelectorAll("[boton]")
-const operacion = document.querySelectorAll("[boton-operacion]")
-const igual = document.querySelectorAll("[boton-igual]")
-const limpiar = document.querySelectorAll("[boton-limpiar]")
+const numero = <NodeListOf<HTMLButtonElement>>document.querySelectorAll("[boton]")
+const operacion = <NodeListOf<HTMLButtonElement>>document.querySelectorAll("[boton-operacion]")
+const igual = <NodeListOf<HTMLButtonElement>>document.querySelectorAll("[boton-igual]")
+const limpiar = <NodeListOf<HTMLButtonElement>>document.querySelectorAll("[boton-limpiar]")
 let valorPantalla: any = document.querySelector("[pantalla]")
 
-numero.forEach((button) => {
+numero.forEach((button: HTMLButtonElement) => {
   button.addEventListener("click", () => {
     anadirNumero(button.innerText)
     refrescarPantalla()
   })
 })
 
-operacion.forEach((button) => {
+operacion.forEach((button: HTMLButtonElement) => {
   button.addEventListener("click", () => {
     elegirOperacion(button.innerText)
     refrescarPantalla()
   })
 })
 
-igual.forEach((button) => {
+igual.forEach((button: HTMLButtonElement) => {
   button.addEventListener("click", () => {
     calcular()
     refrescarPantalla()
   })
 })
 
-limpiar.forEach((button) => {
+limpiar.forEach((button: HTMLButtonElement) => {
   button.addEventListener("click", () => {
     limpiaVariables()
     refrescarPantalla()
   })
 })
-
-//Parche para que no salte el error de que la propiedad innerText no tiene tipo.
-interface InnerHTML {
-  innerText: string
-}
