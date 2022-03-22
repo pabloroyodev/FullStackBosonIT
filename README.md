@@ -50,6 +50,10 @@ Timeline of the learning path divided in weeks.
 - [DBA1 - Criteria Builder](./Week-6/ex23)
 - [DBA2 - Personas MongoDB](./Week-6/ex24)
 - - [Documento de implementacion MongoDB](./Week-6/ex24/MongoDB.pdf)
+
+### Week 7 (21-03 to 25-03)
+- [SA2 - Subir archivos a Spring](./Week-7/ex25)
+
 # FRONTEND SECTION
 
 ### Week 5 (07-03 to 11-03)
