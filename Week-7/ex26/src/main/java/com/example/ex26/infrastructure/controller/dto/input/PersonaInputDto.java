@@ -1,6 +1,7 @@
 package com.example.ex26.infrastructure.controller.dto.input;
 
 import com.example.ex26.domain.Persona;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PersonaInputDto implements Serializable {
     private String user;
     private String password;
@@ -24,7 +26,6 @@ public class PersonaInputDto implements Serializable {
 
     public PersonaInputDto(Persona persona){
         if (persona == null) {
-            System.out.println("La clase persona del input esta incompleta");
             return;
         }
 

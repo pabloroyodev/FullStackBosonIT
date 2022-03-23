@@ -25,7 +25,6 @@ public class PersonaOutputDto implements Serializable {
 
     public PersonaOutputDto(Persona persona){
         if (persona == null) {
-            System.out.println("La clase persona del output esta incompleta");
             return;
         }
         setIdPersona(persona.getIdPersona());

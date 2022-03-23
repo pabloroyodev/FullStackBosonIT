@@ -23,26 +23,21 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public List<PersonaOutputDto> getAllPersonas() {
         List<Persona> personas = personaRepositorio.findAll();
-        /*List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
-        for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
-        }*/
         List<PersonaOutputDto> personasOutputDto = personas.stream().map(p -> new PersonaOutputDto(p)).collect(Collectors.toList());
         return personasOutputDto;
     }
 
     @Override
-    public PersonaOutputDto filterPersonaById(int id) throws Exception {
+    public PersonaOutputDto filterPersonaById(int id) {
         Persona persona =
                 personaRepositorio.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that ID"));
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-        return personaOutputDto;
+        return new PersonaOutputDto(persona);
     }
 
     @Override
     public List<PersonaOutputDto> filterPersonaByUser(String user) {
         List<Persona> personas = personaRepositorio.findByUser(user);
-        if (personas.size() == 0) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that user");
+        if (personas.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No person with that user");
         List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
         for (Persona persona : personas) {
             personasOutputDto.add(new PersonaOutputDto(persona));
@@ -51,7 +46,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public PersonaInputDto addPersona(PersonaInputDto personaInputDto) throws Exception {
+    public PersonaOutputDto addPersona(PersonaInputDto personaInputDto) throws Exception {
 
         if (utils.checkLengthUsr(personaInputDto)) {
             throw new Exception("La longitud del usuario ha de estar entre 6 y 10");
@@ -63,9 +58,10 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         Persona persona = personaInputDtoToEntity(personaInputDto);
-        personaRepositorio.saveAndFlush(persona);
+        personaRepositorio.save(persona);
+        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
 
-        return personaInputDto;
+        return personaOutputDto;
     }
 
     @Override
@@ -94,67 +90,7 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         personaRepositorio.saveAndFlush(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-        return personaOutputDto;
-    }
-
-    @Override
-    public PersonaOutputDto updatePatchPersona(Integer id, PersonaInputDto personaInputDto) throws Exception {
-        Persona persona =
-                personaRepositorio
-                        .findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID"));
-
-        if (personaInputDto.getUser() != null) {
-        if (utils.checkLengthUsr(personaInputDto)) {
-                throw new Exception("La longitud del nombre de usuario no está entre 6 y 10");
-            }
-            persona.setUser(personaInputDto.getUser());
-        }
-
-        if (personaInputDto.getPassword() != null) {
-            persona.setPassword(personaInputDto.getPassword());
-        }
-
-        if (personaInputDto.getName() != null) {
-            persona.setName(personaInputDto.getName());
-        }
-
-        if (personaInputDto.getSurname() != null) {
-            persona.setSurname(personaInputDto.getSurname());
-        }
-
-        if (personaInputDto.getCompanyEmail() != null) {
-            persona.setCompanyEmail(personaInputDto.getCompanyEmail());
-        }
-
-        if (personaInputDto.getPersonalEmail() != null) {
-            persona.setPersonalEmail(personaInputDto.getPersonalEmail());
-        }
-
-        if (personaInputDto.getCity() != null) {
-            persona.setCity(personaInputDto.getCity());
-        }
-
-        if (personaInputDto.getActive() != null) {
-            persona.setActive(personaInputDto.getActive());
-        }
-
-        if (personaInputDto.getCreatedDate() != null) {
-            persona.setCreatedDate(personaInputDto.getCreatedDate());
-        }
-
-        if (personaInputDto.getImageUrl() != null) {
-            persona.setImageUrl(personaInputDto.getImageUrl());
-        }
-
-        if (personaInputDto.getTerminationDate() != null) {
-            persona.setTerminationDate(personaInputDto.getTerminationDate());
-        }
-
-        personaRepositorio.saveAndFlush(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-        return personaOutputDto;
+        return new PersonaOutputDto(persona);
     }
 
     @Override
@@ -165,7 +101,7 @@ public class PersonaServiceImpl implements PersonaService {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No person with that ID")));
     }
 
-    private Persona personaOutputDtoToEntity(PersonaOutputDto personaOutputDto) {
+    Persona personaOutputDtoToEntity(PersonaOutputDto personaOutputDto) {
         Persona persona = new Persona();
         persona.setIdPersona(personaOutputDto.getIdPersona());
         persona.setUser(personaOutputDto.getUser());

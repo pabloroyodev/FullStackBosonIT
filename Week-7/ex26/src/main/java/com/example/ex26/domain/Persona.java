@@ -1,5 +1,6 @@
 package com.example.ex26.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
