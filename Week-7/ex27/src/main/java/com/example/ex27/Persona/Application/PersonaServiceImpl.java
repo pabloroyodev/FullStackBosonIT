@@ -180,6 +180,7 @@ public class PersonaServiceImpl implements PersonaService {
         persona.setCreatedDate(personaInputDto.getCreatedDate());
         persona.setImageUrl(personaInputDto.getImageUrl());
         persona.setTerminationDate(personaInputDto.getTerminationDate());
+        persona.setAdmin(personaInputDto.getAdmin());
 
         return persona;
     }

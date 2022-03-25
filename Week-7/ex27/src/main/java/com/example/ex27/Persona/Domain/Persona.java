@@ -2,15 +2,14 @@ package com.example.ex27.Persona.Domain;
 
 import com.example.ex27.Profesor.Domain.Profesor;
 import com.example.ex27.Student.Domain.Student;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Data
-@NoArgsConstructor
+@Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,4 +50,6 @@ public class Persona {
     //Una persona tiene asignado un profesor (o estudiante)
     @OneToOne(mappedBy = "persona", fetch = FetchType.LAZY)
     private Profesor profesor;
+
+    private Boolean admin;
 }

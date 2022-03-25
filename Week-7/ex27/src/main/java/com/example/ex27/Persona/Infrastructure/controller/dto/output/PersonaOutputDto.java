@@ -22,6 +22,7 @@ public class PersonaOutputDto implements Serializable {
     private LocalDate createdDate;
     private String imageUrl;
     private LocalDate terminationDate;
+    private Boolean admin;
 
     public PersonaOutputDto(Persona persona){
         if (persona == null) {
@@ -40,5 +41,6 @@ public class PersonaOutputDto implements Serializable {
         setCreatedDate(persona.getCreatedDate());
         setImageUrl(persona.getImageUrl());
         setTerminationDate(persona.getTerminationDate());
+        setAdmin(persona.getAdmin());
     }
 }
