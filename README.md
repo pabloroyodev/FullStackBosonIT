@@ -55,6 +55,7 @@ Timeline of the learning path divided in weeks.
 - [SA2 - Subir archivos a Spring](./Week-7/ex25)
 - [EJTE-1 - Testing con SonarQube](./Week-7/ex26)
 - [EJS3-1 - Autorizacion y Autenticacion](./Week-7/ex27)
+- [EJKA-1 - Kafka recibir y enviar mensajes](./Week-7/ex28)
 
 # FRONTEND SECTION
 
