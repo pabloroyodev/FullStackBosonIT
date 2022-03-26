@@ -3,6 +3,7 @@ package com.example.ex27.Persona.Infrastructure.controller;
 import com.example.ex27.Persona.Application.PersonaService;
 import com.example.ex27.Persona.Infrastructure.controller.dto.output.PersonaOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class ReadPersonaController {
     }
 
     @GetMapping("/{usuario}/usuario")
-    public List<PersonaOutputDto> getPersonaByUsuario(@PathVariable String usuario){
-        return personaService.filterPersonaByUser(usuario);
+    public UserDetails getPersonaByUsuario(@PathVariable String usuario){
+        return personaService.loadUserByUsername(usuario);
     }
 }

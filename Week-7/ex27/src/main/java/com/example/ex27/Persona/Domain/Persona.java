@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
@@ -51,5 +52,6 @@ public class Persona {
     @OneToOne(mappedBy = "persona", fetch = FetchType.LAZY)
     private Profesor profesor;
 
+    @NotNull
     private Boolean admin;
 }

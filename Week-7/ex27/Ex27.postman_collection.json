@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "107d5658-3df2-4294-b5c2-dd16dcf70dfb",
-		"name": "Ex13",
+		"_postman_id": "095f5fe0-f522-4b7e-b51e-98c424100778",
+		"name": "Ex27",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -9,13 +9,19 @@
 			"name": "Persona",
 			"item": [
 				{
-					"name": "CREATE persona",
+					"name": "CREATE persona RANGO ADMIN",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pUGFibG8iLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcGVyc29uYS9sb2dpbiIsImV4cCI6MTY0ODI4NzU0Nn0.5OEa_TbqXb4Vd062al6GFxqELseM3aApHmYPZW9GZeU",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"user\": \"usrPablo\",\r\n        \"password\": \"12345\",\r\n        \"name\": \"Pablo\",\r\n        \"surname\": \"Royo\",\r\n        \"companyEmail\": \"pabloEmpresa@sample.sample\",\r\n        \"personalEmail\": \"pabloPersonal@sample.sample\",\r\n        \"city\": \"Tudela\",\r\n        \"active\": true,\r\n        \"createdDate\": \"2012-09-16\",\r\n        \"imageUrl\": \"Not Found\",\r\n        \"terminationDate\": \"2012-09-16\"\r\n}",
+							"raw": "{\r\n        \"user\": \"usrPablo\",\r\n        \"password\": \"12345\",\r\n        \"name\": \"Pablo\",\r\n        \"surname\": \"Royo\",\r\n        \"companyEmail\": \"pabloEmpresa@sample.sample\",\r\n        \"personalEmail\": \"pabloPersonal@sample.sample\",\r\n        \"city\": \"Tudela\",\r\n        \"active\": true,\r\n        \"createdDate\": \"2012-09-16\",\r\n        \"imageUrl\": \"Not Found\",\r\n        \"terminationDate\": \"2012-09-16\",\r\n        \"admin\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -37,13 +43,90 @@
 					"response": []
 				},
 				{
-					"name": "GET personas",
+					"name": "GET personas RANGO ADMIN",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pUGFibG8iLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcGVyc29uYS9sb2dpbiIsImV4cCI6MTY0ODI4Njg0N30.iBRAE9ybYwHznpM7maMwqWlmECVHS1oq9dSPPeGKkCc",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Pablo\",\r\n    \"ciudad\": \"Tudela\",\r\n    \"edad\": \"9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/persona",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE persona RANGO USUARIO",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3JQYWJsbyIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3BlcnNvbmEvbG9naW4iLCJleHAiOjE2NDgyODY4NjV9.3R8un_Qf37PCYKqhWSFlwRjyvOEIKnDr-N35xjJYjqU",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user\": \"usrPablo\",\r\n        \"password\": \"12345\",\r\n        \"name\": \"Pablo\",\r\n        \"surname\": \"Royo\",\r\n        \"companyEmail\": \"pabloEmpresa@sample.sample\",\r\n        \"personalEmail\": \"pabloPersonal@sample.sample\",\r\n        \"city\": \"Tudela\",\r\n        \"active\": true,\r\n        \"createdDate\": \"2012-09-16\",\r\n        \"imageUrl\": \"Not Found\",\r\n        \"terminationDate\": \"2012-09-16\",\r\n        \"admin\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/persona",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET personas RANGO USUARIO",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3JQYWJsbyIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3BlcnNvbmEvbG9naW4iLCJleHAiOjE2NDgyODc1NjN9.oyWtgFi6lSxApqzgkgLUlWLoxcoXtQgDxSS8EYWvIk4",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"nombre\": \"Pablo\",\r\n    \"ciudad\": \"Tudela\",\r\n    \"edad\": \"9\"\r\n}",
@@ -109,10 +192,42 @@
 					"response": []
 				},
 				{
-					"name": "DELETE persona by ID",
+					"name": "DELETE persona RANGO ADMIN",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pUGFibG8iLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcGVyc29uYS9sb2dpbiIsImV4cCI6MTY0ODI4NzEwOX0.f-iy7MmwKYH_d3mxjK5GJjHGM4LshkaxY3hb1J2CApE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/persona/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE persona RANGO USER",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3JQYWJsbyIsInJvbGVzIjpbIlVTRVIiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3BlcnNvbmEvbG9naW4iLCJleHAiOjE2NDgyODc1NjN9.oyWtgFi6lSxApqzgkgLUlWLoxcoXtQgDxSS8EYWvIk4",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8080/persona/1",
 							"protocol": "http",
@@ -181,6 +296,87 @@
 							"path": [
 								"persona",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "usuario",
+									"value": "AdmiPablo",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/persona/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Usuario normal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "usuario",
+								"value": "usrPable",
+								"type": "default"
+							},
+							{
+								"key": "password",
+								"value": "1234",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "usuario",
+									"value": "usrPablo",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/persona/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persona",
+								"login"
 							]
 						}
 					},

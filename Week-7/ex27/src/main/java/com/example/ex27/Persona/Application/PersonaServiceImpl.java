@@ -8,31 +8,34 @@ import com.example.ex27.exceptions.NotFoundException;
 import com.example.ex27.exceptions.UnprocesableException;
 import com.example.ex27.utils.utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PersonaServiceImpl implements PersonaService {
+public class PersonaServiceImpl implements PersonaService, UserDetailsService {
 
     @Autowired
     PersonaRepositorio personaRepositorio;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public List<PersonaOutputDto> getAllPersonas() {
         List<Persona> personas = personaRepositorio.findAll();
-        /* MODO ANTIGUO DE ITERAR EN TODA LA LISTA DE PERSONAS:
-        List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
-        for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
-        }
-        NUEVO MODO DE ITERAR:*/
         List<PersonaOutputDto> personasOutputDto = personas.stream().map(p -> new PersonaOutputDto(p)).collect(Collectors.toList());
         return personasOutputDto;
     }
-
+    
     @Override
     public PersonaOutputDto filterPersonaById(int id) throws Exception {
         Persona persona =
@@ -42,14 +45,19 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public List<PersonaOutputDto> filterPersonaByUser(String user) {
+    public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
         List<Persona> personas = personaRepositorio.findByUser(user);
         if (personas.size() == 0) throw new NotFoundException(user + "not found.");
-        List<PersonaOutputDto> personasOutputDto = new ArrayList<>();
-        for (Persona persona : personas) {
-            personasOutputDto.add(new PersonaOutputDto(persona));
+        Persona persona = personas.get(0);
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        if(persona.getAdmin()){
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }else{
+            authorities.add(new SimpleGrantedAuthority("USER"));
         }
-        return personasOutputDto;
+
+        return new org.springframework.security.core.userdetails.User(persona.getUser(), persona.getPassword(), authorities);
     }
 
     @Override
@@ -63,11 +71,15 @@ public class PersonaServiceImpl implements PersonaService {
             || personaInputDto.getCreatedDate() == null) {
             throw new UnprocesableException("Faltan campos por introducir");
         }
-
-        Persona persona = personaInputDtoToEntity(personaInputDto);
-        personaRepositorio.save(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-        return personaOutputDto;
+        if (!personaRepositorio.findByUser(personaInputDto.getUser()).isEmpty()) {
+            throw new UnprocesableException("El usuario ya existe");
+        } else {
+            Persona persona = personaInputDtoToEntity(personaInputDto);
+            persona.setPassword(passwordEncoder.encode(persona.getPassword()));
+            personaRepositorio.save(persona);
+            PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
+            return personaOutputDto;
+        }
     }
 
     @Override
@@ -83,7 +95,7 @@ public class PersonaServiceImpl implements PersonaService {
             }
 
             persona.setUser(personaInputDto.getUser());
-            persona.setPassword(personaInputDto.getPassword());
+            persona.setPassword(passwordEncoder.encode(persona.getPassword()));
             persona.setName(personaInputDto.getName());
             persona.setSurname(personaInputDto.getSurname());
             persona.setCompanyEmail(personaInputDto.getCompanyEmail());
@@ -115,7 +127,7 @@ public class PersonaServiceImpl implements PersonaService {
         }
 
         if (personaInputDto.getPassword() != null) {
-            persona.setPassword(personaInputDto.getPassword());
+            persona.setPassword(passwordEncoder.encode(persona.getPassword()));
         }
 
         if (personaInputDto.getName() != null) {

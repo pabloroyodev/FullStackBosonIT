@@ -54,6 +54,7 @@ Timeline of the learning path divided in weeks.
 ### Week 7 (21-03 to 25-03)
 - [SA2 - Subir archivos a Spring](./Week-7/ex25)
 - [EJTE-1 - Testing con SonarQube](./Week-7/ex26)
+- [EJS3-1 - Autorizacion y Autenticacion](./Week-7/ex27)
 
 # FRONTEND SECTION
 
