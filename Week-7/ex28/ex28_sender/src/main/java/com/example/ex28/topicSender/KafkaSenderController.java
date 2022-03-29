@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class KafkaSenderController {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
-    private final String KAFKATOPIC = "topicname";
+    private final String KAFKATOPIC = "topicName";
 
     @PostMapping("/add")
     public String sendMessage (@RequestBody String body) {
