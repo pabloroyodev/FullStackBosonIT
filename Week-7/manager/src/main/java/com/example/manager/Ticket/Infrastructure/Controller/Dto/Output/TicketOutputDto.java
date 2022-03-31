@@ -14,14 +14,14 @@ public class TicketOutputDto implements Serializable {
 
     private String details;
 
-    private Client client;
+    private Integer idClient;
 
-    private Trip trip;
+    private Integer idTrip;
 
     public TicketOutputDto (Ticket ticket){
         setIdTicket(ticket.getIdTicket());
         setDetails(ticket.getDetails());
-        setClient(ticket.getClient());
-        setTrip(ticket.getTrip());
+        setIdClient(ticket.getClient().getIdClient());
+        setIdTrip(ticket.getTrip().getIdTrip());
     }
 }
