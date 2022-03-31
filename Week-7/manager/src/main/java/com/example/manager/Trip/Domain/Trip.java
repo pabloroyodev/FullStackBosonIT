@@ -18,9 +18,9 @@ public class Trip {
 
     private String arrival;
 
-    private Integer seats = 40;
+    private Integer seats;
 
-    private boolean issue = false;
+    private boolean issue;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
