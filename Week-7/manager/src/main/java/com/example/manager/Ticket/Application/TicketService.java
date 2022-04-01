@@ -6,10 +6,8 @@ import com.example.manager.Ticket.Infrastructure.Controller.Dto.Output.TicketOut
 import java.util.List;
 
 public interface TicketService {
-    //List<TicketOutputDto> getAllTickets();
-    //TicketOutputDto filterTicketById(Integer id);
-    //TicketOutputDto filterTicketByClient(Integer idClient);
+    List<TicketOutputDto> getAllTickets();
+    TicketOutputDto filterTicketById(Integer id);
     TicketOutputDto addTicket(TicketInputDto ticketInputDto) throws Exception;
-    //TicketOutputDto updateTicket(Integer id, TicketInputDto ticketInputDto);
-    //void deleteTicket(Integer id);
+    void deleteTicket(Integer id);
 }

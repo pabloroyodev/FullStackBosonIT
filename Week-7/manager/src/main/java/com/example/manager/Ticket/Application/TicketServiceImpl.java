@@ -9,6 +9,9 @@ import com.example.manager.Trip.Infrastructure.Repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TicketServiceImpl implements TicketService{
     @Autowired
@@ -21,11 +24,27 @@ public class TicketServiceImpl implements TicketService{
     TripRepository tripRepository;
 
     @Override
+    public List<TicketOutputDto> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+        return tickets.stream().map(TicketOutputDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public TicketOutputDto filterTicketById(Integer id) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        return new TicketOutputDto(ticket);
+    }
+
+    @Override
     public TicketOutputDto addTicket(TicketInputDto ticketInputDto) {
         Ticket ticket = ticketInputDtoToEntity(ticketInputDto);
         ticketRepository.save(ticket);
-
         return new TicketOutputDto(ticket);
+    }
+
+    @Override
+    public void deleteTicket(Integer id) {
+        ticketRepository.delete(ticketRepository.findById(id).orElseThrow());
     }
 
     public Ticket ticketInputDtoToEntity(TicketInputDto ticketInputDto) {

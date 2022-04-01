@@ -6,9 +6,9 @@ import com.example.manager.Trip.Infrastructure.Controller.Dto.Output.TripOutputD
 import java.util.List;
 
 public interface TripService {
-    //List<TripOutputDto> getAllTrip();
-    //TripOutputDto filterTripById(Integer id);
+    List<TripOutputDto> getAllTrip();
+    TripOutputDto filterTripById(Integer id);
     TripOutputDto addTrip(TripInputDto tripInputDto);
-    //TripOutputDto updateTrip(Integer id, TripInputDto tripInputDto);
-    //void deleteTrip(Integer id);
+    TripOutputDto updateTrip(Integer id, TripInputDto tripInputDto);
+    void deleteTrip(Integer id);
 }
