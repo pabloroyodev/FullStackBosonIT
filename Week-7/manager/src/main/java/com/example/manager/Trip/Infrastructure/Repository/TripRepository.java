@@ -4,6 +4,9 @@ import com.example.manager.Trip.Domain.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Integer> {
+    Trip filterTripByDepartureAndArrivalAndDate(String departure, String arrival, Date date);
 }

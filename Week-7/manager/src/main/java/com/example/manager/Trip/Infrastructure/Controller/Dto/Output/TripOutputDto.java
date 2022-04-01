@@ -21,6 +21,8 @@ public class TripOutputDto implements Serializable {
 
     private Integer seats;
 
+    private Integer deniedSeats;
+
     private boolean issue;
 
     private List<Integer> tickets;
@@ -31,6 +33,7 @@ public class TripOutputDto implements Serializable {
         setDeparture(trip.getDeparture());
         setArrival(trip.getArrival());
         setSeats(trip.getSeats());
+        setDeniedSeats(trip.getDeniedSeats());
         setIssue(trip.isIssue());
 
         List<Integer> tickets = new ArrayList<>();

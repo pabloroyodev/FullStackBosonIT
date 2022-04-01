@@ -7,6 +7,7 @@ import com.example.manager.Trip.Infrastructure.Repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,13 @@ public class TripServiceImpl implements TripService{
         return new TripOutputDto(trip);
     }
 
+    //Si alguien desea comprar un ticket, sin saber el tripId, deberemos buscar por estos campos.
+    @Override
+    public TripOutputDto filterTripByDepartureAndArrivalAndDate(String departure, String arrival, Date date) {
+        Trip trip = tripRepository.filterTripByDepartureAndArrivalAndDate(departure,arrival,date);
+        return new TripOutputDto(trip);
+    }
+
     @Override
     public TripOutputDto addTrip(TripInputDto tripInputDto) {
         Trip trip = tripInputDtoToEntity(tripInputDto);
@@ -41,7 +49,6 @@ public class TripServiceImpl implements TripService{
         trip.setDate(tripInputDto.getDate());
         trip.setDeparture(tripInputDto.getDeparture());
         trip.setArrival(tripInputDto.getArrival());
-        trip.setSeats(tripInputDto.getSeats());
         trip.setIssue(tripInputDto.isIssue());
 
         tripRepository.save(trip);
@@ -58,7 +65,6 @@ public class TripServiceImpl implements TripService{
         trip.setDate(tripInputDto.getDate());
         trip.setDeparture(tripInputDto.getDeparture());
         trip.setArrival(tripInputDto.getArrival());
-        trip.setSeats(tripInputDto.getSeats());
         trip.setIssue(tripInputDto.isIssue());
 
         return trip;

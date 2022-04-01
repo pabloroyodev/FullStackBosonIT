@@ -18,7 +18,10 @@ public class Trip {
 
     private String arrival;
 
-    private Integer seats;
+    private Integer seats = 40;
+
+    @Column(name = "denied_seats")
+    private Integer deniedSeats = 0;
 
     private boolean issue;
 

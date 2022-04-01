@@ -22,9 +22,6 @@ public class TripInputDto implements Serializable {
     private String arrival;
 
     @NotNull
-    private Integer seats;
-
-    @NotNull
     private boolean issue;
 
 }
