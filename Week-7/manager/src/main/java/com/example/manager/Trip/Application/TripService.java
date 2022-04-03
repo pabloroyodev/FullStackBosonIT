@@ -5,12 +5,13 @@ import com.example.manager.Trip.Infrastructure.Controller.Dto.Output.TripOutputD
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public interface TripService {
     List<TripOutputDto> getAllTrip();
-    TripOutputDto filterTripById(Integer id);
-    TripOutputDto filterTripByDepartureAndArrivalAndDate(String departure, String arrival, Date date);
+    TripOutputDto filterTripById(UUID id);
+    List<TripOutputDto> findByDepartureAndArrivalAndDate(String departure, String arrival, Date date);
     TripOutputDto addTrip(TripInputDto tripInputDto);
-    TripOutputDto updateTrip(Integer id, TripInputDto tripInputDto);
-    void deleteTrip(Integer id);
+    TripOutputDto updateTrip(UUID id, TripInputDto tripInputDto);
+    void deleteTrip(UUID id);
 }

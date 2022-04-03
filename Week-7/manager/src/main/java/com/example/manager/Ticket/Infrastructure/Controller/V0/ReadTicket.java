@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("v0/ticket")
 @RestController
@@ -22,7 +23,7 @@ public class ReadTicket {
     }
 
     @GetMapping("{id}")
-    public TicketOutputDto filterTicketById(@PathVariable Integer id){
+    public TicketOutputDto filterTicketById(@PathVariable UUID id){
         return ticketService.filterTicketById(id);
     }
 }

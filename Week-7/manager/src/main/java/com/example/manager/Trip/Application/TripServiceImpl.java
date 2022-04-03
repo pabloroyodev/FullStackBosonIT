@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,16 +24,16 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public TripOutputDto filterTripById(Integer id) {
+    public TripOutputDto filterTripById(UUID id) {
         Trip trip = tripRepository.findById(id).orElseThrow();
         return new TripOutputDto(trip);
     }
 
     //Si alguien desea comprar un ticket, sin saber el tripId, deberemos buscar por estos campos.
     @Override
-    public TripOutputDto filterTripByDepartureAndArrivalAndDate(String departure, String arrival, Date date) {
-        Trip trip = tripRepository.filterTripByDepartureAndArrivalAndDate(departure,arrival,date);
-        return new TripOutputDto(trip);
+    public List<TripOutputDto> findByDepartureAndArrivalAndDate(String departure, String arrival, Date date) {
+        List<Trip> trips = tripRepository.findByDepartureAndArrivalAndDate(departure,arrival, date);
+        return trips.stream().map(TripOutputDto::new).collect(Collectors.toList());
     }
 
     @Override
@@ -43,7 +44,7 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public TripOutputDto updateTrip(Integer id, TripInputDto tripInputDto) {
+    public TripOutputDto updateTrip(UUID id, TripInputDto tripInputDto) {
         Trip trip = tripRepository.findById(id).orElseThrow();
 
         trip.setDate(tripInputDto.getDate());
@@ -56,7 +57,7 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void deleteTrip(Integer id) {
+    public void deleteTrip(UUID id) {
         tripRepository.delete(tripRepository.findById(id).orElseThrow());
     }
 

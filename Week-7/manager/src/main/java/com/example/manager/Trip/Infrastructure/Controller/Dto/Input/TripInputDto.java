@@ -11,7 +11,6 @@ import java.util.Date;
 @Data @NoArgsConstructor
 public class TripInputDto implements Serializable {
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
     private Date date;
 

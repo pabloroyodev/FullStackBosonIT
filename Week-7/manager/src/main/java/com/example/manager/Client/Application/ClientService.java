@@ -4,12 +4,13 @@ import com.example.manager.Client.Infrastructure.Controller.Dto.Input.ClientInpu
 import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ClientService {
     List<ClientOutputDto> getAllClients();
-    //ClientOutputDto filterClientById(Integer id);
-    //ClientOutputDto filterClientByEmail(String email);
+    ClientOutputDto filterClientById(UUID id);
+    ClientOutputDto filterClientByEmail(String email);
     ClientOutputDto addClient(ClientInputDto clientInputDto);
-    //ClientOutputDto updateClient(Integer id, ClientInputDto clientInputDto);
-    //void deleteClient(Integer id);
+    ClientOutputDto updateClient(UUID id, ClientInputDto clientInputDto);
+    void deleteClient(UUID id);
 }

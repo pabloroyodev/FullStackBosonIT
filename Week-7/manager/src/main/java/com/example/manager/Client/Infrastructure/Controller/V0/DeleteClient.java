@@ -1,6 +1,6 @@
-package com.example.manager.Ticket.Infrastructure.Controller.V0;
+package com.example.manager.Client.Infrastructure.Controller.V0;
 
-import com.example.manager.Ticket.Application.TicketService;
+import com.example.manager.Client.Application.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RequestMapping("v0/ticket")
+@RequestMapping("v0/client")
 @RestController
-public class DeleteTicket {
+public class DeleteClient {
     @Autowired
-    TicketService ticketService;
+    ClientService clientService;
 
     @DeleteMapping("{id}")
-    public void deleteTicket(@PathVariable UUID id) {
-        ticketService.deleteTicket(id);
+    public void deleteTrip(@PathVariable UUID id) {
+        clientService.deleteClient(id);
     }
 }

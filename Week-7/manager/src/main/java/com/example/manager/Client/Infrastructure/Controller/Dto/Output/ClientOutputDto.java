@@ -10,10 +10,11 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data @NoArgsConstructor
 public class ClientOutputDto implements Serializable {
-    private Integer idClient;
+    private UUID idClient;
 
     private String name;
 
@@ -23,7 +24,7 @@ public class ClientOutputDto implements Serializable {
 
     private String password;
 
-    private List<Integer> tickets;
+    private List<UUID> tickets;
 
     public ClientOutputDto(Client client){
         setIdClient(client.getIdClient());
@@ -32,7 +33,7 @@ public class ClientOutputDto implements Serializable {
         setEmail(client.getEmail());
         setPassword(client.getPassword());
 
-        List<Integer> tickets = new ArrayList<>();
+        List<UUID> tickets = new ArrayList<>();
         if(client.getTickets() != null && client.getTickets().size() != 0) {
             for(int i = 0; i < client.getTickets().size(); i++){
                 tickets.add(client.getTickets().get(i).getIdTicket());

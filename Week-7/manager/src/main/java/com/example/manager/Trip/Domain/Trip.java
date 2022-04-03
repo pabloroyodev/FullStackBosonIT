@@ -6,11 +6,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity @Data
 public class Trip {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "id_trip")
-    private Integer idTrip;
+    @Id @GeneratedValue @Column(name = "id_trip")
+    private UUID idTrip;
 
     private Date date;
 

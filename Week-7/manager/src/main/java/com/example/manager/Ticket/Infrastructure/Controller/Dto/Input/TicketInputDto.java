@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data @NoArgsConstructor
 public class TicketInputDto implements Serializable {
@@ -12,8 +13,8 @@ public class TicketInputDto implements Serializable {
     private String details;
 
     @NotNull
-    private Integer idClient;
+    private UUID idClient;
 
     @NotNull
-    private Integer idTrip;
+    private UUID idTrip;
 }

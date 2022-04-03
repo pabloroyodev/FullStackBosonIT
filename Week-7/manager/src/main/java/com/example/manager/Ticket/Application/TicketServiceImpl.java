@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +31,7 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public TicketOutputDto filterTicketById(Integer id) {
+    public TicketOutputDto filterTicketById(UUID id) {
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         return new TicketOutputDto(ticket);
     }
@@ -43,7 +44,7 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public void deleteTicket(Integer id) {
+    public void deleteTicket(UUID id) {
         ticketRepository.delete(ticketRepository.findById(id).orElseThrow());
     }
 

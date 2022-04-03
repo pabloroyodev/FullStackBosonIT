@@ -8,10 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data @NoArgsConstructor
 public class TripOutputDto implements Serializable {
-    private Integer idTrip;
+    private UUID idTrip;
 
     private Date date;
 
@@ -25,7 +26,7 @@ public class TripOutputDto implements Serializable {
 
     private boolean issue;
 
-    private List<Integer> tickets;
+    private List<UUID> tickets;
 
     public TripOutputDto (Trip trip) {
         setIdTrip(trip.getIdTrip());
@@ -36,7 +37,7 @@ public class TripOutputDto implements Serializable {
         setDeniedSeats(trip.getDeniedSeats());
         setIssue(trip.isIssue());
 
-        List<Integer> tickets = new ArrayList<>();
+        List<UUID> tickets = new ArrayList<>();
         if(trip.getTickets() != null && trip.getTickets().size() != 0) {
             for(int i = 0; i < trip.getTickets().size(); i++){
                 tickets.add(trip.getTickets().get(i).getIdTicket());

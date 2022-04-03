@@ -5,11 +5,12 @@ import com.example.manager.Trip.Domain.Trip;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity @Data
 public class Ticket {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "id_ticket")
-    private Integer idTicket;
+    @Id @GeneratedValue @Column(name = "id_ticket")
+    private UUID idTicket;
 
     private String details;
 

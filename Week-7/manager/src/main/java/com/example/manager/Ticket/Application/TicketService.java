@@ -4,10 +4,11 @@ import com.example.manager.Ticket.Infrastructure.Controller.Dto.Input.TicketInpu
 import com.example.manager.Ticket.Infrastructure.Controller.Dto.Output.TicketOutputDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface TicketService {
     List<TicketOutputDto> getAllTickets();
-    TicketOutputDto filterTicketById(Integer id);
-    TicketOutputDto addTicket(TicketInputDto ticketInputDto) throws Exception;
-    void deleteTicket(Integer id);
+    TicketOutputDto filterTicketById(UUID id);
+    TicketOutputDto addTicket(TicketInputDto ticketInputDto);
+    void deleteTicket(UUID id);
 }

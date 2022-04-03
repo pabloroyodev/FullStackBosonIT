@@ -5,11 +5,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity @Data
 public class Client {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "id_client")
-    private Integer idClient;
+    @Id @GeneratedValue @Column(name = "id_client")
+    private UUID idClient;
 
     private String name;
 

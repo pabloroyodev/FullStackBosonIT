@@ -6,6 +6,8 @@ import com.example.manager.Trip.Infrastructure.Controller.Dto.Output.TripOutputD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RequestMapping("v0/trip")
 @RestController
 public class UpdateTrip {
@@ -13,7 +15,7 @@ public class UpdateTrip {
     TripService tripService;
 
     @PutMapping("{id}")
-    public TripOutputDto updateTrip(@PathVariable Integer id, @RequestBody TripInputDto tripInputDto) {
+    public TripOutputDto updateTrip(@PathVariable UUID id, @RequestBody TripInputDto tripInputDto) {
         return tripService.updateTrip(id, tripInputDto);
     }
 }
