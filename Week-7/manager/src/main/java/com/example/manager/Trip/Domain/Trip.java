@@ -28,4 +28,12 @@ public class Trip {
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
+
+    public void setDecreaseSeats(Integer seats) {
+        this.seats -= seats;
+    }
+
+    public void setIncreaseDeniedSeats(Integer deniedSeats) {
+        this.deniedSeats += deniedSeats;
+    }
 }

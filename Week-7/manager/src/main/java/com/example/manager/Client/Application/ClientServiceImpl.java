@@ -49,15 +49,21 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public ClientOutputDto updateClient(UUID id, ClientInputDto clientInputDto) {
-        Client client = clientRepository.findById(id).orElseThrow();
 
-        client.setName(clientInputDto.getName());
-        client.setSurname(clientInputDto.getSurname());
-        client.setEmail(clientInputDto.getEmail());
-        client.setPassword(clientInputDto.getPassword());
+        if (clientRepository.findByEmail(clientInputDto.getEmail()) == null) {
+            Client client = clientRepository.findById(id).orElseThrow();
 
-        clientRepository.save(client);
-        return new ClientOutputDto(client);
+            client.setName(clientInputDto.getName());
+            client.setSurname(clientInputDto.getSurname());
+            client.setEmail(clientInputDto.getEmail());
+            client.setPassword(clientInputDto.getPassword());
+
+            clientRepository.save(client);
+            return new ClientOutputDto(client);
+        }
+
+        throw new customUnprocesableException("Persona con email: "+ clientInputDto.getEmail() + " ya existe.");
+
     }
 
     @Override
