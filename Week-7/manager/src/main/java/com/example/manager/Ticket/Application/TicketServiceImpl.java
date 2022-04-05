@@ -8,13 +8,11 @@ import com.example.manager.Ticket.Infrastructure.Controller.Dto.Output.TicketOut
 import com.example.manager.Ticket.Infrastructure.Repository.TicketRepository;
 import com.example.manager.Trip.Domain.Trip;
 import com.example.manager.Trip.Infrastructure.Repository.TripRepository;
-import com.example.manager.Utils.Exceptions.customNotFoundException;
 import com.example.manager.Utils.Exceptions.customUnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

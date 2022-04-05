@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "dd62a477-aaa2-484b-be38-f25b01f6d54e",
+		"name": "Bus Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "CREATE client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"surname\": \"Royo\",\r\n    \"email\": \"pablo@royo.local\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v0/client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET client BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/client/149d37d9-2a7e-4976-b3f1-5ec7e53b9223",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client",
+								"149d37d9-2a7e-4976-b3f1-5ec7e53b9223"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET client BY EMAIL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/client/pablo@royo.local/email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client",
+								"pablo@royo.local",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juan\",\r\n    \"surname\": \"Jotas\",\r\n    \"email\": \"juan@jotas.local\",\r\n    \"password\": \"qwerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v0/client/98c5c90b-aefa-4c12-9bab-6d801f200158",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client",
+								"98c5c90b-aefa-4c12-9bab-6d801f200158"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/client/b64be0c3-72fb-49a5-96ae-630071d3e2f1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client",
+								"b64be0c3-72fb-49a5-96ae-630071d3e2f1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "CREATE ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"details\": \"hola\",\r\n    \"idClient\": \"0158ef8d-77a9-47be-9621-b2682c54ec3b\",\r\n    \"idTrip\": \"b363ea1a-a9ca-4128-b5ed-9a8836765792\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v0/ticket",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"ticket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/ticket",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"ticket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ticket BY ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/ticket/3d80d735-18ee-41e2-b04d-eae15cbb8714",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"ticket",
+								"3d80d735-18ee-41e2-b04d-eae15cbb8714"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"surname\": \"Royo\",\r\n    \"email\": \"pablo@royo.local\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v0/client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"client"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trip",
+			"item": [
+				{
+					"name": "CREATE trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"date\": \"2022-04-02T20:30:00.000+00:00\",\r\n   \"departure\": \"BILB\", \r\n   \"arrival\": \"BCN SANTS\",\r\n   \"issue\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v0/trip",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"trip"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/trip",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"trip"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET trip DepartureAndArrivalAndDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/trip/details?departure=BILB&arrival=BCN SANTS&date=2022-04-02T20:30:00.000Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"trip",
+								"details"
+							],
+							"query": [
+								{
+									"key": "departure",
+									"value": "BILB"
+								},
+								{
+									"key": "arrival",
+									"value": "BCN SANTS"
+								},
+								{
+									"key": "date",
+									"value": "2022-04-02T20:30:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE trip",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"date\": \"2022-12-23 12:30:00\",\r\n        \"departure\": \"BILB\",\r\n        \"arrival\": \"BCN POMPEUFABRA\",\r\n        \"issue\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v0/trip/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"trip",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE trip",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
