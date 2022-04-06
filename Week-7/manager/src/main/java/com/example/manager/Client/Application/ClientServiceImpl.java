@@ -6,6 +6,7 @@ import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOut
 import com.example.manager.Client.Infrastructure.Repository.ClientRepository;
 import com.example.manager.Utils.Exceptions.customUnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService{
     @Autowired
     ClientRepository clientRepository;
+
+    @Value("${server.port}")
+    int port;
 
     @Override
     public List<ClientOutputDto> getAllClients() {
