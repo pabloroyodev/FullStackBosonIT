@@ -9,7 +9,9 @@ import com.example.manager.Ticket.Infrastructure.Repository.TicketRepository;
 import com.example.manager.Trip.Domain.Trip;
 import com.example.manager.Trip.Infrastructure.Repository.TripRepository;
 import com.example.manager.Utils.Exceptions.customUnprocesableException;
+import com.example.manager.Utils.Kafka.Producer.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,15 @@ public class TicketServiceImpl implements TicketService{
 
     @Autowired
     TripRepository tripRepository;
+
+    @Autowired
+    KafkaSender sender;
+
+    @Value("${server.port}")
+    String port;
+
+    @Value("${topic}")
+    String topic;
 
     @Override
     public List<TicketOutputDto> getAllTickets() {
@@ -54,7 +65,11 @@ public class TicketServiceImpl implements TicketService{
         if (trip.getSeats() >= 1) {
             trip.setDecreaseSeats(1);
             ticketRepository.save(ticket);
-            return new TicketOutputDto(ticket);
+
+            TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
+            sender.sendMessage(topic, ticketOutputDto, port, "create", "ticket");
+
+            return ticketOutputDto;
         }
 
         trip.setIncreaseDeniedSeats(1);

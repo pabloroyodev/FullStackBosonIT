@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity @Data
 public class Client {
-    @Id @GeneratedValue @Column(name = "id_client")
+    @Id @Column(name = "id_client")
     private UUID idClient;
 
     private String name;

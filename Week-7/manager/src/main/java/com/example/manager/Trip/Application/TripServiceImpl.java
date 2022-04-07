@@ -4,7 +4,9 @@ import com.example.manager.Trip.Domain.Trip;
 import com.example.manager.Trip.Infrastructure.Controller.Dto.Input.TripInputDto;
 import com.example.manager.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 import com.example.manager.Trip.Infrastructure.Repository.TripRepository;
+import com.example.manager.Utils.Kafka.Producer.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,6 +18,15 @@ import java.util.stream.Collectors;
 public class TripServiceImpl implements TripService{
     @Autowired
     TripRepository tripRepository;
+
+    @Autowired
+    KafkaSender sender;
+
+    @Value("${server.port}")
+    String port;
+
+    @Value("${topic}")
+    String topic;
 
     @Override
     public List<TripOutputDto> getAllTrip() {
@@ -40,7 +51,11 @@ public class TripServiceImpl implements TripService{
     public TripOutputDto addTrip(TripInputDto tripInputDto) {
         Trip trip = tripInputDtoToEntity(tripInputDto);
         tripRepository.save(trip);
-        return new TripOutputDto(trip);
+
+        TripOutputDto tripOutputDto = new TripOutputDto(trip);
+        sender.sendMessage(topic, tripOutputDto, port, "create", "trip");
+
+        return tripOutputDto;
     }
 
     @Override

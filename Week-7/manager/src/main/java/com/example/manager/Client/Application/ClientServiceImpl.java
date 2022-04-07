@@ -6,7 +6,6 @@ import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOut
 import com.example.manager.Client.Infrastructure.Repository.ClientRepository;
 import com.example.manager.Utils.Exceptions.customUnprocesableException;
 import com.example.manager.Utils.Kafka.Producer.KafkaSender;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,10 +50,11 @@ public class ClientServiceImpl implements ClientService{
     public ClientOutputDto addClient(ClientInputDto clientInputDto) {
         if (clientRepository.findByEmail(clientInputDto.getEmail()) == null) {
             Client client = clientInputDtoToEntity(clientInputDto);
+            client.setIdClient(UUID.randomUUID());
             clientRepository.save(client);
 
             ClientOutputDto clientDto = new ClientOutputDto(client);
-            sender.sendMessage(topic, clientDto, port, "delete", "client");
+            sender.sendMessage(topic, clientDto, port, "create", "client");
 
             return clientDto;
         }
@@ -83,6 +83,7 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public void deleteClient(UUID id) {
+
         clientRepository.delete(clientRepository.findById(id).orElseThrow());
     }
 
@@ -92,6 +93,17 @@ public class ClientServiceImpl implements ClientService{
         client.setSurname(clientInputDto.getSurname());
         client.setEmail(clientInputDto.getEmail());
         client.setPassword(clientInputDto.getPassword());
+
+        return client;
+    }
+
+    public Client clientOutDtoToEntity(ClientOutputDto clientOutputDto){
+        Client client = new Client();
+        client.setIdClient(clientOutputDto.getIdClient());
+        client.setName(clientOutputDto.getName());
+        client.setSurname(clientOutputDto.getSurname());
+        client.setEmail(clientOutputDto.getEmail());
+        client.setPassword(clientOutputDto.getPassword());
 
         return client;
     }
