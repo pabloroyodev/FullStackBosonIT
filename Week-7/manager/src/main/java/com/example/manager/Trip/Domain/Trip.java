@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity @Data
 public class Trip {
-    @Id @GeneratedValue @Column(name = "id_trip")
+    @Id @Column(name = "id_trip")
     private UUID idTrip;
 
     private Date date;

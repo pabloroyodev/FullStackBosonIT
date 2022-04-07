@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaClientService {
     @Autowired
-    ClientRepository clientRepository;
+    ClientServiceImpl clientService;
 
     @Autowired
-    ClientServiceImpl clientService;
+    ClientRepository clientRepository;
 
     public void listenTopic(String action, ClientOutputDto clientOutputDto) {
         switch (action) {

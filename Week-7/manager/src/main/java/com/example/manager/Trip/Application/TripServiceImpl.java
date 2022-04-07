@@ -1,5 +1,7 @@
 package com.example.manager.Trip.Application;
 
+import com.example.manager.Client.Domain.Client;
+import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
 import com.example.manager.Trip.Domain.Trip;
 import com.example.manager.Trip.Infrastructure.Controller.Dto.Input.TripInputDto;
 import com.example.manager.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
@@ -50,6 +52,7 @@ public class TripServiceImpl implements TripService{
     @Override
     public TripOutputDto addTrip(TripInputDto tripInputDto) {
         Trip trip = tripInputDtoToEntity(tripInputDto);
+        trip.setIdTrip(UUID.randomUUID());
         tripRepository.save(trip);
 
         TripOutputDto tripOutputDto = new TripOutputDto(trip);
@@ -68,12 +71,17 @@ public class TripServiceImpl implements TripService{
         trip.setIssue(tripInputDto.isIssue());
 
         tripRepository.save(trip);
+        TripOutputDto tripOutputDto = EntityToTripOutDto(trip);
+        sender.sendMessage(topic, tripOutputDto, port, "update", "trip");
+
         return new TripOutputDto(trip);
     }
 
     @Override
     public void deleteTrip(UUID id) {
+        TripOutputDto tripOutputDto = EntityToTripOutDto(tripRepository.findById(id).orElseThrow());
         tripRepository.delete(tripRepository.findById(id).orElseThrow());
+        sender.sendMessage(topic, tripOutputDto, port, "delete", "trip");
     }
 
     public Trip tripInputDtoToEntity(TripInputDto tripInputDto){
@@ -84,5 +92,31 @@ public class TripServiceImpl implements TripService{
         trip.setIssue(tripInputDto.isIssue());
 
         return trip;
+    }
+
+    public Trip tripOutDtoToEntity(TripOutputDto tripOutputDto){
+        Trip trip = new Trip();
+        trip.setIdTrip(tripOutputDto.getIdTrip());
+        trip.setDate(tripOutputDto.getDate());
+        trip.setDeparture(tripOutputDto.getDeparture());
+        trip.setArrival(tripOutputDto.getArrival());
+        trip.setSeats(tripOutputDto.getSeats());
+        trip.setDeniedSeats(tripOutputDto.getDeniedSeats());
+        trip.setIssue(tripOutputDto.isIssue());
+
+        return trip;
+    }
+
+    public TripOutputDto EntityToTripOutDto(Trip trip) {
+        TripOutputDto tripOutputDto = new TripOutputDto();
+        tripOutputDto.setIdTrip(trip.getIdTrip());
+        tripOutputDto.setDate(trip.getDate());
+        tripOutputDto.setDeparture(trip.getDeparture());
+        tripOutputDto.setArrival(trip.getArrival());
+        tripOutputDto.setSeats(trip.getSeats());
+        tripOutputDto.setDeniedSeats(trip.getDeniedSeats());
+        tripOutputDto.setIssue(trip.isIssue());
+
+        return tripOutputDto;
     }
 }

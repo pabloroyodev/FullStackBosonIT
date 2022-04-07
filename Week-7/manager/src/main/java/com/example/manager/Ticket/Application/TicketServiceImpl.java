@@ -1,6 +1,7 @@
 package com.example.manager.Ticket.Application;
 
 import com.example.manager.Client.Domain.Client;
+import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
 import com.example.manager.Client.Infrastructure.Repository.ClientRepository;
 import com.example.manager.Ticket.Domain.Ticket;
 import com.example.manager.Ticket.Infrastructure.Controller.Dto.Input.TicketInputDto;
@@ -60,6 +61,7 @@ public class TicketServiceImpl implements TicketService{
         }
 
         Ticket ticket = ticketInputDtoToEntity(ticketInputDto);
+        ticket.setIdTicket(UUID.randomUUID());
         Trip trip = tripRepository.findById(ticketInputDto.getIdTrip()).stream().findFirst().orElseThrow();
 
         if (trip.getSeats() >= 1) {
@@ -86,6 +88,16 @@ public class TicketServiceImpl implements TicketService{
         ticket.setDetails(ticketInputDto.getDetails());
         ticket.setClient(clientRepository.findById(ticketInputDto.getIdClient()).orElseThrow());
         ticket.setTrip(tripRepository.findById(ticketInputDto.getIdTrip()).orElseThrow());
+
+        return ticket;
+    }
+
+    public Ticket ticketOutDtoToEntity(TicketOutputDto ticketOutputDto){
+        Ticket ticket = new Ticket();
+        ticket.setIdTicket(ticketOutputDto.getIdTicket());
+        ticket.setDetails(ticketOutputDto.getDetails());
+        ticket.setClient(clientRepository.findById(ticketOutputDto.getIdClient()).orElseThrow());
+        ticket.setTrip(tripRepository.findById(ticketOutputDto.getIdTrip()).orElseThrow());
 
         return ticket;
     }

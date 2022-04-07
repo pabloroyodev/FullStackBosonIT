@@ -122,5 +122,4 @@ public class ClientServiceImpl implements ClientService{
 
         return clientOutputDto;
     }
-
 }

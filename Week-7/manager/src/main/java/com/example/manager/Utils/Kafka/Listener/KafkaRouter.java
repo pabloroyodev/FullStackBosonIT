@@ -58,11 +58,11 @@ public class KafkaRouter {
                 }
                 case "ticket" -> {
                     System.out.println("RECIBIDO TICKET! accion:" + action[0]);
-                    //kafkaTicketService<.listenTopic(action[0], mapper.readValue((String)record.value(), TicketOutputDto.class));
+                    kafkaTicketService.listenTopic(action[0], mapper.readValue((String)record.value(), TicketOutputDto.class));
                 }
                 case "trip" -> {
                     System.out.println("RECIBIDO TRIP! accion: " + action[0]);
-                    //kafkaTripService.listenTopic(action[0], mapper.readValue((String)record.value(), TripOutputDto.class));
+                    kafkaTripService.listenTopic(action[0], mapper.readValue((String)record.value(), TripOutputDto.class));
                 }
 
                 default -> System.out.println("error");
