@@ -359,7 +359,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"date\": \"2022-12-23 12:30:00\",\r\n        \"departure\": \"BILB\",\r\n        \"arrival\": \"BCN POMPEUFABRA\",\r\n        \"issue\": true\r\n}",
+							"raw": "{\r\n        \"date\": \"2022-04-02T20:30:00.000+00:00\",\r\n        \"departure\": \"BILB\",\r\n        \"arrival\": \"BCN POMPEUFABRA\",\r\n        \"issue\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -367,7 +367,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v0/trip/1",
+							"raw": "http://localhost:8080/v0/trip/4641e135-e374-42d6-b08f-2694f9b070f7",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -376,7 +376,7 @@
 							"path": [
 								"v0",
 								"trip",
-								"1"
+								"4641e135-e374-42d6-b08f-2694f9b070f7"
 							]
 						}
 					},
@@ -385,8 +385,21 @@
 				{
 					"name": "DELETE trip",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v0/trip/29663f5f-ce80-44ac-a8ab-ef991ab7da29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v0",
+								"trip",
+								"29663f5f-ce80-44ac-a8ab-ef991ab7da29"
+							]
+						}
 					},
 					"response": []
 				}
