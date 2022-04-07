@@ -5,6 +5,8 @@ import com.example.manager.Client.Infrastructure.Controller.Dto.Input.ClientInpu
 import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
 import com.example.manager.Client.Infrastructure.Repository.ClientRepository;
 import com.example.manager.Utils.Exceptions.customUnprocesableException;
+import com.example.manager.Utils.Kafka.Producer.KafkaSender;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,14 @@ public class ClientServiceImpl implements ClientService{
     @Autowired
     ClientRepository clientRepository;
 
+    @Autowired
+    KafkaSender sender;
+
     @Value("${server.port}")
-    int port;
+    String port;
+
+    @Value("${topic}")
+    String topic;
 
     @Override
     public List<ClientOutputDto> getAllClients() {
@@ -45,7 +53,10 @@ public class ClientServiceImpl implements ClientService{
             Client client = clientInputDtoToEntity(clientInputDto);
             clientRepository.save(client);
 
-            return new ClientOutputDto(client);
+            ClientOutputDto clientDto = new ClientOutputDto(client);
+            sender.sendMessage(topic, clientDto, port, "delete", "client");
+
+            return clientDto;
         }
 
         throw new customUnprocesableException("Persona con email: "+ clientInputDto.getEmail() + " ya existe.");
