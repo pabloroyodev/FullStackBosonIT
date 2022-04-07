@@ -2,6 +2,10 @@ package com.example.manager.Utils.Kafka.Listener;
 
 import com.example.manager.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
 import com.example.manager.Client.Infrastructure.Kafka.KafkaClientService;
+import com.example.manager.Ticket.Infrastructure.Controller.Dto.Output.TicketOutputDto;
+import com.example.manager.Ticket.Infrastructure.Kafka.KafkaTicketService;
+import com.example.manager.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
+import com.example.manager.Trip.Infrastructure.Kafka.KafkaTripService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -18,6 +22,12 @@ public class KafkaRouter {
 
     @Autowired
     KafkaClientService kafkaClientService;
+
+    @Autowired
+    KafkaTripService kafkaTripService;
+
+    @Autowired
+    KafkaTicketService kafkaTicketService;
 
     @KafkaListener(topics = "${topic}", groupId = "${group}")
     public void listenTopic(@Payload ConsumerRecord<String, Object> record) throws JsonProcessingException {
@@ -48,11 +58,11 @@ public class KafkaRouter {
                 }
                 case "ticket" -> {
                     System.out.println("RECIBIDO TICKET! accion:" + action[0]);
-                    System.out.println(record.value());
+                    //kafkaTicketService<.listenTopic(action[0], mapper.readValue((String)record.value(), TicketOutputDto.class));
                 }
                 case "trip" -> {
                     System.out.println("RECIBIDO TRIP! accion: " + action[0]);
-                    System.out.println(record.value());
+                    //kafkaTripService.listenTopic(action[0], mapper.readValue((String)record.value(), TripOutputDto.class));
                 }
 
                 default -> System.out.println("error");

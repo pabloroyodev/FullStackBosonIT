@@ -74,7 +74,10 @@ public class ClientServiceImpl implements ClientService{
             client.setPassword(clientInputDto.getPassword());
 
             clientRepository.save(client);
-            return new ClientOutputDto(client);
+            ClientOutputDto clientOutputDto = EntityToClientOutDto(client);
+            sender.sendMessage(topic, clientOutputDto, port, "update", "client");
+
+            return clientOutputDto;
         }
 
         throw new customUnprocesableException("Persona con email: "+ clientInputDto.getEmail() + " ya existe.");
@@ -83,8 +86,9 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public void deleteClient(UUID id) {
-
+        ClientOutputDto clientOutputDto = EntityToClientOutDto(clientRepository.findById(id).orElseThrow());
         clientRepository.delete(clientRepository.findById(id).orElseThrow());
+        sender.sendMessage(topic, clientOutputDto, port, "delete", "client");
     }
 
     public Client clientInputDtoToEntity(ClientInputDto clientInputDto){
@@ -107,4 +111,16 @@ public class ClientServiceImpl implements ClientService{
 
         return client;
     }
+
+    public ClientOutputDto EntityToClientOutDto(Client client){
+        ClientOutputDto clientOutputDto = new ClientOutputDto();
+        clientOutputDto.setIdClient(client.getIdClient());
+        clientOutputDto.setName(client.getName());
+        clientOutputDto.setSurname(client.getSurname());
+        clientOutputDto.setEmail(client.getEmail());
+        clientOutputDto.setPassword(client.getPassword());
+
+        return clientOutputDto;
+    }
+
 }
