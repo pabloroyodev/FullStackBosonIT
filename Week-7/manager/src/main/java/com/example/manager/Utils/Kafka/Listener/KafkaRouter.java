@@ -2,12 +2,15 @@ package com.example.manager.Utils.Kafka.Listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaRouter {
+    @Value("${server.port}")
+    String puerto;
 
     @KafkaListener(topics = "${topic}", groupId = "${group}")
     public void listenTopic(@Payload ConsumerRecord<String, Object> record) {
@@ -33,16 +36,11 @@ public class KafkaRouter {
             System.out.println(clase[0]);
         });
 
-    /*if (!port[0].equals("${server.port}")) {
-        switch (clase[0]) {
-            case "client" -> System.out.println("CLIENTE DETECTADO: " + action[0]);
-            case "ticket" -> System.out.println("TICKET DETECTADO: " + action[0]);
+        if (!port[0].equals(puerto)) {
+            switch (clase[0]) {
+                case "client" -> System.out.println("CLIENTE DETECTADO: " + action[0]);
+                case "ticket" -> System.out.println("TICKET DETECTADO: " + action[0]);
+            }
         }
-    }*/
-
-    System.out.println(port[0]);
-    System.out.println(clase[0]);
-    System.out.println(action[0]);
-
     }
 }
