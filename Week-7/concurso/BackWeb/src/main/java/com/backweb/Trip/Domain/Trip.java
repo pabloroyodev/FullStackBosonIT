@@ -19,7 +19,7 @@ public class Trip {
 
     private String arrival;
 
-    private Integer seats = 1;
+    private Integer seats = 40;
 
     @Column(name = "denied_seats")
     private Integer deniedSeats = 0;
