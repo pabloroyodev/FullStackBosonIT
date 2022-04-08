@@ -54,6 +54,19 @@ public class TicketServiceImpl implements TicketService{
     @Override
     public TicketOutputDto addTicket(TicketInputDto ticketInputDto) {
         Client client = clientRepository.findById(ticketInputDto.getIdClient()).orElseThrow();
+        Trip trip = tripRepository.findById(ticketInputDto.getIdTrip()).stream().findFirst().orElseThrow();
+
+        if (trip.isIssue()) {
+            Ticket ticket = ticketInputDtoToEntity(ticketInputDto);
+            trip.setIncreaseDeniedSeats(1);
+            tripRepository.save(trip);
+
+            TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
+            sender.sendMessage(topic, ticketOutputDto, port, "denied", "ticket");
+
+            throw new customUnprocesableException("Viaje cancelado. (Mantenimiento, huelga, etc.)");
+        }
+
         for (int i = 0; i < client.getTickets().size(); i++) {
             if (client.getTickets().get(i).getTrip().getIdTrip().equals(ticketInputDto.getIdTrip())) {
                 throw new customUnprocesableException("Cliente ya tiene ticket para el trayecto: " + ticketInputDto.getIdTrip() + " solo 1 por persona.");
@@ -62,7 +75,7 @@ public class TicketServiceImpl implements TicketService{
 
         Ticket ticket = ticketInputDtoToEntity(ticketInputDto);
         ticket.setIdTicket(UUID.randomUUID());
-        Trip trip = tripRepository.findById(ticketInputDto.getIdTrip()).stream().findFirst().orElseThrow();
+
 
         if (trip.getSeats() >= 1) {
             trip.setDecreaseSeats(1);
