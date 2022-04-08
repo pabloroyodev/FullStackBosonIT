@@ -31,6 +31,7 @@ public class KafkaTripService {
                 trip.setDeparture(tripOutputDto.getDeparture());
                 trip.setArrival(tripOutputDto.getArrival());
                 trip.setIssue(tripOutputDto.isIssue());
+                trip.setSeats(tripOutputDto.getSeats());
 
                 tripRepository.save(trip);
 

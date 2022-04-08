@@ -57,10 +57,13 @@ public class TripServiceImpl implements TripService{
     @Override
     public TripOutputDto addTrip(TripInputDto tripInputDto) {
         Trip trip = tripInputDtoToEntity(tripInputDto);
+        if (tripInputDto.isIssue()) {trip.setSeats(0);}
+
         trip.setIdTrip(UUID.randomUUID());
         tripRepository.save(trip);
 
         TripOutputDto tripOutputDto = new TripOutputDto(trip);
+
         sender.sendMessage(topic, tripOutputDto, port, "create", "trip");
 
         return tripOutputDto;
@@ -69,6 +72,14 @@ public class TripServiceImpl implements TripService{
     @Override
     public TripOutputDto updateTrip(UUID id, TripInputDto tripInputDto) {
         Trip trip = tripRepository.findById(id).orElseThrow();
+
+        if (tripInputDto.isIssue()) {trip.setSeats(0);}
+
+        if (!tripInputDto.isIssue()) {
+            if (trip.isIssue()) {
+                trip.setSeats(40);
+            }
+        }
 
         trip.setDate(tripInputDto.getDate());
         trip.setDeparture(tripInputDto.getDeparture());
