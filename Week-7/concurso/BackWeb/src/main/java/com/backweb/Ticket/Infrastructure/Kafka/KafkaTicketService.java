@@ -2,6 +2,7 @@ package com.backweb.Ticket.Infrastructure.Kafka;
 
 import com.backweb.Client.Infrastructure.Repository.ClientRepository;
 import com.backweb.Ticket.Infrastructure.Repository.TicketRepository;
+import com.backweb.Trip.Domain.Trip;
 import com.backweb.Trip.Infrastructure.Repository.TripRepository;
 import com.backweb.Ticket.Application.TicketServiceImpl;
 import com.backweb.Ticket.Domain.Ticket;
@@ -28,7 +29,10 @@ public class KafkaTicketService {
             case "create" -> {
                 Ticket ticket = ticketService.ticketOutDtoToEntity(ticketOutputDto);
                 System.out.println(ticket);
+                Trip trip = tripRepository.findById(ticketOutputDto.getIdTrip()).stream().findFirst().orElseThrow();
+                trip.setDecreaseSeats(1);
                 ticketRepository.save(ticket);
+                tripRepository.save(trip);
                 System.out.println("CREATE SUCCESS");
             }
 
@@ -46,7 +50,17 @@ public class KafkaTicketService {
 
             case "delete" -> {
                 ticketRepository.delete(ticketRepository.findById(ticketOutputDto.getIdTicket()).orElseThrow());
+                Trip trip = tripRepository.findById(ticketOutputDto.getIdTrip()).stream().findFirst().orElseThrow();
+                trip.setIncreaseSeats(1);
+                tripRepository.save(trip);
                 System.out.println("DELETE SUCCESS");
+            }
+
+            case "denied" -> {
+                Trip trip = tripRepository.findById(ticketOutputDto.getIdTrip()).stream().findFirst().orElseThrow();
+                trip.setIncreaseDeniedSeats(1);
+                tripRepository.save(trip);
+                System.out.println("DENIED COUNTER INCREASED SUCCESSFULLY");
             }
         }
     }

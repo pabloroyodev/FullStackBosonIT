@@ -19,7 +19,7 @@ public class Trip {
 
     private String arrival;
 
-    private Integer seats = 40;
+    private Integer seats = 1;
 
     @Column(name = "denied_seats")
     private Integer deniedSeats = 0;
@@ -31,6 +31,10 @@ public class Trip {
 
     public void setDecreaseSeats(Integer seats) {
         this.seats -= seats;
+    }
+
+    public void setIncreaseSeats(Integer seats) {
+        this.seats += seats;
     }
 
     public void setIncreaseDeniedSeats(Integer deniedSeats) {

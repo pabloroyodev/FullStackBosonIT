@@ -4,6 +4,7 @@ import com.backweb.Client.Domain.Client;
 import com.backweb.Client.Infrastructure.Repository.ClientRepository;
 import com.backweb.Ticket.Infrastructure.Repository.TicketRepository;
 import com.backweb.Trip.Domain.Trip;
+import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 import com.backweb.Trip.Infrastructure.Repository.TripRepository;
 import com.backweb.Utils.Exceptions.customUnprocesableException;
 import com.backweb.Utils.Kafka.Producer.KafkaSender;
@@ -74,12 +75,23 @@ public class TicketServiceImpl implements TicketService{
         }
 
         trip.setIncreaseDeniedSeats(1);
+        tripRepository.save(trip);
+        TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
+        sender.sendMessage(topic, ticketOutputDto, port, "denied", "ticket");
+
         throw new customUnprocesableException("No quedan asientos para este trayecto: ");
     }
 
     @Override
     public void deleteTicket(UUID id) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        Trip trip = tripRepository.findById(ticketRepository.findById(id).orElseThrow().getTrip().getIdTrip()).orElseThrow();
         ticketRepository.delete(ticketRepository.findById(id).orElseThrow());
+        trip.setIncreaseSeats(1);
+        tripRepository.save(trip);
+
+        TicketOutputDto ticketOutputDto = EntityToTicketOutDto(ticket);
+        sender.sendMessage(topic, ticketOutputDto, port, "delete", "ticket");
     }
 
     public Ticket ticketInputDtoToEntity(TicketInputDto ticketInputDto) {
@@ -99,5 +111,16 @@ public class TicketServiceImpl implements TicketService{
         ticket.setTrip(tripRepository.findById(ticketOutputDto.getIdTrip()).orElseThrow());
 
         return ticket;
+    }
+
+    public TicketOutputDto EntityToTicketOutDto(Ticket ticket) {
+        TicketOutputDto ticketOutputDto = new TicketOutputDto();
+
+        ticketOutputDto.setIdTicket(ticket.getIdTicket());
+        ticketOutputDto.setDetails(ticket.getDetails());
+        ticketOutputDto.setIdClient(ticket.getClient().getIdClient());
+        ticketOutputDto.setIdTrip(ticket.getTrip().getIdTrip());
+
+        return ticketOutputDto;
     }
 }
