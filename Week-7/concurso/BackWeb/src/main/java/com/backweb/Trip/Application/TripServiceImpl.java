@@ -1,6 +1,7 @@
 package com.backweb.Trip.Application;
 
 import com.backweb.Trip.Domain.Trip;
+import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripCensoredOutputDto;
 import com.backweb.Trip.Infrastructure.Repository.TripRepository;
 import com.backweb.Trip.Infrastructure.Controller.Dto.Input.TripInputDto;
 import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
@@ -45,6 +46,12 @@ public class TripServiceImpl implements TripService{
     public List<TripOutputDto> findByDepartureAndArrivalAndDate(String departure, String arrival, Date date) {
         List<Trip> trips = tripRepository.findByDepartureAndArrivalAndDate(departure,arrival, date);
         return trips.stream().map(TripOutputDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TripCensoredOutputDto> findByDepartureAndArrivalAndLocalDate(String departure, String arrival, String date) {
+        List<Trip> trips = tripRepository.findByDepartureAndArrivalAndLocalDate(departure, arrival, date);
+        return trips.stream().map(TripCensoredOutputDto::new).collect(Collectors.toList());
     }
 
     @Override

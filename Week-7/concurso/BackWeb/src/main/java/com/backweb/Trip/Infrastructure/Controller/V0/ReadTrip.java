@@ -1,6 +1,7 @@
 package com.backweb.Trip.Infrastructure.Controller.V0;
 
 import com.backweb.Trip.Application.TripService;
+import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripCensoredOutputDto;
 import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,5 +30,10 @@ public class ReadTrip {
     @GetMapping("/details")
     public List<TripOutputDto> findByDepartureAndArrivalAndDate(@RequestParam String departure, @RequestParam String arrival, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date) {
         return tripService.findByDepartureAndArrivalAndDate(departure, arrival, date);
+    }
+
+    @GetMapping("/detailsLocalDate")
+    public List<TripCensoredOutputDto> findByDepartureAndArrivalAndLocalDate(@RequestParam String departure, @RequestParam String arrival, @RequestParam String localDate) {
+        return tripService.findByDepartureAndArrivalAndLocalDate(departure, arrival, localDate);
     }
 }

@@ -1,6 +1,7 @@
 package com.backweb.Trip.Application;
 
 import com.backweb.Trip.Infrastructure.Controller.Dto.Input.TripInputDto;
+import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripCensoredOutputDto;
 import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ public interface TripService {
     List<TripOutputDto> getAllTrip();
     TripOutputDto filterTripById(UUID id);
     List<TripOutputDto> findByDepartureAndArrivalAndDate(String departure, String arrival, Date date);
+    List<TripCensoredOutputDto> findByDepartureAndArrivalAndLocalDate(String departure, String arrival, String date);
     TripOutputDto addTrip(TripInputDto tripInputDto);
     TripOutputDto updateTrip(UUID id, TripInputDto tripInputDto);
     void deleteTrip(UUID id);
