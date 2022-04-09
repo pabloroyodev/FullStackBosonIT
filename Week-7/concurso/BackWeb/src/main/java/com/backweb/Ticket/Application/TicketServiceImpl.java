@@ -2,8 +2,6 @@ package com.backweb.Ticket.Application;
 
 import com.backweb.Client.Domain.Client;
 import com.backweb.Client.Infrastructure.Repository.ClientRepository;
-import com.backweb.Mail.Application.MailService;
-import com.backweb.Mail.Application.MailServiceImpl;
 import com.backweb.Mail.Domain.Mail;
 import com.backweb.Mail.Infrastructure.Repository.MailRepository;
 import com.backweb.Ticket.Infrastructure.Repository.TicketRepository;
@@ -131,6 +129,10 @@ public class TicketServiceImpl implements TicketService{
                 "Ticket Cancelado",
                 "Le informamos que se ha cancelado el ticket para el viaje: "
                         + trip.getDeparture() + " a " + trip.getArrival() + ".");
+
+        Mail mail = new Mail(UUID.randomUUID(), trip.getDate(), trip.getDeparture(), trip.getArrival(), ticket.getClient().getEmail(), "Ticket Cancelado");
+        mailRepository.save(mail);
+        sender.sendMessage(topic, mail, port, "create", "mail");
     }
 
     public Ticket ticketInputDtoToEntity(TicketInputDto ticketInputDto) {

@@ -2,7 +2,6 @@ package com.backweb.Mail.Application;
 
 import com.backweb.Mail.Domain.Mail;
 import com.backweb.Mail.Infrastructure.Repository.MailRepository;
-import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
