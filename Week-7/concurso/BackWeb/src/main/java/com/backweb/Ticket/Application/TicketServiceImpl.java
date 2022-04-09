@@ -11,6 +11,7 @@ import com.backweb.Utils.Kafka.Producer.KafkaSender;
 import com.backweb.Ticket.Domain.Ticket;
 import com.backweb.Ticket.Infrastructure.Controller.Dto.Input.TicketInputDto;
 import com.backweb.Ticket.Infrastructure.Controller.Dto.Output.TicketOutputDto;
+import com.backweb.Utils.Mail.MailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,9 @@ public class TicketServiceImpl implements TicketService{
 
     @Autowired
     KafkaSender sender;
+
+    @Autowired
+    MailSenderService mailSenderService;
 
     @Value("${server.port}")
     String port;
@@ -84,6 +88,12 @@ public class TicketServiceImpl implements TicketService{
             TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
             sender.sendMessage(topic, ticketOutputDto, port, "create", "ticket");
 
+            mailSenderService.sendMail(
+                  ticket.getClient().getEmail(),
+                  "Ticket Comprado",
+                  "Le informamos que ha adquirido un ticket para el viaje: "
+                      + trip.getDeparture() + " a " + trip.getArrival() + ".\n"
+                      + "Su identificador de viaje es: " + ticket.getIdTicket());
             return ticketOutputDto;
         }
 
@@ -92,7 +102,7 @@ public class TicketServiceImpl implements TicketService{
         TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
         sender.sendMessage(topic, ticketOutputDto, port, "denied", "ticket");
 
-        throw new customUnprocesableException("No quedan asientos para este trayecto: ");
+        throw new customUnprocesableException("No quedan asientos para este trayecto");
     }
 
     @Override
@@ -105,6 +115,12 @@ public class TicketServiceImpl implements TicketService{
 
         TicketOutputDto ticketOutputDto = EntityToTicketOutDto(ticket);
         sender.sendMessage(topic, ticketOutputDto, port, "delete", "ticket");
+
+        mailSenderService.sendMail(
+                ticket.getClient().getEmail(),
+                "Ticket Cancelado",
+                "Le informamos que se ha cancelado el ticket para el viaje: "
+                        + trip.getDeparture() + " a " + trip.getArrival() + ".");
     }
 
     public Ticket ticketInputDtoToEntity(TicketInputDto ticketInputDto) {
