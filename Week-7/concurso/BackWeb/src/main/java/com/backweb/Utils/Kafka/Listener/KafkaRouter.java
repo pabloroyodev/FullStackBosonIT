@@ -1,6 +1,8 @@
 package com.backweb.Utils.Kafka.Listener;
 
 import com.backweb.Client.Infrastructure.Kafka.KafkaClientService;
+import com.backweb.Mail.Domain.Mail;
+import com.backweb.Mail.Infrastructure.Kafka.KafkaMailService;
 import com.backweb.Ticket.Infrastructure.Kafka.KafkaTicketService;
 import com.backweb.Trip.Infrastructure.Kafka.KafkaTripService;
 import com.backweb.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
@@ -28,6 +30,9 @@ public class KafkaRouter {
 
     @Autowired
     KafkaTicketService kafkaTicketService;
+
+    @Autowired
+    KafkaMailService kafkaMailService;
 
     @KafkaListener(topics = "${topic}", groupId = "${group}")
     public void listenTopic(@Payload ConsumerRecord<String, Object> record) throws JsonProcessingException {
@@ -64,7 +69,10 @@ public class KafkaRouter {
                     System.out.println("RECIBIDO TRIP! accion: " + action[0]);
                     kafkaTripService.listenTopic(action[0], mapper.readValue((String)record.value(), TripOutputDto.class));
                 }
-
+                case "mail" -> {
+                    System.out.println("RECIBIDO MAIL! accion: " + action[0]);
+                    kafkaMailService.listenTopic(action[0], mapper.readValue((String)record.value(), Mail.class));
+                }
                 default -> System.out.println("error");
             }
         }

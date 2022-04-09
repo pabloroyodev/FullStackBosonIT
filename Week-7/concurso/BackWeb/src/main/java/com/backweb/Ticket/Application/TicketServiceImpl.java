@@ -2,9 +2,12 @@ package com.backweb.Ticket.Application;
 
 import com.backweb.Client.Domain.Client;
 import com.backweb.Client.Infrastructure.Repository.ClientRepository;
+import com.backweb.Mail.Application.MailService;
+import com.backweb.Mail.Application.MailServiceImpl;
+import com.backweb.Mail.Domain.Mail;
+import com.backweb.Mail.Infrastructure.Repository.MailRepository;
 import com.backweb.Ticket.Infrastructure.Repository.TicketRepository;
 import com.backweb.Trip.Domain.Trip;
-import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 import com.backweb.Trip.Infrastructure.Repository.TripRepository;
 import com.backweb.Utils.Exceptions.customUnprocesableException;
 import com.backweb.Utils.Kafka.Producer.KafkaSender;
@@ -30,6 +33,9 @@ public class TicketServiceImpl implements TicketService{
 
     @Autowired
     TripRepository tripRepository;
+
+    @Autowired
+    MailRepository mailRepository;
 
     @Autowired
     KafkaSender sender;
@@ -94,6 +100,10 @@ public class TicketServiceImpl implements TicketService{
                   "Le informamos que ha adquirido un ticket para el viaje: "
                       + trip.getDeparture() + " a " + trip.getArrival() + ".\n"
                       + "Su identificador de viaje es: " + ticket.getIdTicket());
+
+            Mail mail = new Mail(UUID.randomUUID(), trip.getDate(), trip.getDeparture(), trip.getArrival(), ticket.getClient().getEmail(), "Ticket Comprado");
+            mailRepository.save(mail);
+            sender.sendMessage(topic, mail, port, "create", "mail");
             return ticketOutputDto;
         }
 
