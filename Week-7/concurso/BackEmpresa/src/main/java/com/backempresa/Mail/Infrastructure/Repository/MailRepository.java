@@ -1,6 +1,6 @@
-package com.backweb.Mail.Infrastructure.Repository;
+package com.backempresa.Mail.Infrastructure.Repository;
 
-import com.backweb.Mail.Domain.Mail;
+import com.backempresa.Mail.Domain.Mail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

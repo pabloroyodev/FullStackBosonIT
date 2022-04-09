@@ -1,7 +1,7 @@
-package com.backweb.Mail.Application;
+package com.backempresa.Mail.Application;
 
-import com.backweb.Mail.Domain.Mail;
-import com.backweb.Mail.Infrastructure.Repository.MailRepository;
+import com.backempresa.Mail.Domain.Mail;
+import com.backempresa.Mail.Infrastructure.Repository.MailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
