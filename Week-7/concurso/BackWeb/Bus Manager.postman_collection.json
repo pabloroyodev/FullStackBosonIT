@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "dd62a477-aaa2-484b-be38-f25b01f6d54e",
-		"name": "Bus Manager",
+		"name": "BackWeb",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -23,12 +23,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v0/client",
+							"raw": "http://localhost:8081/v0/client",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"v0",
 								"client"
@@ -43,12 +43,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/v0/client",
+							"raw": "http://localhost:8082/v0/client",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8082",
 							"path": [
 								"v0",
 								"client"
@@ -63,16 +63,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/v0/client/149d37d9-2a7e-4976-b3f1-5ec7e53b9223",
+							"raw": "http://localhost:8082/v0/client/2e884867-09d3-4709-a715-477ce8392dd3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8082",
 							"path": [
 								"v0",
 								"client",
-								"149d37d9-2a7e-4976-b3f1-5ec7e53b9223"
+								"2e884867-09d3-4709-a715-477ce8392dd3"
 							]
 						}
 					},
@@ -163,7 +163,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"details\": \"hola\",\r\n    \"idClient\": \"0158ef8d-77a9-47be-9621-b2682c54ec3b\",\r\n    \"idTrip\": \"b363ea1a-a9ca-4128-b5ed-9a8836765792\"\r\n}",
+							"raw": "{\r\n    \"details\": \"hola\",\r\n    \"idClient\": \"bcac70cb-d851-4c69-a8c2-c91001861b17\",\r\n    \"idTrip\": \"c1f8987f-a926-4569-924d-cfd635ce84a8\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -171,12 +171,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v0/ticket",
+							"raw": "http://localhost:8081/v0/ticket",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"v0",
 								"ticket"
@@ -219,45 +219,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/v0/ticket/3d80d735-18ee-41e2-b04d-eae15cbb8714",
+							"raw": "http://localhost:8082/v0/ticket/50a2eef1-6da6-4678-8b14-fb5b0e7762b5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8082",
 							"path": [
 								"v0",
 								"ticket",
-								"3d80d735-18ee-41e2-b04d-eae15cbb8714"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CREATE client",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"surname\": \"Royo\",\r\n    \"email\": \"pablo@royo.local\",\r\n    \"password\": \"1234\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/v0/client",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v0",
-								"client"
+								"50a2eef1-6da6-4678-8b14-fb5b0e7762b5"
 							]
 						}
 					},
@@ -275,7 +246,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"date\": \"2022-04-02T20:30:00.000+00:00\",\r\n   \"departure\": \"BILB\", \r\n   \"arrival\": \"BCN SANTS\",\r\n   \"issue\": true\r\n}",
+							"raw": "{\r\n   \"date\": \"2022-04-02T20:30:00.000+00:00\",\r\n   \"departure\": \"BILB\", \r\n   \"arrival\": \"BCN SANTS\",\r\n   \"issue\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -283,12 +254,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v0/trip",
+							"raw": "http://localhost:8081/v0/trip",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"v0",
 								"trip"
@@ -318,7 +289,7 @@
 					"response": []
 				},
 				{
-					"name": "GET trip DepartureAndArrivalAndDate",
+					"name": "GET trip DepartureAndArrivalAndDate PARA ADMIN (SE PUEDEN VER ARRAY TICKETS)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -346,6 +317,41 @@
 								{
 									"key": "date",
 									"value": "2022-04-02T20:30:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET trip DepartureAndArrivalAndLocalDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/v0/trip/detailsLocalDate?departure=BILB&arrival=BCN SANTS&localDate=2022-04-02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"v0",
+								"trip",
+								"detailsLocalDate"
+							],
+							"query": [
+								{
+									"key": "departure",
+									"value": "BILB"
+								},
+								{
+									"key": "arrival",
+									"value": "BCN SANTS"
+								},
+								{
+									"key": "localDate",
+									"value": "2022-04-02"
 								}
 							]
 						}
@@ -398,6 +404,110 @@
 								"v0",
 								"trip",
 								"29663f5f-ce80-44ac-a8ab-ef991ab7da29"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "GET mails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v0/mail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v0",
+								"mail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET mail BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v0/mail/8dce7b6e-2e85-4913-accf-461922513f73",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v0",
+								"mail",
+								"8dce7b6e-2e85-4913-accf-461922513f73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET mail BY DepartureAndArrival",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/v0/mail/details?departure=BILB&arrival=BCN SANTS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"v0",
+								"mail",
+								"details"
+							],
+							"query": [
+								{
+									"key": "departure",
+									"value": "BILB"
+								},
+								{
+									"key": "arrival",
+									"value": "BCN SANTS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET trip BY LocalDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/v0/mail/detailsLocalDate?localDate=2022-04-02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"v0",
+								"mail",
+								"detailsLocalDate"
+							],
+							"query": [
+								{
+									"key": "localDate",
+									"value": "2022-04-02"
+								}
 							]
 						}
 					},

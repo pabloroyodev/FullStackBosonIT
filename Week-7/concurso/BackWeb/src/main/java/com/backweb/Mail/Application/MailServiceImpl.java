@@ -2,6 +2,8 @@ package com.backweb.Mail.Application;
 
 import com.backweb.Mail.Domain.Mail;
 import com.backweb.Mail.Infrastructure.Repository.MailRepository;
+import com.backweb.Trip.Domain.Trip;
+import com.backweb.Trip.Infrastructure.Controller.Dto.Output.TripCensoredOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,13 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public List<Mail> findByDepartureAndArrival(String departure, String arrival) {
-        return null;
+        List<Mail> mails = mailRepository.findByDepartureAndArrival(departure, arrival);
+        return mails.stream().collect(Collectors.toList());
     }
 
     @Override
     public List<Mail> findByLocalDate(String date) {
-        return null;
+        List<Mail> mails = mailRepository.findByLocalDate(date);
+        return mails.stream().collect(Collectors.toList());
     }
 }
