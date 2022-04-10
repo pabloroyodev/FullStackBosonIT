@@ -1,12 +1,7 @@
 package com.backempresa.Trip.Application;
 
-import com.backempresa.Client.Application.ClientServiceImpl;
-import com.backempresa.Client.Domain.Client;
-import com.backempresa.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
-import com.backempresa.Client.Infrastructure.Repository.ClientRepository;
 import com.backempresa.Mail.Domain.Mail;
 import com.backempresa.Mail.Infrastructure.Repository.MailRepository;
-import com.backempresa.Ticket.Infrastructure.Repository.TicketRepository;
 import com.backempresa.Trip.Domain.Trip;
 import com.backempresa.Trip.Infrastructure.Controller.Dto.Output.TripCensoredOutputDto;
 import com.backempresa.Trip.Infrastructure.Repository.TripRepository;
