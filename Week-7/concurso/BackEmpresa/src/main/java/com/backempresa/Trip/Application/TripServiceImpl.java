@@ -1,11 +1,19 @@
 package com.backempresa.Trip.Application;
 
+import com.backempresa.Client.Application.ClientServiceImpl;
+import com.backempresa.Client.Domain.Client;
+import com.backempresa.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
+import com.backempresa.Client.Infrastructure.Repository.ClientRepository;
+import com.backempresa.Mail.Domain.Mail;
+import com.backempresa.Mail.Infrastructure.Repository.MailRepository;
+import com.backempresa.Ticket.Infrastructure.Repository.TicketRepository;
 import com.backempresa.Trip.Domain.Trip;
 import com.backempresa.Trip.Infrastructure.Controller.Dto.Output.TripCensoredOutputDto;
 import com.backempresa.Trip.Infrastructure.Repository.TripRepository;
 import com.backempresa.Trip.Infrastructure.Controller.Dto.Input.TripInputDto;
 import com.backempresa.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
 import com.backempresa.Utils.Kafka.Producer.KafkaSender;
+import com.backempresa.Utils.Mail.MailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +27,12 @@ import java.util.stream.Collectors;
 public class TripServiceImpl implements TripService{
     @Autowired
     TripRepository tripRepository;
+
+    @Autowired
+    MailRepository mailRepository;
+
+    @Autowired
+    MailSenderService mailSenderService;
 
     @Autowired
     KafkaSender sender;
@@ -73,7 +87,21 @@ public class TripServiceImpl implements TripService{
     public TripOutputDto updateTrip(UUID id, TripInputDto tripInputDto) {
         Trip trip = tripRepository.findById(id).orElseThrow();
 
-        if (tripInputDto.isIssue()) {trip.setSeats(0);}
+        if (tripInputDto.isIssue()) {
+            trip.setSeats(0);
+                for (int i = 0; i < trip.getTickets().size(); i++) {
+                    mailSenderService.sendMail(
+                          trip.getTickets().get(i).getClient().getEmail(),
+                          "Aviso Importante. Su viaje ha sido cancelado",
+                          "Le informamos que su viaje desde " + trip.getDeparture() + " a " + trip.getArrival() + " para la fecha " + trip.getDate()
+                                  + " ha sido cancelado de manera forzosa por huelga, averia o otro motivo excepcional.\n"
+                                  + "El identificador del ticket cancelado es: " + trip.getTickets().get(i).getIdTicket());
+
+                    Mail mail = new Mail(UUID.randomUUID(), trip.getDate(), trip.getDeparture(), trip.getArrival(), trip.getTickets().get(i).getClient().getEmail(), "CANCELACION FORZOSA");
+                    mailRepository.save(mail);
+                    sender.sendMessage(topic, mail, port, "create", "mail");
+                }
+        }
 
         if (!tripInputDto.isIssue()) {
             if (trip.isIssue()) {
