@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RequestMapping("v0/trip")
+@RequestMapping("v0-empresa/trip")
 @RestController
 public class UpdateTrip {
     @Autowired

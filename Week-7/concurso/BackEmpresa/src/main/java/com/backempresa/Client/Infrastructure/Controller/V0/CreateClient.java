@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("v0/client")
+@RequestMapping("v0-empresa/client")
 @RestController
 public class CreateClient {
     @Autowired

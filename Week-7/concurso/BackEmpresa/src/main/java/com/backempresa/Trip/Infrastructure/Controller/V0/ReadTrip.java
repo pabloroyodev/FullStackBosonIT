@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("v0/trip")
+@RequestMapping("v0-empresa/trip")
 @RestController
 public class ReadTrip {
     @Autowired

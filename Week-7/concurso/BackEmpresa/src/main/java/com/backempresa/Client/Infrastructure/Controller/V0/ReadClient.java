@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("v0/client")
+@RequestMapping("v0-empresa/client")
 @RestController
 public class ReadClient {
     @Autowired

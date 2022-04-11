@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("v0/mail")
+@RequestMapping("v0-empresa/mail")
 @RestController
 public class ReadMail {
     @Autowired

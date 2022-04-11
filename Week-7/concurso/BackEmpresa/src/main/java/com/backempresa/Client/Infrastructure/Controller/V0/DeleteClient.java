@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RequestMapping("v0/client")
+@RequestMapping("v0-empresa/client")
 @RestController
 public class DeleteClient {
     @Autowired

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("v0/trip")
+@RequestMapping("v0-empresa/trip")
 @RestController
 public class CreateTrip {
     @Autowired

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RequestMapping("v0/ticket")
+@RequestMapping("v0-empresa/ticket")
 @RestController
 public class DeleteTicket {
     @Autowired

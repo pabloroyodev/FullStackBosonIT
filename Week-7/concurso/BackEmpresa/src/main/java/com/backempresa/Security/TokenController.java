@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequestMapping("v0/token") @RestController
+@RequestMapping("v0-empresa/token") @RestController
 public class TokenController {
 
     @Autowired

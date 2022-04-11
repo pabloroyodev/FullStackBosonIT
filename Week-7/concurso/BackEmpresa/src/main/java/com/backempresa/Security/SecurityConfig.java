@@ -28,29 +28,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JWTAuthentication(), UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests().antMatchers(GET, "/v0/token/**").permitAll();
-        http.authorizeRequests().antMatchers(POST, "/v0/token/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/token/**").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/v0-empresa/token/**").permitAll();
 
-        http.authorizeRequests().antMatchers(GET, "/v0/trip/details").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/v0/trip/detailsLocalDate").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/v0/trip/{\\d}").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/v0/trip/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/v0/trip/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(PUT, "/v0/trip/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(DELETE, "/v0/trip/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/details").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/detailsLocalDate").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/{\\d}").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(PUT, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(DELETE, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
 
-        http.authorizeRequests().antMatchers(GET, "/v0/mail/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/mail/**").hasAnyAuthority("ADMIN");
 
-        http.authorizeRequests().antMatchers(GET, "/v0/client/{\\d}").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(GET, "/v0/client/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/v0/client/**").permitAll();
-        http.authorizeRequests().antMatchers(PUT, "/v0/client/**").hasAnyAuthority("ADMIN", "USER");
-        http.authorizeRequests().antMatchers(DELETE, "/v0/client/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/client/{\\d}").hasAnyAuthority("USER");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/client/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/v0-empresa/client/**").permitAll();
+        http.authorizeRequests().antMatchers(PUT, "/v0-empresa/client/**").hasAnyAuthority("ADMIN", "USER");
+        http.authorizeRequests().antMatchers(DELETE, "/v0-empresa/client/**").hasAnyAuthority("ADMIN");
 
-        http.authorizeRequests().antMatchers(GET, "/v0/ticket/{\\d}").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(GET, "/v0/ticket/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/v0/ticket/**").hasAnyAuthority("USER", "ADMIN");
-        http.authorizeRequests().antMatchers(DELETE, "/v0/ticket/**").hasAnyAuthority("USER", "ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/ticket/{\\d}").hasAnyAuthority("USER");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/ticket/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/v0-empresa/ticket/**").hasAnyAuthority("USER", "ADMIN");
+        http.authorizeRequests().antMatchers(DELETE, "/v0-empresa/ticket/**").hasAnyAuthority("USER", "ADMIN");
 
         http.authorizeRequests().anyRequest().authenticated();
     }
