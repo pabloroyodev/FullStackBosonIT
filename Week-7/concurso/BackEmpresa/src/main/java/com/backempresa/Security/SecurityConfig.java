@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers(GET, "/v0/trip/details").permitAll();
         http.authorizeRequests().antMatchers(GET, "/v0/trip/detailsLocalDate").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/v0/trip/{\\d}").permitAll();
         http.authorizeRequests().antMatchers(GET, "/v0/trip/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(POST, "/v0/trip/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(PUT, "/v0/trip/**").hasAnyAuthority("ADMIN");

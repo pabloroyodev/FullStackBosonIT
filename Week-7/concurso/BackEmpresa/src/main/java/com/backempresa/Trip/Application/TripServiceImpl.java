@@ -50,7 +50,6 @@ public class TripServiceImpl implements TripService{
         return new TripOutputDto(trip);
     }
 
-    //Si alguien desea comprar un ticket, sin saber el tripId, deberemos buscar por estos campos.
     @Override
     public List<TripOutputDto> findByDepartureAndArrivalAndDate(String departure, String arrival, Date date) {
         List<Trip> trips = tripRepository.findByDepartureAndArrivalAndDate(departure,arrival, date);
