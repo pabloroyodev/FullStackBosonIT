@@ -17,7 +17,7 @@ public class UpdateClient {
     ClientService clientService;
 
     @PutMapping("{id}")
-    public ClientOutputDto updateTrip(@PathVariable UUID id, @RequestBody ClientInputDto clientInputDto, @RequestHeader("Authorization") String auth) {
+    public ClientOutputDto updateClient(@PathVariable UUID id, @RequestBody ClientInputDto clientInputDto, @RequestHeader("Authorization") String auth) {
         UUID idToken = AuthUtils.getId(auth);
         if (!idToken.equals(id)) {
             throw new customUnprocesableException("La persona autenticada no corresponde con al persona que quieres cambiar");

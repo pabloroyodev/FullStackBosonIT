@@ -1,5 +1,6 @@
 package com.backweb.Auth;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,9 @@ import org.springframework.web.client.RestTemplate;
 
 @RequestMapping("v0") @RestController
 public class AuthController {
+    @Value("${urlempresa}")
+    String EMPRESA;
+
     @PostMapping("login")
     public ResponseEntity<String> login(@RequestHeader("email") String email, @RequestHeader("password") String password){
         HttpHeaders headers = new HttpHeaders();
@@ -19,7 +23,7 @@ public class AuthController {
         headers.set("password", password);
         HttpEntity<Object> request = new HttpEntity<>(headers);
         return new RestTemplate().exchange(
-                "http://localhost:8090/v0/token",
+                EMPRESA,
                 HttpMethod.POST,
                 request,
                 String.class);
