@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(GET, "/v0/token/**").permitAll();
         http.authorizeRequests().antMatchers(POST, "/v0/token/**").permitAll();
 
+        http.authorizeRequests().antMatchers(GET, "/v0/trip/details").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/v0/trip/detailsLocalDate").permitAll();
         http.authorizeRequests().antMatchers(GET, "/v0/trip/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(POST, "/v0/trip/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(PUT, "/v0/trip/**").hasAnyAuthority("ADMIN");
@@ -44,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(PUT, "/v0/client/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(DELETE, "/v0/client/**").hasAnyAuthority("ADMIN");
 
-        http.authorizeRequests().antMatchers(GET, "/v0/ticket/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(GET, "/v0/ticket/{\\d}").hasAnyAuthority("USER");
+        http.authorizeRequests().antMatchers(GET, "/v0/ticket/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(POST, "/v0/ticket/**").hasAnyAuthority("USER", "ADMIN");
         http.authorizeRequests().antMatchers(DELETE, "/v0/ticket/**").hasAnyAuthority("USER", "ADMIN");
 
