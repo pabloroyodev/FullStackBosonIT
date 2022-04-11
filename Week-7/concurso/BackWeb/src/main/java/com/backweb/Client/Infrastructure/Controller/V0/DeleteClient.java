@@ -15,8 +15,10 @@ public class DeleteClient {
     @Autowired
     ClientService clientService;
 
+    /*
     @DeleteMapping("{id}")
     public void deleteTrip(@PathVariable UUID id) {
         clientService.deleteClient(id);
     }
+    */
 }

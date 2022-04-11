@@ -15,8 +15,10 @@ public class CreateTrip {
     @Autowired
     TripService tripService;
 
+    /*
     @PostMapping
     public TripOutputDto addTrip(@RequestBody TripInputDto tripInputDto) {
         return tripService.addTrip(tripInputDto);
     }
+    */
 }

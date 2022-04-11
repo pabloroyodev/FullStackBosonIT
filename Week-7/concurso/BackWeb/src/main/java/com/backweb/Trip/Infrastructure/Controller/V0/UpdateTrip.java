@@ -14,8 +14,10 @@ public class UpdateTrip {
     @Autowired
     TripService tripService;
 
+    /*
     @PutMapping("{id}")
     public TripOutputDto updateTrip(@PathVariable UUID id, @RequestBody TripInputDto tripInputDto) {
         return tripService.updateTrip(id, tripInputDto);
     }
+    */
 }

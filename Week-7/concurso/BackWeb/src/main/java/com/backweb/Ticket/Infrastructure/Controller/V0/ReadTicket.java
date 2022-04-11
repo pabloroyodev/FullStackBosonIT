@@ -17,10 +17,12 @@ public class ReadTicket {
     @Autowired
     TicketService ticketService;
 
+    /*
     @GetMapping
     public List<TicketOutputDto> findAll(){
         return ticketService.getAllTickets();
     }
+    */
 
     @GetMapping("{id}")
     public TicketOutputDto filterTicketById(@PathVariable UUID id){

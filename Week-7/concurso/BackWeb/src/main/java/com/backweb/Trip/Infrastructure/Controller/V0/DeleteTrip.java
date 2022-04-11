@@ -12,8 +12,10 @@ public class DeleteTrip {
     @Autowired
     TripService tripService;
 
+    /*
     @DeleteMapping("{id}")
     public void deleteTrip(@PathVariable UUID id) {
         tripService.deleteTrip(id);
     }
+    */
 }

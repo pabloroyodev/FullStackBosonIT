@@ -14,6 +14,7 @@ public class ReadMail {
     @Autowired
     MailService mailService;
 
+    /*
     @GetMapping
     public List<Mail> findAll(){
         return mailService.getAllMail();
@@ -33,4 +34,5 @@ public class ReadMail {
     public List<Mail> findByLocalDate(@RequestParam String localDate) {
         return mailService.findByLocalDate(localDate);
     }
+    */
 }

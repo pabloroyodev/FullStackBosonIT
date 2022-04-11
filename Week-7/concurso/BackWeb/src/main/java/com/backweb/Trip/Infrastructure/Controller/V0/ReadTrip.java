@@ -17,10 +17,12 @@ public class ReadTrip {
     @Autowired
     TripService tripService;
 
+    /*
     @GetMapping
     public List<TripOutputDto> findAll(){
         return tripService.getAllTrip();
     }
+    */
 
     @GetMapping("{id}")
     public TripOutputDto filterTripById(@PathVariable UUID id) {
