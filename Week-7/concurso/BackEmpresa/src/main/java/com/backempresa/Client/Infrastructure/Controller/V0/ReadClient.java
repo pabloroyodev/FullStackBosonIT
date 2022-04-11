@@ -3,10 +3,7 @@ package com.backempresa.Client.Infrastructure.Controller.V0;
 import com.backempresa.Client.Application.ClientService;
 import com.backempresa.Client.Infrastructure.Controller.Dto.Output.ClientOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;

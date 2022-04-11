@@ -11,14 +11,14 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import lombok.extern.slf4j.Slf4j;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequestMapping("v0/token") @RestController @Slf4j
+@RequestMapping("v0/token") @RestController
 public class TokenController {
 
     @Autowired
@@ -32,10 +32,9 @@ public class TokenController {
         Client client = clientRepository.findByEmail(email);
         if (!client.getPassword().equals(password)) {throw new customUnprocesableException("Password incorrecto");}
         if (client.getEmail().equals("admin@adminbus.local")) {
-            log.info("Es admin");
-            return new ResponseEntity<>(getJWTToken(email,"ADMIN"), HttpStatus.OK);
+            return new ResponseEntity<>(getJWTToken(client.getIdClient(), email,"ADMIN"), HttpStatus.OK);
         }
-        return new ResponseEntity<>(getJWTToken(email,"USER"), HttpStatus.OK);
+        return new ResponseEntity<>(getJWTToken(client.getIdClient(), email,"USER"), HttpStatus.OK);
     }
 
     @GetMapping("{token}")
@@ -46,13 +45,13 @@ public class TokenController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    private String getJWTToken(String email, String rol) {
+    private String getJWTToken(UUID id, String email, String rol) {
     String secretKey = "${secretKey}";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(rol);
         String token = Jwts
                 .builder()
-                .setId("softtekJWT")
+                .setId(String.valueOf(id))
                 .setSubject(email)
                 .claim("authorities",
                         grantedAuthorities.stream()
