@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: BackWeb
+          uri: http://localhost:8081
+          predicates:
+            - Path=/v0/**
+        - id: BackWeb
+          uri: http://localhost:8082
+          predicates:
+            - Path=/v0/**
+        - id: BackWeb
+          uri: http://localhost:8083
+          predicates:
+            - Path=/v0/**
+        - id: BackEmpresa
+          uri: http://localhost:8090
+          predicates:
+            - Path=/v0-empresa/**
