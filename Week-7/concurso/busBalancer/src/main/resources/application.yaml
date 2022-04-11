@@ -1,6 +1,15 @@
 server:
   port: 8080
 
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
 spring:
   cloud:
     gateway:
@@ -9,18 +18,10 @@ spring:
           enabled: true
       routes:
         - id: BackWeb
-          uri: http://localhost:8081
-          predicates:
-            - Path=/v0/**
-        - id: BackWeb
-          uri: http://localhost:8082
-          predicates:
-            - Path=/v0/**
-        - id: BackWeb
-          uri: http://localhost:8083
+          uri: lb://BackWeb
           predicates:
             - Path=/v0/**
         - id: BackEmpresa
-          uri: http://localhost:8090
+          uri: lb://BackEmpresa
           predicates:
             - Path=/v0-empresa/**
