@@ -51,11 +51,12 @@ Timeline of the learning path divided in weeks.
 - [DBA2 - Personas MongoDB](./Week-6/ex24)
 - - [Documento de implementacion MongoDB](./Week-6/ex24/MongoDB.pdf)
 
-### Week 7 (21-03 to 25-03)
+### Week 7 (21-03 to 25-03) y mas...
 - [SA2 - Subir archivos a Spring](./Week-7/ex25)
 - [EJTE-1 - Testing con SonarQube](./Week-7/ex26)
 - [EJS3-1 - Autorizacion y Autenticacion](./Week-7/ex27)
 - [EJKA-1 - Kafka recibir y enviar mensajes](./Week-7/ex28)
+- [FINAL - Aplicacion Final Reservas](./Week-7/concurso)
 
 # FRONTEND SECTION
 
