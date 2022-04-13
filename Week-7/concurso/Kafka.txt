@@ -1,0 +1,15 @@
+zookeeper.properties
+dataDir=C:/kafka_2.13-3.1.0/data/zookeeper
+
+server.properties
+log.dirs=C:/kafka_2.13-3.1.0/data/kafka
+
+
+ARRANQUE:
+zookeeper-server-start.bat C:\kafka_2.13-3.1.0\config\zookeeper.properties
+
+kafka-server-start.bat C:\kafka_2.13-3.1.0\config\server.properties
+
+
+TOPIC CREATION
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic mytopic_1
