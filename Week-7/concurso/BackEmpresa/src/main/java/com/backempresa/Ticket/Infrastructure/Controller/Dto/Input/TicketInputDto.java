@@ -1,6 +1,6 @@
 package com.backempresa.Ticket.Infrastructure.Controller.Dto.Input;
 
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,9 +12,9 @@ public class TicketInputDto implements Serializable {
 
     private String details;
 
-    @NotNull
+    @NonNull
     private UUID idClient;
 
-    @NotNull
+    @NonNull
     private UUID idTrip;
 }

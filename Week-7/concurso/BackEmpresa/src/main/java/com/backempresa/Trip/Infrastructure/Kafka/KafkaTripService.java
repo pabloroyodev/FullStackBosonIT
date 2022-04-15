@@ -4,10 +4,13 @@ import com.backempresa.Trip.Application.TripServiceImpl;
 import com.backempresa.Trip.Domain.Trip;
 import com.backempresa.Trip.Infrastructure.Repository.TripRepository;
 import com.backempresa.Trip.Infrastructure.Controller.Dto.Output.TripOutputDto;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class KafkaTripService {
     @Autowired
     TripServiceImpl tripService;
@@ -19,9 +22,9 @@ public class KafkaTripService {
         switch (action) {
             case "create" -> {
                 Trip trip = tripService.tripOutDtoToEntity(tripOutputDto);
-                System.out.println(trip);
                 tripRepository.save(trip);
-                System.out.println("CREATE SUCCESS");
+
+                log.info("CREATE SUCCESS");
             }
 
             case "update" -> {
@@ -35,12 +38,17 @@ public class KafkaTripService {
 
                 tripRepository.save(trip);
 
-                System.out.println("UPDATE SUCCESS");
+                log.info("UPDATE SUCCESS");
             }
 
             case "delete" -> {
                 tripRepository.delete(tripRepository.findById(tripOutputDto.getIdTrip()).orElseThrow());
-                System.out.println("DELETE SUCCESS");
+
+                log.info("DELETE SUCCESS");
+            }
+
+            default -> {
+                log.info("ERROR KAFKA SERVICE TRIP! ACCION NO ESPECIFICADA (create, update o delete)");
             }
         }
     }

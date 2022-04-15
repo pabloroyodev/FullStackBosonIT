@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class TicketServiceImpl implements TicketService{
@@ -47,10 +46,16 @@ public class TicketServiceImpl implements TicketService{
     @Value("${topic}")
     String topic;
 
+    String TICKET = "ticket";
+
+    String DENIED = "denied";
+
+    String CREATE = "create";
+
     @Override
     public List<TicketOutputDto> getAllTickets() {
         List<Ticket> tickets = ticketRepository.findAll();
-        return tickets.stream().map(TicketOutputDto::new).collect(Collectors.toList());
+        return tickets.stream().map(TicketOutputDto::new).toList();
     }
 
     @Override
@@ -70,7 +75,7 @@ public class TicketServiceImpl implements TicketService{
             tripRepository.save(trip);
 
             TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
-            sender.sendMessage(topic, ticketOutputDto, port, "denied", "ticket");
+            sender.sendMessage(topic, ticketOutputDto, port, DENIED, TICKET);
 
             throw new customUnprocesableException("Viaje cancelado. (Mantenimiento, huelga, etc.)");
         }
@@ -82,7 +87,7 @@ public class TicketServiceImpl implements TicketService{
 
                 Ticket ticket = ticketInputDtoToEntity(ticketInputDto);
                 TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
-                sender.sendMessage(topic, ticketOutputDto, port, "denied", "ticket");
+                sender.sendMessage(topic, ticketOutputDto, port, DENIED, TICKET);
                 throw new customUnprocesableException("Cliente ya tiene ticket para el trayecto: " + ticketInputDto.getIdTrip() + " solo 1 por persona.");
             }
         }
@@ -96,7 +101,7 @@ public class TicketServiceImpl implements TicketService{
             ticketRepository.save(ticket);
 
             TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
-            sender.sendMessage(topic, ticketOutputDto, port, "create", "ticket");
+            sender.sendMessage(topic, ticketOutputDto, port, CREATE, TICKET);
 
             mailSenderService.sendMail(
                   ticket.getClient().getEmail(),
@@ -107,14 +112,14 @@ public class TicketServiceImpl implements TicketService{
 
             Mail mail = new Mail(UUID.randomUUID(), trip.getDate(), trip.getDeparture(), trip.getArrival(), ticket.getClient().getEmail(), "Ticket Comprado");
             mailRepository.save(mail);
-            sender.sendMessage(topic, mail, port, "create", "mail");
+            sender.sendMessage(topic, mail, port, CREATE, "mail");
             return ticketOutputDto;
         }
 
         trip.setIncreaseDeniedSeats(1);
         tripRepository.save(trip);
         TicketOutputDto ticketOutputDto = new TicketOutputDto(ticket);
-        sender.sendMessage(topic, ticketOutputDto, port, "denied", "ticket");
+        sender.sendMessage(topic, ticketOutputDto, port, DENIED, TICKET);
 
         throw new customUnprocesableException("No quedan asientos para este trayecto");
     }
@@ -128,7 +133,7 @@ public class TicketServiceImpl implements TicketService{
         tripRepository.save(trip);
 
         TicketOutputDto ticketOutputDto = EntityToTicketOutDto(ticket);
-        sender.sendMessage(topic, ticketOutputDto, port, "delete", "ticket");
+        sender.sendMessage(topic, ticketOutputDto, port, "delete", TICKET);
 
         mailSenderService.sendMail(
                 ticket.getClient().getEmail(),
@@ -138,7 +143,7 @@ public class TicketServiceImpl implements TicketService{
 
         Mail mail = new Mail(UUID.randomUUID(), trip.getDate(), trip.getDeparture(), trip.getArrival(), ticket.getClient().getEmail(), "Ticket Cancelado");
         mailRepository.save(mail);
-        sender.sendMessage(topic, mail, port, "create", "mail");
+        sender.sendMessage(topic, mail, port, CREATE, "mail");
     }
 
     public Ticket ticketInputDtoToEntity(TicketInputDto ticketInputDto) {

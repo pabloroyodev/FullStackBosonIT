@@ -13,6 +13,15 @@ import static org.springframework.http.HttpMethod.*;
 @EnableWebSecurity @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    String ADMIN = "ADMIN";
+    String USER = "USER";
+
+    String ALLTRIP = "/v0-empresa/trip/**";
+    String ALLCLIENT = "/v0-empresa/client/**";
+    String ALLTICKET = "/v0-empresa/ticket/**";
+
+    String ALLTOKENS = "/v0-empresa/token/**";
+
     //Ignoramos seguridad para la BD de H2
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -28,29 +37,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JWTAuthentication(), UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/token/**").permitAll();
-        http.authorizeRequests().antMatchers(POST, "/v0-empresa/token/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, ALLTOKENS).permitAll();
+        http.authorizeRequests().antMatchers(POST, ALLTOKENS).permitAll();
 
         http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/details").permitAll();
         http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/detailsLocalDate").permitAll();
         http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/{\\d}").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(PUT, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(DELETE, "/v0-empresa/trip/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, ALLTRIP).hasAnyAuthority(ADMIN);
+        http.authorizeRequests().antMatchers(POST, ALLTRIP).hasAnyAuthority(ADMIN);
+        http.authorizeRequests().antMatchers(PUT, ALLTRIP).hasAnyAuthority(ADMIN);
+        http.authorizeRequests().antMatchers(DELETE, ALLTRIP).hasAnyAuthority(ADMIN);
 
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/mail/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/mail/**").hasAnyAuthority(ADMIN);
 
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/client/{\\d}").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/client/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/v0-empresa/client/**").permitAll();
-        http.authorizeRequests().antMatchers(PUT, "/v0-empresa/client/**").hasAnyAuthority("ADMIN", "USER");
-        http.authorizeRequests().antMatchers(DELETE, "/v0-empresa/client/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/client/{\\d}").hasAnyAuthority(USER);
+        http.authorizeRequests().antMatchers(GET, ALLCLIENT).hasAnyAuthority(ADMIN);
+        http.authorizeRequests().antMatchers(POST, ALLCLIENT).permitAll();
+        http.authorizeRequests().antMatchers(PUT, ALLCLIENT).hasAnyAuthority(ADMIN, USER);
+        http.authorizeRequests().antMatchers(DELETE, ALLCLIENT).hasAnyAuthority(ADMIN);
 
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/ticket/{\\d}").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(GET, "/v0-empresa/ticket/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/v0-empresa/ticket/**").hasAnyAuthority("USER", "ADMIN");
-        http.authorizeRequests().antMatchers(DELETE, "/v0-empresa/ticket/**").hasAnyAuthority("USER", "ADMIN");
+        http.authorizeRequests().antMatchers(GET, "/v0-empresa/ticket/{\\d}").hasAnyAuthority(USER);
+        http.authorizeRequests().antMatchers(GET, ALLTICKET).hasAnyAuthority(ADMIN);
+        http.authorizeRequests().antMatchers(POST, ALLTICKET).hasAnyAuthority(USER, ADMIN);
+        http.authorizeRequests().antMatchers(DELETE, ALLTICKET).hasAnyAuthority(USER, ADMIN);
 
         http.authorizeRequests().anyRequest().authenticated();
     }

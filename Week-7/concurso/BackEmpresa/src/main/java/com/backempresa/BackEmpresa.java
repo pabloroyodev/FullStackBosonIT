@@ -14,15 +14,12 @@ public class BackEmpresa {
 	@Autowired
 	ClientRepository clientRepository;
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(BackEmpresa.class, args);
 	}
 
 	@Bean
 	CommandLineRunner run(ClientServiceImpl clientService){
-
-
 		return args -> {
 			if (clientRepository.findByEmail("admin@adminbus.local") == null) {
 				clientService.addClient(new ClientInputDto("Admin", "Bus", "admin@adminbus.local", "1234"));

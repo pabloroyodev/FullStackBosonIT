@@ -5,7 +5,10 @@ import java.util.UUID;
 
 public class AuthUtils {
 
-    //Get Id cliente del token mediante la decodificacion base64 y retornarlo.
+    private AuthUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static UUID getId(String token) {
         Base64.Decoder decoder = Base64.getUrlDecoder();
         String[] chunks = token.split("\\.");
@@ -15,8 +18,6 @@ public class AuthUtils {
         return UUID.fromString(chunksPayload[0].substring(8, chunksPayload[0].length()-1));
     }
 
-
-    //Get email cliente del token mediante la decodificacion base64 y retornarlo.
     public static String getEmail(String token) {
         Base64.Decoder decoder = Base64.getUrlDecoder();
         String[] chunks = token.split("\\.");

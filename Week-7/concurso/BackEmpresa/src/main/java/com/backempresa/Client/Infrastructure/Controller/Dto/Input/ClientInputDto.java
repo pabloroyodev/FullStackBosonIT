@@ -1,6 +1,6 @@
 package com.backempresa.Client.Infrastructure.Controller.Dto.Input;
 
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,15 +9,15 @@ import java.io.Serializable;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class ClientInputDto implements Serializable {
-    @NotNull
+    @NonNull
     private String name;
 
     private String surname;
 
-    @NotNull
+    @NonNull
     private String email;
 
-    @NotNull
+    @NonNull
     private String password;
 
 }

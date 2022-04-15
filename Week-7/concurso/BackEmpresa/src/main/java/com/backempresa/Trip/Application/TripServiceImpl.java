@@ -38,10 +38,12 @@ public class TripServiceImpl implements TripService{
     @Value("${topic}")
     String topic;
 
+    String TRIP = "trip";
+
     @Override
     public List<TripOutputDto> getAllTrip() {
         List<Trip> trips = tripRepository.findAll();
-        return trips.stream().map(TripOutputDto::new).collect(Collectors.toList());
+        return trips.stream().map(TripOutputDto::new).toList();
     }
 
     @Override
@@ -53,13 +55,13 @@ public class TripServiceImpl implements TripService{
     @Override
     public List<TripOutputDto> findByDepartureAndArrivalAndDate(String departure, String arrival, Date date) {
         List<Trip> trips = tripRepository.findByDepartureAndArrivalAndDate(departure,arrival, date);
-        return trips.stream().map(TripOutputDto::new).collect(Collectors.toList());
+        return trips.stream().map(TripOutputDto::new).toList();
     }
 
     @Override
     public List<TripCensoredOutputDto> findByDepartureAndArrivalAndLocalDate(String departure, String arrival, String date) {
         List<Trip> trips = tripRepository.findByDepartureAndArrivalAndLocalDate(departure, arrival, date);
-        return trips.stream().map(TripCensoredOutputDto::new).collect(Collectors.toList());
+        return trips.stream().map(TripCensoredOutputDto::new).toList();
     }
 
     @Override
@@ -72,7 +74,7 @@ public class TripServiceImpl implements TripService{
 
         TripOutputDto tripOutputDto = new TripOutputDto(trip);
 
-        sender.sendMessage(topic, tripOutputDto, port, "create", "trip");
+        sender.sendMessage(topic, tripOutputDto, port, "create", TRIP);
 
         return tripOutputDto;
     }
@@ -97,10 +99,8 @@ public class TripServiceImpl implements TripService{
                 }
         }
 
-        if (!tripInputDto.isIssue()) {
-            if (trip.isIssue()) {
+        if (!tripInputDto.isIssue() && trip.isIssue()) {
                 trip.setSeats(40);
-            }
         }
 
         trip.setDate(tripInputDto.getDate());
@@ -110,7 +110,7 @@ public class TripServiceImpl implements TripService{
 
         tripRepository.save(trip);
         TripOutputDto tripOutputDto = EntityToTripOutDto(trip);
-        sender.sendMessage(topic, tripOutputDto, port, "update", "trip");
+        sender.sendMessage(topic, tripOutputDto, port, "update", TRIP);
 
         return new TripOutputDto(trip);
     }
@@ -119,7 +119,7 @@ public class TripServiceImpl implements TripService{
     public void deleteTrip(UUID id) {
         TripOutputDto tripOutputDto = EntityToTripOutDto(tripRepository.findById(id).orElseThrow());
         tripRepository.delete(tripRepository.findById(id).orElseThrow());
-        sender.sendMessage(topic, tripOutputDto, port, "delete", "trip");
+        sender.sendMessage(topic, tripOutputDto, port, "delete", TRIP);
     }
 
     public Trip tripInputDtoToEntity(TripInputDto tripInputDto){

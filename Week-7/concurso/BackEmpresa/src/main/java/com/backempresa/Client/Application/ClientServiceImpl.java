@@ -28,10 +28,12 @@ public class ClientServiceImpl implements ClientService{
     @Value("${topic}")
     String topic;
 
+    String CLIENT = "client";
+
     @Override
     public List<ClientOutputDto> getAllClients() {
         List<Client> clients = clientRepository.findAll();
-        return clients.stream().map(ClientOutputDto::new).collect(Collectors.toList());
+        return clients.stream().map(ClientOutputDto::new).toList();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class ClientServiceImpl implements ClientService{
             clientRepository.save(client);
 
             ClientOutputDto clientDto = new ClientOutputDto(client);
-            sender.sendMessage(topic, clientDto, port, "create", "client");
+            sender.sendMessage(topic, clientDto, port, "create", CLIENT);
 
             return clientDto;
         }
@@ -75,7 +77,7 @@ public class ClientServiceImpl implements ClientService{
 
             clientRepository.save(client);
             ClientOutputDto clientOutputDto = EntityToClientOutDto(client);
-            sender.sendMessage(topic, clientOutputDto, port, "update", "client");
+            sender.sendMessage(topic, clientOutputDto, port, "update", CLIENT);
 
             return clientOutputDto;
         }
@@ -88,7 +90,7 @@ public class ClientServiceImpl implements ClientService{
     public void deleteClient(UUID id) {
         ClientOutputDto clientOutputDto = EntityToClientOutDto(clientRepository.findById(id).orElseThrow());
         clientRepository.delete(clientRepository.findById(id).orElseThrow());
-        sender.sendMessage(topic, clientOutputDto, port, "delete", "client");
+        sender.sendMessage(topic, clientOutputDto, port, "delete", CLIENT);
     }
 
     public Client clientInputDtoToEntity(ClientInputDto clientInputDto){

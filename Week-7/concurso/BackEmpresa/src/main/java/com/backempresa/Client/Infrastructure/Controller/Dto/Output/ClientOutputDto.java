@@ -30,12 +30,12 @@ public class ClientOutputDto implements Serializable {
         setEmail(client.getEmail());
         setPassword(client.getPassword());
 
-        List<UUID> tickets = new ArrayList<>();
+        List<UUID> ticketList = new ArrayList<>();
         if(client.getTickets() != null && client.getTickets().size() != 0) {
             for(int i = 0; i < client.getTickets().size(); i++){
-                tickets.add(client.getTickets().get(i).getIdTicket());
+                ticketList.add(client.getTickets().get(i).getIdTicket());
             }
         }
-        setTickets(tickets);
+        setTickets(ticketList);
     }
 }

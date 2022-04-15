@@ -7,19 +7,20 @@ import com.backempresa.Trip.Infrastructure.Repository.TripRepository;
 import com.backempresa.Ticket.Application.TicketServiceImpl;
 import com.backempresa.Ticket.Domain.Ticket;
 import com.backempresa.Ticket.Infrastructure.Controller.Dto.Output.TicketOutputDto;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class KafkaTicketService {
+
     @Autowired
     TicketServiceImpl ticketService;
 
     @Autowired
     TicketRepository ticketRepository;
-
-    @Autowired
-    ClientRepository clientRepository;
 
     @Autowired
     TripRepository tripRepository;
@@ -28,24 +29,17 @@ public class KafkaTicketService {
         switch (action) {
             case "create" -> {
                 Ticket ticket = ticketService.ticketOutDtoToEntity(ticketOutputDto);
-                System.out.println(ticket);
+
                 Trip trip = tripRepository.findById(ticketOutputDto.getIdTrip()).stream().findFirst().orElseThrow();
                 trip.setDecreaseSeats(1);
                 ticketRepository.save(ticket);
                 tripRepository.save(trip);
-                System.out.println("CREATE SUCCESS");
+
+                log.info("CREATE SUCCESS");
             }
 
             case "update" -> {
-                /*Ticket ticket = ticketRepository.findById(ticketOutputDto.getIdTicket()).orElseThrow();
-
-                ticket.setDetails(ticketOutputDto.getDetails());
-                ticket.setClient(clientRepository.findById(ticketOutputDto.getIdClient()).orElseThrow());
-                ticket.setTrip(tripRepository.findById(ticketOutputDto.getIdTrip()).orElseThrow());
-
-                ticketRepository.save(ticket);*/
-
-                System.out.println("TICKETS CAN´T BE UPDATED, ASK FOR REFUND AND BUY ANOTHER");
+                log.info("TICKETS CAN´T BE UPDATED, ASK FOR REFUND AND BUY ANOTHER");
             }
 
             case "delete" -> {
@@ -53,14 +47,20 @@ public class KafkaTicketService {
                 Trip trip = tripRepository.findById(ticketOutputDto.getIdTrip()).stream().findFirst().orElseThrow();
                 trip.setIncreaseSeats(1);
                 tripRepository.save(trip);
-                System.out.println("DELETE SUCCESS");
+
+                log.info("DELETE SUCCESS");
             }
 
             case "denied" -> {
                 Trip trip = tripRepository.findById(ticketOutputDto.getIdTrip()).stream().findFirst().orElseThrow();
                 trip.setIncreaseDeniedSeats(1);
                 tripRepository.save(trip);
-                System.out.println("DENIED COUNTER INCREASED SUCCESSFULLY");
+
+                log.info("DENIED COUNTER INCREASED SUCCESSFULLY");
+            }
+
+            default -> {
+                log.info("ERROR KAFKA SERVICE TICKET! ACCION NO ESPECIFICADA (create, update, denied o delete)");
             }
         }
     }

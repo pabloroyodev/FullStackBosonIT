@@ -55,8 +55,7 @@ public class TokenController {
                 .setSubject(email)
                 .claim("authorities",
                         grantedAuthorities.stream()
-                                .map(GrantedAuthority::getAuthority)
-                                .collect(Collectors.toList()))
+                                .map(GrantedAuthority::getAuthority).toList())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000))
                 .signWith(SignatureAlgorithm.HS512,

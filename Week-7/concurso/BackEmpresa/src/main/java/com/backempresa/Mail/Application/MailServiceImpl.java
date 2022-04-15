@@ -18,7 +18,7 @@ public class MailServiceImpl implements MailService{
     @Override
     public List<Mail> getAllMail() {
         List<Mail> mails = mailRepository.findAll();
-        return mails.stream().collect(Collectors.toList());
+        return mails.stream().toList();
     }
 
     @Override
@@ -29,12 +29,12 @@ public class MailServiceImpl implements MailService{
     @Override
     public List<Mail> findByDepartureAndArrival(String departure, String arrival) {
         List<Mail> mails = mailRepository.findByDepartureAndArrival(departure, arrival);
-        return mails.stream().collect(Collectors.toList());
+        return mails.stream().toList();
     }
 
     @Override
     public List<Mail> findByLocalDate(String date) {
         List<Mail> mails = mailRepository.findByLocalDate(date);
-        return mails.stream().collect(Collectors.toList());
+        return mails.stream().toList();
     }
 }

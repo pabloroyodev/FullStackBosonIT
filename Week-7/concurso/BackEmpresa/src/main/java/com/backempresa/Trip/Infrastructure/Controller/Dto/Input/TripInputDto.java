@@ -1,6 +1,6 @@
 package com.backempresa.Trip.Infrastructure.Controller.Dto.Input;
 
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,16 +10,16 @@ import java.util.Date;
 @Data @NoArgsConstructor
 public class TripInputDto implements Serializable {
 
-    @NotNull
+    @NonNull
     private Date date;
 
-    @NotNull
+    @NonNull
     private String departure;
 
-    @NotNull
+    @NonNull
     private String arrival;
 
-    @NotNull
+    @NonNull
     private boolean issue;
 
 }

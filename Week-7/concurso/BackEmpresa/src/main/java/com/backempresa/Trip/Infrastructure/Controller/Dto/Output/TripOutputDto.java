@@ -37,12 +37,12 @@ public class TripOutputDto implements Serializable {
         setDeniedSeats(trip.getDeniedSeats());
         setIssue(trip.isIssue());
 
-        List<UUID> tickets = new ArrayList<>();
+        List<UUID> ticketList = new ArrayList<>();
         if(trip.getTickets() != null && trip.getTickets().size() != 0) {
             for(int i = 0; i < trip.getTickets().size(); i++){
-                tickets.add(trip.getTickets().get(i).getIdTicket());
+                ticketList.add(trip.getTickets().get(i).getIdTicket());
             }
         }
-        setTickets(tickets);
+        setTickets(ticketList);
     }
 }
