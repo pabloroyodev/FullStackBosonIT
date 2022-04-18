@@ -11,6 +11,7 @@ import recipes.Recipe.Infrastructure.Repository.Jpa.RecipeRepository;
 import recipes.Utils.CustomExceptions;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +33,23 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    public RecipeOutputDtoWithoutId findLastRecipe() {
-        Recipe recipe = recipeRepository.findFirstByOrderByIdDesc();
-        return new RecipeOutputDtoWithoutId(recipe);
+    public RecipeOutputDto addRecipe(RecipeInputDto recipeInputDto) {
+        Recipe recipe = recipeInputDtoToEntity(recipeInputDto);
+        recipeRepository.save(recipe);
+        return new RecipeOutputDto(recipe);
     }
 
     @Override
-    public RecipeOutputDto addRecipe(RecipeInputDto recipeInputDto) {
-        Recipe recipe = recipeInputDtoToEntity(recipeInputDto);
+    public RecipeOutputDto updateRecipe(Integer id, RecipeInputDto recipeInputDto) {
+        Recipe recipe = recipeRepository.findById(id).orElseThrow(CustomExceptions.NotFound::new);
+
+        recipe.setName(recipeInputDto.getName());
+        recipe.setCategory(recipeInputDto.getCategory());
+        recipe.setDate(new Date());
+        recipe.setDescription(recipeInputDto.getDescription());
+        recipe.setIngredients(recipeInputDto.getIngredients());
+        recipe.setDirections(recipeInputDto.getDirections());
+
         recipeRepository.save(recipe);
         return new RecipeOutputDto(recipe);
     }
@@ -52,6 +62,8 @@ public class RecipeServiceImpl implements RecipeService{
     private Recipe recipeInputDtoToEntity(RecipeInputDto recipeInputDto) {
         Recipe recipe = new Recipe();
         recipe.setName(recipeInputDto.getName());
+        recipe.setCategory(recipeInputDto.getCategory());
+        recipe.setDate(new Date());
         recipe.setDescription(recipeInputDto.getDescription());
         recipe.setIngredients(recipeInputDto.getIngredients());
         recipe.setDirections(recipeInputDto.getDirections());

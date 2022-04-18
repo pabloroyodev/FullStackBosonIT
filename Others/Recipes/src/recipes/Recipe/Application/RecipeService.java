@@ -9,8 +9,7 @@ import java.util.List;
 public interface RecipeService {
     List<RecipeOutputDtoWithoutId> getAllRecipes();
     RecipeOutputDtoWithoutId findById(Integer id);
-    RecipeOutputDtoWithoutId findLastRecipe();
     RecipeOutputDto addRecipe(RecipeInputDto recipeInputDto);
-
+    RecipeOutputDto updateRecipe(Integer id, RecipeInputDto recipeInputDto);
     void deleteRecipe(Integer id);
 }

@@ -16,6 +16,9 @@ public class RecipeInputDto implements Serializable {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @NotBlank(message = "Category is mandatory")
+    private String category;
+
     @NotBlank(message = "Description is mandatory")
     private String description;
 
