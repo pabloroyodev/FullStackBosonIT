@@ -17,4 +17,8 @@ public class CustomExceptions {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public static class BadRequest extends RuntimeException {
     }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public static class ForbiddenRequest extends RuntimeException {
+    }
 }

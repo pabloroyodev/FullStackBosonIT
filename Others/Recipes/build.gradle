@@ -23,6 +23,7 @@ sourceSets.main.resources.srcDirs = ["src/resources"]
 dependencies {
     runtimeOnly 'com.h2database:h2'
     implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.4.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'

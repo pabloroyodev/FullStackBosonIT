@@ -3,6 +3,7 @@ import org.hyperskill.hstest.dynamic.DynamicTest;
 import org.hyperskill.hstest.dynamic.input.DynamicTesting;
 import org.hyperskill.hstest.exception.outcomes.UnexpectedError;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
+import org.hyperskill.hstest.mocks.web.request.HttpRequest;
 import org.hyperskill.hstest.mocks.web.response.HttpResponse;
 import org.hyperskill.hstest.stage.SpringTest;
 import org.hyperskill.hstest.testcase.CheckResult;
@@ -261,15 +262,32 @@ public class RecipesApplicationTest extends SpringTest {
     final String API_RECIPE_NEW = "/api/recipe/new";
     final String API_RECIPE = "/api/recipe/";
     final String API_RECIPE_SEARCH = "/api/recipe/search/";
+    final String API_REGISTER = "/api/register";
 
     // recipes ids will be saved when testing POST requests and used later to test GET/PUT/DELETE requests
     final List<Integer> recipeIds = new ArrayList<>();
+
+    final String CATEGORY = "category";
+    final String NAME = "name";
+
+    final static Gson gson = new Gson();
+
+    final String[] MAIN_LOGIN_PASS = {"LoginTest2@test.com", "Test2222222"};
+    final String[] ADDITIONAL_LOGIN_PASS_1 = {"LoginTest1@test.com", "Test1111"};
+    final String[] ADDITIONAL_LOGIN_PASS_2 = {"LoginTest3@test.com", "Test33333333333"};
+
+    final String[] INCORRECT_LOGIN_CORRECT_PASS_1 = {"Test3@testcom", "Test3333"};
+    final String[] INCORRECT_LOGIN_CORRECT_PASS_2 = {"Test4test.com", "Test44444444"};
+
+    final String[] CORRECT_LOGIN_INCORRECT_PASS_1 = {"Test5@test.com", "Test555"};
+    final String[] CORRECT_LOGIN_INCORRECT_PASS_2 = {"Test6@test.com", "        "};
+
+    final String[] UNREGISTERED_LOGIN_PASS = {"abc@test.com", "password99"};
 
 
     // Helper functions ---
 
     static String[] toJson(Object[] objects) {
-        final Gson gson = new Gson();
         return Arrays
             .stream(objects)
             .map(gson::toJson)
@@ -333,27 +351,42 @@ public class RecipesApplicationTest extends SpringTest {
         return isArray;
     }
 
+    public HttpRequest addAuthUnregisteredUser(HttpRequest request) {
+        return request.basicAuth(UNREGISTERED_LOGIN_PASS[0], UNREGISTERED_LOGIN_PASS[1]);
+    }
+
+
     // Tests ---
 
     @DynamicTest
     DynamicTesting[] dt = new DynamicTesting[]{
-        () -> testPostRecipe(JSON_RECIPES[0]),
-        () -> testPostRecipe(JSON_RECIPES[1]),
-        // test 3
-        () -> testGetRecipe(recipeIds.get(0), RECIPES[0]),
-        () -> testGetRecipe(recipeIds.get(1), RECIPES[1]),
-        this::reloadServer,
-        () -> testGetRecipe(recipeIds.get(0), RECIPES[0]),
-        () -> testGetRecipe(recipeIds.get(1), RECIPES[1]),
-        // test 8
-        () -> testUpdateRecipe(recipeIds.get(0), JSON_RECIPES[1]),
-        () -> testGetRecipe(recipeIds.get(0), RECIPES[1]),
+        () -> testPostRegister(ADDITIONAL_LOGIN_PASS_1, 200),
+        () -> testPostRegister(ADDITIONAL_LOGIN_PASS_1, 400),
+        () -> testPostRegister(MAIN_LOGIN_PASS, 200),
+        () -> testPostRegister(ADDITIONAL_LOGIN_PASS_2, 200),
+        () -> testPostRegister(INCORRECT_LOGIN_CORRECT_PASS_1, 400),
+        () -> testPostRegister(INCORRECT_LOGIN_CORRECT_PASS_2, 400),
+        () -> testPostRegister(CORRECT_LOGIN_INCORRECT_PASS_1, 400),
+        () -> testPostRegister(CORRECT_LOGIN_INCORRECT_PASS_2, 400),
 
-        () -> testDeleteRecipe(recipeIds.get(0)),
-        // test 11
-        () -> testDeleteRecipeNotFoundStatusCode(recipeIds.get(0)),
-        () -> testGetRecipeNotFoundStatusCode(recipeIds.get(0)),
-        () -> testUpdateRecipeNotFoundStatusCode(recipeIds.get(0), JSON_RECIPES[1]),
+        // Tests with authentication
+        () -> testPostRecipe(JSON_RECIPES[0], MAIN_LOGIN_PASS),
+        () -> testPostRecipe(JSON_RECIPES[1], MAIN_LOGIN_PASS),
+
+        () -> testGetRecipe(recipeIds.get(0), RECIPES[0], MAIN_LOGIN_PASS),
+        () -> testGetRecipe(recipeIds.get(1), RECIPES[1], MAIN_LOGIN_PASS),
+        this::reloadServer,
+        () -> testGetRecipe(recipeIds.get(0), RECIPES[0], MAIN_LOGIN_PASS),
+        () -> testGetRecipe(recipeIds.get(1), RECIPES[1], MAIN_LOGIN_PASS),
+
+        () -> testUpdateRecipe(recipeIds.get(0), JSON_RECIPES[1], MAIN_LOGIN_PASS),
+        () -> testGetRecipe(recipeIds.get(0), RECIPES[1], MAIN_LOGIN_PASS),
+
+        () -> testDeleteRecipe(recipeIds.get(0), MAIN_LOGIN_PASS),
+
+        () -> testDeleteRecipeNotFoundStatusCode(recipeIds.get(0), MAIN_LOGIN_PASS),
+        () -> testGetRecipeNotFoundStatusCode(recipeIds.get(0), MAIN_LOGIN_PASS),
+        () -> testUpdateRecipeNotFoundStatusCode(recipeIds.get(0), JSON_RECIPES[1], MAIN_LOGIN_PASS),
 
 
         // Add more recipes before testing if elems sorted correctly by date.
@@ -361,98 +394,130 @@ public class RecipesApplicationTest extends SpringTest {
         // And if a user uses "unstable" sort to sort recipes, tests will be unstable. Thread sleep prevents duplicates.
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[2]);
+            return testPostRecipe(JSON_RECIPES[2], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[3]);
+            return testPostRecipe(JSON_RECIPES[3], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[4]);
+            return testPostRecipe(JSON_RECIPES[4], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[5]);
+            return testPostRecipe(JSON_RECIPES[5], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[6]);
+            return testPostRecipe(JSON_RECIPES[6], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[7]);
+            return testPostRecipe(JSON_RECIPES[7], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[8]);
+            return testPostRecipe(JSON_RECIPES[8], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[9]);
+            return testPostRecipe(JSON_RECIPES[9], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[10]);
+            return testPostRecipe(JSON_RECIPES[10], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[11]);
+            return testPostRecipe(JSON_RECIPES[11], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[12]);
+            return testPostRecipe(JSON_RECIPES[12], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[13]);
+            return testPostRecipe(JSON_RECIPES[13], MAIN_LOGIN_PASS);
         },
         () -> {
             sleep(10);
-            return testPostRecipe(JSON_RECIPES[14]);
+            return testPostRecipe(JSON_RECIPES[14], MAIN_LOGIN_PASS);
         },
 
-        // test 27
-        () -> testGetRecipesByCategorySorted(RECIPES_CATEGORY_DESSERT_REVERSED, "dessert"),
-        () -> testGetRecipesByNameContainsSorted(RECIPES_NAME_CONTAINS_ICE_CREAM_REVERSED, "ice-cream"),
+        () -> testGetRecipesByCategorySorted(RECIPES_CATEGORY_DESSERT_REVERSED, "dessert", MAIN_LOGIN_PASS),
+        () -> testGetRecipesByNameContainsSorted(RECIPES_NAME_CONTAINS_ICE_CREAM_REVERSED, "ice-cream", MAIN_LOGIN_PASS),
 
-        // test 29
-        () -> testGetRecipesByCategorySorted(new Recipe[]{}, "should_return_empty_array_1"),
-        () -> testGetRecipesByNameContainsSorted(new Recipe[]{}, "should_return_empty_array_2"),
+        () -> testGetRecipesByCategorySorted(new Recipe[]{}, "should_return_empty_array_1", MAIN_LOGIN_PASS),
+        () -> testGetRecipesByNameContainsSorted(new Recipe[]{}, "should_return_empty_array_2", MAIN_LOGIN_PASS),
 
-        // test 31
-        () -> testGetRecipesBadRequestStatusCode(0),
-        () -> testGetRecipesBadRequestStatusCode(1),
-        () -> testGetRecipesBadRequestStatusCode(2),
-        () -> testGetRecipesBadRequestStatusCode(5),
+        () -> testGetRecipesBadRequestStatusCode(0, MAIN_LOGIN_PASS),
+        () -> testGetRecipesBadRequestStatusCode(1, MAIN_LOGIN_PASS),
+        () -> testGetRecipesBadRequestStatusCode(2, MAIN_LOGIN_PASS),
+        () -> testGetRecipesBadRequestStatusCode(5, MAIN_LOGIN_PASS),
 
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[0]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[1]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[2]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[3]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[4]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[5]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[6]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[7]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[8]),
-        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[9]),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[0], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[1], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[2], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[3], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[4], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[5], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[6], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[7], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[8], MAIN_LOGIN_PASS),
+        () -> testPostIncorrectRecipeStatusCode(JSON_INCORRECT_RECIPES[9], MAIN_LOGIN_PASS),
 
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[0]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[1]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[2]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[3]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[4]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[5]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[6]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[7]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[8]),
-        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[9])
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[0], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[1], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[2], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[3], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[4], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[5], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[6], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[7], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[8], MAIN_LOGIN_PASS),
+        () -> testUpdateIncorrectRecipeStatusCode(recipeIds.get(1), JSON_INCORRECT_RECIPES[9], MAIN_LOGIN_PASS),
+        this::reloadServer,
+
+        // Use second registered user to check if endpoints are available.
+        () -> testPostRecipe(JSON_RECIPES[0], ADDITIONAL_LOGIN_PASS_1),
+        () -> testGetRecipe(recipeIds.get(1), RECIPES[1], ADDITIONAL_LOGIN_PASS_1),
+        () -> testGetRecipesByCategorySorted(RECIPES_CATEGORY_DESSERT_REVERSED, "dessert", ADDITIONAL_LOGIN_PASS_1),
+        () -> testGetRecipesByNameContainsSorted(RECIPES_NAME_CONTAINS_ICE_CREAM_REVERSED, "ice-cream", ADDITIONAL_LOGIN_PASS_1),
+        // Use third registered user to check forbidden status code.
+        () -> testDeleteRecipeForbiddenStatusCode(recipeIds.get(1), ADDITIONAL_LOGIN_PASS_2),
+        () -> testUpdateRecipeForbiddenStatusCode(recipeIds.get(1), JSON_RECIPES[2], ADDITIONAL_LOGIN_PASS_2),
+
+        // unregistered login and pass
+        () -> testPostRecipeUnregisteredUser(JSON_RECIPES[0]),
+        () -> testGetRecipeUnregisteredUser(recipeIds.get(0)),
+        () -> testUpdateRecipeUnregisteredUser(recipeIds.get(0), JSON_RECIPES[1]),
+        () -> testDeleteRecipeUnregisteredUser(recipeIds.get(0)),
+        () -> testGetRecipesByCategorySortedUnregisteredUser("dessert"),
+        () -> testGetRecipesByNameContainsSortedUnregisteredUser("ice-cream"),
+
+        // without authentication
+        () -> testPostRecipeNoAuth(JSON_RECIPES[0]),
+        () -> testGetRecipeNoAuth(recipeIds.get(0)),
+        () -> testUpdateRecipeNoAuth(recipeIds.get(0), JSON_RECIPES[1]),
+        () -> testDeleteRecipeNoAuth(recipeIds.get(0)),
+        () -> testGetRecipesByCategorySortedNoAuth("dessert"),
+        () -> testGetRecipesByNameContainsSortedNoAuth("ice-cream")
     };
 
+    CheckResult testPostRegister(String[] loginAndPass, int statusCode) {
+        final String JSON_LOGIN_PASS = "{\"email\":\"" + loginAndPass[0] + "\",\"password\":\"" + loginAndPass[1] + "\"}";
 
-    CheckResult testPostRecipe(String jsonRecipe) {
+        HttpResponse response = post(API_REGISTER, JSON_LOGIN_PASS).send();
 
-        HttpResponse response = post(API_RECIPE_NEW, jsonRecipe).send();
+        throwIfIncorrectStatusCode(response, statusCode);
+
+        return correct();
+    }
+
+    // Tests with authentication
+    CheckResult testPostRecipe(String jsonRecipe, String[] loginPass) {
+        HttpResponse response = post(API_RECIPE_NEW, jsonRecipe).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 200);
 
@@ -466,9 +531,8 @@ public class RecipesApplicationTest extends SpringTest {
         return correct();
     }
 
-    CheckResult testGetRecipe(int recipeId, Recipe recipe) {
-
-        HttpResponse response = get(API_RECIPE + recipeId).send();
+    CheckResult testGetRecipe(int recipeId, Recipe recipe, String[] loginPass) {
+        HttpResponse response = get(API_RECIPE + recipeId).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 200);
 
@@ -484,24 +548,24 @@ public class RecipesApplicationTest extends SpringTest {
         return correct();
     }
 
-    CheckResult testUpdateRecipe(int recipeId, String jsonRecipe) {
-        HttpResponse response = put(API_RECIPE + recipeId, jsonRecipe).send();
+    CheckResult testUpdateRecipe(int recipeId, String jsonRecipe, String[] loginPass) {
+        HttpResponse response = put(API_RECIPE + recipeId, jsonRecipe).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 204);
 
         return correct();
     }
 
-    CheckResult testDeleteRecipe(int recipeId) {
-        HttpResponse response = delete(API_RECIPE + recipeId).send();
+    CheckResult testDeleteRecipe(int recipeId, String[] loginPass) {
+        HttpResponse response = delete(API_RECIPE + recipeId).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 204);
 
         return correct();
     }
 
-    CheckResult testGetRecipesByCategorySorted(Recipe[] recipes, String category) {
-        HttpResponse response = get(API_RECIPE_SEARCH).addParam("category", category).send();
+    CheckResult testGetRecipesByCategorySorted(Recipe[] recipes, String paramValue, String[] loginPass) {
+        HttpResponse response = get(API_RECIPE_SEARCH).addParam(CATEGORY, paramValue).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 200);
 
@@ -512,8 +576,8 @@ public class RecipesApplicationTest extends SpringTest {
         return correct();
     }
 
-    private CheckResult testGetRecipesByNameContainsSorted(Recipe[] recipes, String name) {
-        HttpResponse response = get(API_RECIPE_SEARCH).addParam("name", name).send();
+    private CheckResult testGetRecipesByNameContainsSorted(Recipe[] recipes, String paramValue, String[] loginPass) {
+        HttpResponse response = get(API_RECIPE_SEARCH).basicAuth(loginPass[0], loginPass[1]).addParam(NAME, paramValue).send();
 
         throwIfIncorrectStatusCode(response, 200);
 
@@ -524,53 +588,169 @@ public class RecipesApplicationTest extends SpringTest {
         return correct();
     }
 
-    // Status codes tests
-    CheckResult testGetRecipeNotFoundStatusCode(int recipeId) {
-        HttpResponse response = get(API_RECIPE + recipeId).send();
+    // Status codes tests with authentication
+    CheckResult testGetRecipeNotFoundStatusCode(int recipeId, String[] loginPass) {
+        HttpResponse response = get(API_RECIPE + recipeId).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 404);
 
         return correct();
     }
 
-    CheckResult testUpdateRecipeNotFoundStatusCode(int recipeId, String jsonRecipe) {
-        HttpResponse response = put(API_RECIPE + recipeId, jsonRecipe).send();
+    CheckResult testUpdateRecipeNotFoundStatusCode(int recipeId, String jsonRecipe, String[] loginPass) {
+        HttpResponse response = put(API_RECIPE + recipeId, jsonRecipe).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 404);
 
         return correct();
     }
 
-    CheckResult testDeleteRecipeNotFoundStatusCode(int recipeId) {
-        HttpResponse response = delete(API_RECIPE + recipeId).send();
+    CheckResult testDeleteRecipeNotFoundStatusCode(int recipeId, String[] loginPass) {
+        HttpResponse response = delete(API_RECIPE + recipeId).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 404);
 
         return correct();
     }
 
-    CheckResult testGetRecipesBadRequestStatusCode(int numberOfQueryParams) {
+    CheckResult testGetRecipesBadRequestStatusCode(int numberOfQueryParams, String[] loginPass) {
         Map<String, String> params = generateUrlParams(numberOfQueryParams);
 
-        HttpResponse response = get(API_RECIPE_SEARCH).addParams(params).send();
+        HttpResponse response = get(API_RECIPE_SEARCH).addParams(params).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 400);
 
         return correct();
     }
 
-    CheckResult testPostIncorrectRecipeStatusCode(String incorrectJsonRecipe) {
-        HttpResponse response = post(API_RECIPE_NEW, incorrectJsonRecipe).send();
+    CheckResult testPostIncorrectRecipeStatusCode(String incorrectJsonRecipe, String[] loginPass) {
+        HttpResponse response = post(API_RECIPE_NEW, incorrectJsonRecipe).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 400);
 
         return correct();
     }
 
-    CheckResult testUpdateIncorrectRecipeStatusCode(int recipeId, String incorrectJsonRecipe) {
-        HttpResponse response = put(API_RECIPE + recipeId, incorrectJsonRecipe).send();
+    CheckResult testUpdateIncorrectRecipeStatusCode(int recipeId, String incorrectJsonRecipe, String[] loginPass) {
+        HttpResponse response = put(API_RECIPE + recipeId, incorrectJsonRecipe).basicAuth(loginPass[0], loginPass[1]).send();
 
         throwIfIncorrectStatusCode(response, 400);
+
+        return correct();
+    }
+
+    CheckResult testDeleteRecipeForbiddenStatusCode(int recipeId, String[] loginPass) {
+        HttpResponse response = delete(API_RECIPE + recipeId).basicAuth(loginPass[0], loginPass[1]).send();
+
+        throwIfIncorrectStatusCode(response, 403);
+
+        return correct();
+    }
+
+    CheckResult testUpdateRecipeForbiddenStatusCode(int recipeId, String jsonRecipe, String[] loginPass) {
+        HttpResponse response = put(API_RECIPE + recipeId, jsonRecipe).basicAuth(loginPass[0], loginPass[1]).send();
+
+        throwIfIncorrectStatusCode(response, 403);
+
+        return correct();
+    }
+
+    // Not registered user tests
+    CheckResult testPostRecipeUnregisteredUser(String jsonRecipe) {
+        HttpResponse response = addAuthUnregisteredUser(post(API_RECIPE_NEW, jsonRecipe)).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testGetRecipeUnregisteredUser(int recipeId) {
+        HttpResponse response = addAuthUnregisteredUser(get(API_RECIPE + recipeId)).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testUpdateRecipeUnregisteredUser(int recipeId, String jsonRecipe) {
+        HttpResponse response = addAuthUnregisteredUser(put(API_RECIPE + recipeId, jsonRecipe)).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testDeleteRecipeUnregisteredUser(int recipeId) {
+        HttpResponse response = addAuthUnregisteredUser(delete(API_RECIPE + recipeId)).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testGetRecipesByCategorySortedUnregisteredUser(String paramValue) {
+        HttpResponse response = addAuthUnregisteredUser(get(API_RECIPE_SEARCH)).addParam(CATEGORY, paramValue).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+
+        return correct();
+    }
+
+    private CheckResult testGetRecipesByNameContainsSortedUnregisteredUser(String paramValue) {
+        HttpResponse response = addAuthUnregisteredUser(get(API_RECIPE_SEARCH)).addParam(NAME, paramValue).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    // No authentication tests
+    CheckResult testPostRecipeNoAuth(String jsonRecipe) {
+        HttpResponse response = post(API_RECIPE_NEW, jsonRecipe).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testGetRecipeNoAuth(int recipeId) {
+        HttpResponse response = get(API_RECIPE + recipeId).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testUpdateRecipeNoAuth(int recipeId, String jsonRecipe) {
+        HttpResponse response = put(API_RECIPE + recipeId, jsonRecipe).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testDeleteRecipeNoAuth(int recipeId) {
+        HttpResponse response = delete(API_RECIPE + recipeId).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+        return correct();
+    }
+
+    CheckResult testGetRecipesByCategorySortedNoAuth(String paramValue) {
+        HttpResponse response = get(API_RECIPE_SEARCH).addParam(CATEGORY, paramValue).send();
+
+        throwIfIncorrectStatusCode(response, 401);
+
+
+        return correct();
+    }
+
+    private CheckResult testGetRecipesByNameContainsSortedNoAuth(String paramValue) {
+        HttpResponse response = get(API_RECIPE_SEARCH).addParam(NAME, paramValue).send();
+
+        throwIfIncorrectStatusCode(response, 401);
 
         return correct();
     }
