@@ -1,6 +1,9 @@
 # FullStack BosonIT
 BosonIT & NxtGen FullStack Starting Path solutions by Pablo Royo.
 
+# Support the repo
+If this repo was useful for you give it a star ⭐ to prove your gratitude. 💖
+
 # Prerequisites 📦
 Things you need before starting to use this repo.
 
@@ -74,3 +77,4 @@ Timeline of the learning path divided in weeks.
 
 # EXTRAS
 - [Cinema Room REST Service](./Others/Cinema-REST)
+- [Recipes REST Service](./Others/Recipes)
